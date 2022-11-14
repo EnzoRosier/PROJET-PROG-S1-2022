@@ -12,3 +12,4 @@ private:
 
 	vector<Compte*> liste_compte;
 };
+public:
