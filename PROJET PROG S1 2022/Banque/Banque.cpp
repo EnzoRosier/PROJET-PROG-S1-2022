@@ -8,6 +8,6 @@ Banque_Decentralise::Banque_Decentralise() {
 	cout << "Entrez le numéro de la banque decentralise : " << endl;
 	cin >> num_banque_temp;
 
-
+	
 
 }
