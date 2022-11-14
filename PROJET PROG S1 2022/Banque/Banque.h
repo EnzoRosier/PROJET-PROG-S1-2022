@@ -1,4 +1,6 @@
 #include "../includer.h"
+#include "../Client/Client.h"
+#include "../Compte/Compte.h"
 
 class Banque_Centrale {
 private: 
