@@ -4,19 +4,19 @@
 
 class Banque_Centrale {
 private: 
-	map <int, Clients> registre;
+	map <int, Client> registre;
 public:
 	int Chercher_client(int num_client);
 	int Chercher_num_compte(int num_compte);
-	Clients Chercher_infos_clients(int num_client);
+	Client Chercher_infos_clients(int num_client);
 };
 
 
 class Banque_Decentralise : Banque_Centrale {
 private:
 	int num_banque;
-	map <int, Clients> registre_local;
+	map <int, Client> registre_local;
 public:
 	void Transaction(int num_compte_receveur);
-	Clients Consulter;
+	Client Consulter;
 };
