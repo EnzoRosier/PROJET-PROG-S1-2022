@@ -17,5 +17,4 @@ private:
 public:
 	void Transaction(int num_compte_receveur);
 	Clients Consulter;
-
 };
