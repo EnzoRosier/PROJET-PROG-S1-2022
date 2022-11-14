@@ -2,9 +2,8 @@
 # la logique spécifique au projet ici.
 #
 cmake_minimum_required (VERSION 3.8)
-
 # Ajoutez une source à l'exécutable de ce projet.
-add_executable (CMakeTarget "PROJET PROG S1 2022.cpp" "PROJET PROG S1 2022.h" "Banque.h" "Client.h" "includer.h")
+add_executable (CMakeTarget "PROJET PROG S1 2022.cpp" "PROJET PROG S1 2022.h" "includer.h")
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET CMakeTarget PROPERTY CXX_STANDARD 20)
