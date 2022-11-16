@@ -2,11 +2,12 @@
 //
 
 #include "PROJET PROG S1 2022.h"
-
+#include "Compte/Compte.h"
 using namespace std;
 
 int main()
 {
-	cout << "Hello CMake." << endl;
+	Compte A = Compte("EZEZE");
+	
 	return 0;
 }
