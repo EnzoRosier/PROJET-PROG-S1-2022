@@ -2,9 +2,8 @@
 #include "Banque.h"
 
 
-
 Banque_Centrale::Banque_Centrale() {
-	map <string, Banque_Decentralise> registre;
+	map <int, Client, greater<>> registre;
 	nb_banque_decentralise = 0;
 }
 
@@ -17,8 +16,9 @@ int Banque_Centrale::Get_nb_banque_decentralise() {
 }
 
 int Banque_Centrale::Chercher_num_compte(int num_compte) {
-	auto result;
+	auto result = 0;
 	for (auto itr = registre.begin(); itr != registre.end(); ++itr) {
+		if (itr->second.Get_liste_comptes().begin() == num_compte)
 		auto result = itr->second.find(num_compte);
 	}
 	if (result != registre.end()) {
@@ -48,8 +48,8 @@ Client Banque_Centrale::Chercher_infos_clients(int num_client) {
 	}
 }
 
-void Banque_Centrale::Ajouter_au_registre(Banque_Decentralise ID) {
-	registre.insert(pair<string, Banque_Decentralise>(ID.Get_nom_agence(), ID.Get_registre_local());
+void Banque_Centrale::Ajouter_au_registre(Client ID) {
+	registre.emplace(ID.Get_id, ID);
 }
 
 void Banque_Centrale::Clear_registre() {
