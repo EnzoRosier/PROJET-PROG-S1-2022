@@ -1,4 +1,5 @@
 #include "../includer.h"
+#include <optional>
 
 typedef struct transaction {
 	int montant;
@@ -15,7 +16,7 @@ private:
 	string agence;
 	float taille_en_pouces;
 
-	multimap<string,Transaction> archive_transaction; // Transaction de la forme map<date, Transaction>
+	optional<multimap<string,Transaction>> archive_transaction; // Transaction de la forme <date, Transaction>
 	vector<Compte*> liste_comptes;
 
 public:
@@ -34,5 +35,6 @@ public:
 	void Set_agence(string& nouv_agence);
 	void Set_taille_en_pouces(float& nouv_taille_en_pouces);
 	void Set_archive_transaction(vector<Transaction>& nouv_archive_transaction);
-	void Set_liste_comptes(vector<Compte*>& nouv_liste_comptes)
+	void Set_liste_comptes(vector<Compte*>& nouv_liste_comptes);
+	void Ajouter_transaction(Transaction& transaction, string& date);
 };

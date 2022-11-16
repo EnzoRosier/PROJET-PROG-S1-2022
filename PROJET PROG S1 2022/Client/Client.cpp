@@ -1,12 +1,14 @@
 #include "../includer.h"
 
+
 Client::Client(const int& id, string& nom, string& prenom, string& adresse, string& agence, float& taille_en_pouces, vector<Compte*>& liste_compte) {
 	this->id = id;
 	this->nom = nom;
 	this->prenom = prenom;
 	this->adresse = adresse;
 	this->agence = agence;
-	this->taille_en_pouces;
+	this->taille_en_pouces=taille_en_pouces;
+	this->archive_transaction;
 	this->liste_compte = liste_compte;
 }
 
