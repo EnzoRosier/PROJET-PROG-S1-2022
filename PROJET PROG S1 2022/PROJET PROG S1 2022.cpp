@@ -7,7 +7,11 @@ using namespace std;
 
 int main()
 {
-	Compte A = Compte("EZEZE");
-	
+	Compte A = Compte("AZE");
+	cout << A << "\n";
+	cout << A.get_Solde_Compte() << "\n";
+	cout << A.get_Identifiant_Compte() << "\n";
+	A.set_Solde_Compte(345.65);
+	cout << A << "\n";
 	return 0;
 }
