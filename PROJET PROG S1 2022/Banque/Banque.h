@@ -18,10 +18,11 @@ public:
 
 class Banque_Decentralise : Banque_Centrale {
 private:
-	int num_banque;
+	string nom_agence;
 	map <int, Client> registre_local;
 public:
 	Banque_Decentralise();
-	void Transaction(int num_compte_receveur);
-	Client Consulter();
+	void Ajouter_au_registre(Client new_client);
+	//void Transaction(int num_compte_receveur);
+	void Consulter();
 };
