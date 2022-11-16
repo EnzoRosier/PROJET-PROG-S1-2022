@@ -7,7 +7,7 @@ Banque_Decentralise::Banque_Decentralise() {
 	string nom_agence_temp;
 	cout << "Entrez le nom de la banque decentralise : " << endl;
 	cin >> nom_agence_temp;
-
+	
 	nom_agence = nom_agence_temp;
 	map <int, Client> registre_local;
 }
