@@ -1,5 +1,13 @@
+#pragma once
 #include "../includer.h"
 
+
+typedef struct transaction {
+	int montant;
+	string debiteur;
+	string crediteur;
+	string date;
+}Transaction;
 
 class Client {
 private:
@@ -10,7 +18,7 @@ private:
 	string agence;
 	float taille_en_pouces;
 
-	pair<int, pair <string, string>> archive_transaction; // Transaction de la forme pair<montant, pair<compte_donneur,compte_receveur>
+	vector<Transaction> archive_transaction; // Transaction de la forme pair<montant, pair<compte_donneur,compte_receveur>
 	vector<Compte*> liste_comptes;
 
 public:
