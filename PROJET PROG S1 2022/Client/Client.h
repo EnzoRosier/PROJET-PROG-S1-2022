@@ -1,11 +1,11 @@
 #include "../includer.h"
-#include "../Compte/Compte.h"
+#include "../../Compte/Compte.h"
 #include <optional>
 
 typedef struct transaction {
 	int montant;
-	int id_debiteur;
-	int id_crediteur;
+	string id_debiteur;
+	string id_crediteur;
 }Transaction;
 
 class Client {
@@ -16,12 +16,12 @@ private:
 	string adresse;
 	string agence;
 	float taille_en_pouces;
-
 	optional<multimap<string,Transaction>> archive_transaction; // Transaction de la forme <date, Transaction>
 	vector<Compte*> liste_comptes;
 
 public:
 	Client(const int& id, string& nom, string& prenom, string& adresse, string& agence, float& taille_en_pouces, vector<Compte*>& liste_compte);
+	~Client();
 	int Get_id() const;
 	string Get_nom();
 	string Get_prenom();
@@ -39,4 +39,5 @@ public:
 	void Set_liste_comptes(vector<Compte*>& nouv_liste_comptes);
 	void Ajouter_transaction(Transaction& transaction, string& date);
 	void Ajouter_compte(Compte* compte);
+	void affiche_client();
 };
