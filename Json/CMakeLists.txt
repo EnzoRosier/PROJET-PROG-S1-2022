@@ -3,7 +3,7 @@
 #
 cmake_minimum_required (VERSION 3.8)
 # Ajoutez une source à l'exécutable de ce projet.
-add_executable (Json "saveJson.h" "Test.cpp")
+add_executable (Json "saveJson.h" "mainJson.cpp" "saveJson.cpp")
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET CMakeTarget PROPERTY CXX_STANDARD 20)
