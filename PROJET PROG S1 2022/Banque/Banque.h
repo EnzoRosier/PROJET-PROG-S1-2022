@@ -4,7 +4,7 @@
 
 class Banque_Centrale {
 private: 
-	map <string, Banque_Decentralise> registre;
+	map <int, Client> registre;
 	int nb_banque_decentralise;
 protected:
 	void Set_nb_banque_decentralise(int incrementation);
@@ -13,7 +13,7 @@ public:
 	Banque_Centrale();
 	int Chercher_num_compte(int num_compte);
 	Client Chercher_infos_clients(int num_client);
-	void Ajouter_au_registre(Banque_Decentralise ID);
+	void Ajouter_au_registre(Client ID);
 	void Clear_registre();
 };
 
