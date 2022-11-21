@@ -1,5 +1,5 @@
-#include "../includer.h"
-#include "../../Compte/Compte.h"
+#include "../PROJET PROG S1 2022/includer.h"
+#include "../Compte/Compte.h"
 #include <optional>
 
 typedef struct transaction {
@@ -39,5 +39,6 @@ public:
 	void Set_liste_comptes(vector<Compte*>& nouv_liste_comptes);
 	void Ajouter_transaction(Transaction& transaction, string& date);
 	void Ajouter_compte(Compte* compte);
-	void affiche_client();
+	friend ostream operator<<(ostream& os, Client c);
+
 };
