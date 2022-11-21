@@ -1,5 +1,5 @@
 #include "../includer.h"
-#include "../Compte/Compte.h"
+#include "../../Compte/Compte.h"
 #include "../Client/Client.h"
 
 class Banque_Centrale {
@@ -11,7 +11,6 @@ protected:
 public:
 	int Get_nb_banque_decentralise();
 	Banque_Centrale();
-	int Chercher_num_compte(int num_compte);
 	Client Chercher_infos_clients(int num_client);
 	void Ajouter_au_registre(Client ID);
 	void Clear_registre();
@@ -20,7 +19,7 @@ public:
 
 class Banque_Decentralise : Banque_Centrale {
 private:
-	const int ID_agence;
+	int ID_agence;
 	string nom_agence;
 	map <int, Client> registre_local;
 public:
