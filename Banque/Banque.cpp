@@ -89,18 +89,19 @@ void Banque_Decentralise::Ajouter_au_registre(Client new_client) {
 	else {
 		auto last_ind = 1;
 	}
-	registre_local.insert(pair <int, Client>(new_client.Get_id(), new_client);
+	registre_local.insert(pair <int, Client>(new_client.Get_id(), new_client));
 }
 
 
 void Banque_Decentralise::Supprimer_du_registre(Client Compte_client) {
-	auto result = registre_local.find(Compte_client);
-	if (result != registre_local.end()) {
-		registre_local.erase(result);
-		cout << "Suppression reussie" << endl;
-	}
-	else {
-		cout << "Error registre_local erase" << endl;
+	for (auto itr = registre_local.begin(); itr != registre_local.end(); ++itr) {
+		if (itr->second.Get_id() == Compte_client.Get_id()) {
+			registre_local.erase(itr);
+			cout << "Suppression reussie" << endl;
+		}
+		else {
+			cout << "Error registre_local erase" << endl;
+		}
 	}
 	/*auto itr = registre_local.begin();
 	while (itr->second != Compte_client && itr != registre_local.end()) {
