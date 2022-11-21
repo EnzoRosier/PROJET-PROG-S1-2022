@@ -8,7 +8,7 @@ private:
 	const string identifiant_Compte;
 	double solde_Compte;
 public:
-	Compte(const string& id, int solde = 0); // Constructeur
+	Compte(const string& id=0, int solde = 0); // Constructeur
 	~Compte(); // Desctructeur
 	double get_Solde_Compte() const; // Permet de récupérer le solde du compte
 	string get_Identifiant_Compte() const; // Permet de récupérer l'identifiant du compte

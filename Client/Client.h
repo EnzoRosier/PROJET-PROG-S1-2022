@@ -44,7 +44,7 @@ public:
 	void Set_liste_comptes(vector<Compte*>& nouv_liste_comptes);
 	void Ajouter_transaction(Transaction& transaction, string& date);
 	void Ajouter_compte(Compte* compte);
-	void affiche_client(Client c);
+	void affiche_client();
 
 }; 
 

@@ -82,9 +82,9 @@ void Client::Ajouter_compte(Compte* compte) {
 	liste_comptes.push_back(compte);
 }
 
-void Client::affiche_client(Client c) {
-	cout << "Numero de client : " << c.id << endl << "Informations personelles :" << endl << "  M. " << c.nom << " "
-		<< c.prenom << endl << "  " << c.adresse << endl << "  Mesurant : " << c.taille_en_pouces << " pouces"
-		<< endl << "Vous avez " << c.liste_comptes.size() << "comptes actuellement" << endl;
+void Client::affiche_client() {
+	cout << "Numero de client : " << this->id << endl << "Informations personelles :" << endl << "  M. " << this->nom << " "
+		<< this->prenom << endl << "  " << this->adresse << endl << "  Mesurant : " << this->taille_en_pouces << " pouces"
+		<< endl << "Vous avez " << this->liste_comptes.size() << "comptes actuellement" << endl;
 }
 
