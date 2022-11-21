@@ -27,7 +27,6 @@ Client Banque_Centrale::Chercher_infos_clients(int num_client) {
 			return (itr->second);
 		}
 	}
-	return;
 }
 
 void Banque_Centrale::Ajouter_au_registre(Client ID) {

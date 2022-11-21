@@ -1,23 +1,14 @@
-#include <boost/property_tree/json_parser.hpp>
-#include <boost/property_tree/ptree.hpp>
-#include <fstream>
-#include "../Banque/Banque.h"
-
-#ifdef _WIN32
-#include <SDKDDKVer.h>
-#endif
-
+#include "saveJson.h"
 
 using boost::property_tree::ptree;
 using boost::property_tree::read_json;
 using boost::property_tree::write_json;
 
-ptree save_json_Banque(const Banque_Centrale& bq) {
+int save_json_Banque(Banque_Centrale& bq) {
     ptree pt;
     std::ofstream file_out("BanqueCentral.json");
-    
-    pt.put("BanqueNumber", bq.nb_banque_decentralise);
-    write_json(file_out, pt_write);
+    pt.put("BanqueNumber", bq.Get_nb_banque_decentralise());
+    write_json(file_out, pt);
     file_out.close();
-    return pt;
+    return 1;
 }

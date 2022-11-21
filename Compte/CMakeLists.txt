@@ -1,12 +1,12 @@
-﻿# CMakeList.txt : projet CMake pour PROJET PROG S1 2022, incluez la source et définissez
-# la logique spécifique au projet ici.
-#
-cmake_minimum_required (VERSION 3.8)
-# Ajoutez une source à l'exécutable de ce projet.
-add_executable (Compte "Compte.h" "Compte.cpp" "mainCompte.cpp")
+﻿cmake_minimum_required (VERSION 3.9)
 
-if (CMAKE_VERSION VERSION_GREATER 3.12)
-  set_property(TARGET CMakeTarget PROPERTY CXX_STANDARD 20)
-endif()
+project(Compte)
 
-# TODO: Ajoutez des tests et installez des cibles si nécessaire.
+set (CMAKE_CXX_STANDARD 17)
+
+set(SRCS "Compte.cpp")
+
+add_executable (mainCompte "Compte.h" "Compte.cpp" "mainCompte.cpp")
+
+add_library (Compte ${SRCS})
+target_include_directories (Compte PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

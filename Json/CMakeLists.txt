@@ -21,5 +21,5 @@ find_package(Boost 1.80.0 COMPONENTS json serialization REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS})
 
 set(mainJson.cpp_src mainJson.cpp)
-add_executable(mainJson.cpp ${mainJson.cpp_src})
-target_link_libraries (mainJson.cpp LINK_PUBLIC customer ${Boost_LIBRARIES})
+add_executable(mainJson.cpp "saveJson.cpp" "saveJson.h" "saveJson.cpp" "../Banque/Banque.h" ${mainJson.cpp_src})
+target_link_libraries (mainJson.cpp LINK_PUBLIC Banque ${Boost_LIBRARIES})
