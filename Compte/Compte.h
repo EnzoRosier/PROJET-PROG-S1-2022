@@ -1,5 +1,8 @@
 #include "../PROJET PROG S1 2022/includer.h"
 
+#ifndef __COMPTE_H
+#define __COMPTE_H
+
 class Compte {
 private:
 	const string identifiant_Compte;
@@ -18,3 +21,5 @@ class Compte_Epargnes : Compte {
 private:
 	double taux_Epargne;
 };
+
+#endif
