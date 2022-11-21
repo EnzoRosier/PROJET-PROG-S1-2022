@@ -7,6 +7,7 @@
 Banque_Centrale::Banque_Centrale() {
 	map <int, Client, greater<>> registre;
 	nb_banque_decentralise = 0;
+	cout << "test constructeur" << endl;
 }
 
 void Banque_Centrale::Set_nb_banque_decentralise(int incrementation) {
