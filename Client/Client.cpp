@@ -2,7 +2,7 @@
 
 
 
-Client::Client(const int& id, string& nom, string& prenom, string& adresse, string& agence, float& taille_en_pouces, vector<Compte*>& liste_compte) {
+Client::Client(int id, string& nom, string& prenom, string& adresse, string& agence, float& taille_en_pouces, vector<Compte*>& liste_compte) {
 	this->id = id;
 	this->nom = nom;
 	this->prenom = prenom;
@@ -10,7 +10,7 @@ Client::Client(const int& id, string& nom, string& prenom, string& adresse, stri
 	this->agence = agence;
 	this->taille_en_pouces=taille_en_pouces;
 	this->archive_transaction;
-	this->liste_compte = liste_compte;
+	this->liste_comptes = liste_compte;
 }
 
 int Client::Get_id() const {
@@ -37,7 +37,7 @@ float Client::Get_taille_en_pouces() {
 	return this->taille_en_pouces;
 }
 
-vector<Transaction> Client::Get_archive_transaction() {
+multimap<string, Transaction> Client::Get_archive_transaction() {
 	return this->archive_transaction;
 }
 
@@ -65,7 +65,7 @@ void Client::Set_taille_en_pouces(float& nouv_taille_en_pouces) {
 	taille_en_pouces = nouv_taille_en_pouces;
 }
 
-void Client::Set_archive_transaction(vector<Transaction>& nouv_archive_transaction) {
+void Client::Set_archive_transaction(multimap<string, Transaction>& nouv_archive_transaction) {
 	archive_transaction = nouv_archive_transaction;
 }
 
@@ -74,7 +74,7 @@ void Client::Set_liste_comptes(vector<Compte*>& nouv_liste_comptes) {
 }
 
 void Client::Ajouter_transaction(Transaction& transaction, string& date) {
-	archive_transaction.emplace(date, Transaction);
+	archive_transaction.emplace(date, transaction);
 }
 
 void Client::Ajouter_compte(Compte* compte) {
