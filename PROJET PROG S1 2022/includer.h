@@ -1,3 +1,6 @@
+#ifndef __INCLUDER
+#define __INCLUDER
+
 #include <iostream>
 #include <string>
 #include <sstream>
@@ -8,3 +11,5 @@
 
 
 using namespace std;
+
+#endif
