@@ -5,6 +5,6 @@ using namespace std;
 
 int main()
 {
-	auto testA = Compte("2323232");
+	Banque_Centrale test;
 	return 0;
 }

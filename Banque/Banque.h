@@ -9,8 +9,8 @@ private:
 protected:
 	void Set_nb_banque_decentralise(int incrementation);
 public:
-	int Get_nb_banque_decentralise();
 	Banque_Centrale();
+	int Get_nb_banque_decentralise();
 	Client Chercher_infos_clients(int num_client);
 	void Ajouter_au_registre(Client ID);
 	void Clear_registre();
