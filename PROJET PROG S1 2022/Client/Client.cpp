@@ -1,4 +1,5 @@
 #include "../includer.h"
+#include "Client.h"
 
 
 
@@ -75,4 +76,12 @@ void Client::Set_liste_comptes(vector<Compte*>& nouv_liste_comptes) {
 
 void Client::Ajouter_transaction(Transaction& transaction, string& date) {
 	archive_transaction.emplace(date, Transaction);
+}
+
+void Client::Ajouter_compte(Compte* compte) {
+	liste_comptes.push_back(compte);
+}
+
+void affiche_client() {
+	cout<< this->
 }
