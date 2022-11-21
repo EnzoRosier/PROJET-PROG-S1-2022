@@ -18,14 +18,38 @@ int Banque_Centrale::Get_nb_banque_decentralise() {
 	return nb_banque_decentralise;
 }
 
-
+Compte Banque_Centrale::Chercher_compte_clients(string num_compte) {
+	try {
+		for (auto itr = registre.begin(); itr != registre.end(); ++itr) {
+			auto id = itr->second.Get_liste_comptes();
+			for (int i = 0; i < id.size(); i++) {
+				if (id.at(i)->get_Identifiant_Compte() == num_compte) {
+					return *(id.at(i));
+				}
+			}
+		}
+		throw string("Pas de numero de compte trouve.");
+	}
+	catch (string const& chaine) //On rattrape les strings lancés
+	{
+		cerr << chaine << endl;
+	}
+}
 
 Client Banque_Centrale::Chercher_infos_clients(int num_client) {
-	for (auto itr = registre.begin(); itr != registre.end(); ++itr) {
-		auto id = itr->second.Get_id();
-		if (id == num_client) {
-			return (itr->second);
+	try {
+		for (auto itr = registre.begin(); itr != registre.end(); ++itr) {
+			auto id = itr->second.Get_id();
+			if (id == num_client) {
+				return (itr->second);
+			}
+
 		}
+		throw string("Pas de numero client. Contactez un administrateur");
+	}
+	catch (string const& chaine) //On rattrape les strings lancés
+	{
+		cerr << chaine << endl;
 	}
 }
 
