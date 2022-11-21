@@ -106,11 +106,4 @@ void Banque_Decentralise::Supprimer_du_registre(Client Compte_client) {
 			cout << "Error registre_local erase" << endl;
 		}
 	}
-	/*auto itr = registre_local.begin();
-	while (itr->second != Compte_client && itr != registre_local.end()) {
-		itr++;
-	}
-	if (itr->second == Compte_client) {
-
-	}*/
 }

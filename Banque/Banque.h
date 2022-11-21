@@ -1,6 +1,10 @@
-#include "../includer.h"
-#include "../../Compte/Compte.h"
+#include "../PROJET PROG S1 2022/includer.h"
+#include "../Compte/Compte.h"
 #include "../Client/Client.h"
+
+#ifndef __BANQUE_H
+#define __BANQUE_H
+
 
 class Banque_Centrale {
 private: 
@@ -32,3 +36,5 @@ public:
 	//void Transaction(int num_compte_receveur);
 	void Consulter();
 };
+
+#endif // !__BANQUE_H
