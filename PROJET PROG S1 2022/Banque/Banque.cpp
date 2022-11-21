@@ -2,9 +2,8 @@
 #include "Banque.h"
 
 
-
 Banque_Centrale::Banque_Centrale() {
-	map <string, Banque_Decentralise> registre;
+	map <int, Client, greater<>> registre;
 	nb_banque_decentralise = 0;
 }
 
@@ -16,40 +15,20 @@ int Banque_Centrale::Get_nb_banque_decentralise() {
 	return nb_banque_decentralise;
 }
 
-int Banque_Centrale::Chercher_num_compte(int num_compte) {
-	auto result;
-	for (auto itr = registre.begin(); itr != registre.end(); ++itr) {
-		auto result = itr->second.find(num_compte);
-	}
-	if (result != registre.end()) {
-		cout << "Numero de client trouve :" << endl;
-		cout << result << endl;
-		return result;
-	}
-	else {
-		cout << "Num client not found" << endl;
-		return 0;
-	}
-}
+
 
 Client Banque_Centrale::Chercher_infos_clients(int num_client) {
-	auto result;
 	for (auto itr = registre.begin(); itr != registre.end(); ++itr) {
-		auto result = itr->first.find(num_client);
+		auto id = itr->second.Get_id();
+		if (id == num_client) {
+			return (itr->second);
+		}
 	}
-	if (result != registre.end()) {
-		cout << "Numero de client trouve :" << endl;
-		cout << result << endl;
-		return result;
-	}
-	else {
-		cout << "Num client not found" << endl;
-		return 0;
-	}
+	return;
 }
 
-void Banque_Centrale::Ajouter_au_registre(Banque_Decentralise ID) {
-	registre.insert(pair<string, Banque_Decentralise>(ID.Get_nom_agence(), ID.Get_registre_local());
+void Banque_Centrale::Ajouter_au_registre(Client ID) {
+	registre.emplace(ID.Get_id(), ID);
 }
 
 void Banque_Centrale::Clear_registre() {
@@ -65,7 +44,6 @@ void Banque_Centrale::Clear_registre() {
 ***********************************************************/
 
 Banque_Decentralise::Banque_Decentralise() {
-	Afficher_banque_decentralise();
 	string nom_agence_temp;
 	cout << "Entrez le nom de la banque decentralise : " << endl;
 	cin >> nom_agence_temp;
@@ -74,10 +52,7 @@ Banque_Decentralise::Banque_Decentralise() {
 
 	map <int, Client> registre_local;
 
-	registre.insert(pair<string, Banque_Decentralise>(nom_agence, registre_local));
-
-	int nb_banque = Get_nb_banque_decentralise() + 1;
-	ID_agence = nb_banque;
+	ID_agence = Get_nb_banque_decentralise() + 1;
 
 	Set_nb_banque_decentralise(1);
 }

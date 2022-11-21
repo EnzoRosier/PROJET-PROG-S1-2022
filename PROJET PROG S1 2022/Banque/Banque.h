@@ -1,26 +1,25 @@
 #include "../includer.h"
-#include "../Compte/Compte.h"
+#include "../../Compte/Compte.h"
 #include "../Client/Client.h"
 
 class Banque_Centrale {
 private: 
-	map <string, Banque_Decentralise> registre;
+	map <int, Client> registre;
 	int nb_banque_decentralise;
 protected:
 	void Set_nb_banque_decentralise(int incrementation);
 public:
 	int Get_nb_banque_decentralise();
 	Banque_Centrale();
-	int Chercher_num_compte(int num_compte);
 	Client Chercher_infos_clients(int num_client);
-	void Ajouter_au_registre(Banque_Decentralise ID);
+	void Ajouter_au_registre(Client ID);
 	void Clear_registre();
 };
 
 
 class Banque_Decentralise : Banque_Centrale {
 private:
-	const int ID_agence;
+	int ID_agence;
 	string nom_agence;
 	map <int, Client> registre_local;
 public:
