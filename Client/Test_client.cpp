@@ -3,5 +3,4 @@
 
 int main() {
 	Compte* compte = new(Compte);
-	Client 
 }
