@@ -101,7 +101,9 @@ void Banque_Decentralise::Consulter() {
 	cout << "\tCle\tElement\n";
 	for (auto itr = registre_local.begin(); itr != registre_local.end(); ++itr) {
 		cout << '\t' << itr->first
-			<< '\t' << itr->second.affiche_client() << '\n';
+			<< '\t'; 
+		itr->second.affiche_client(); 
+		cout << '\n';
 	}
 	cout << endl;
 }
