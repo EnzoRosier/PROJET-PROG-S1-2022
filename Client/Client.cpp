@@ -13,6 +13,7 @@ Client::Client(int id, string& nom, string& prenom, string& adresse, string& age
 	this->liste_comptes = liste_compte;
 }
 
+
 int Client::Get_id() const {
 	return this->id;
 }
@@ -79,5 +80,11 @@ void Client::Ajouter_transaction(Transaction& transaction, string& date) {
 
 void Client::Ajouter_compte(Compte* compte) {
 	liste_comptes.push_back(compte);
+}
+
+void Client::affiche_client(Client c) {
+	cout << "Numero de client : " << c.id << endl << "Informations personelles :" << endl << "  M. " << c.nom << " "
+		<< c.prenom << endl << "  " << c.adresse << endl << "  Mesurant : " << c.taille_en_pouces << " pouces"
+		<< endl << "Vous avez " << c.liste_comptes.size() << "comptes actuellement" << endl;
 }
 

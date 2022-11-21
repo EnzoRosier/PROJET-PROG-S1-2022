@@ -12,6 +12,7 @@ typedef struct transaction {
 	string id_crediteur;
 }Transaction;
 
+
 class Client {
 private:
 	int id;
@@ -25,7 +26,6 @@ private:
 
 public:
 	Client(int id, string& nom, string& prenom, string& adresse, string& agence, float& taille_en_pouces, vector<Compte*>& liste_compte);
-	~Client();
 	int Get_id() const;
 	string Get_nom();
 	string Get_prenom();
@@ -44,7 +44,7 @@ public:
 	void Set_liste_comptes(vector<Compte*>& nouv_liste_comptes);
 	void Ajouter_transaction(Transaction& transaction, string& date);
 	void Ajouter_compte(Compte* compte);
-	friend ostream operator<<(ostream& os, Client c);
+	void affiche_client(Client c);
 
 }; 
 
