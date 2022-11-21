@@ -1,4 +1,6 @@
-#include "../includer.h"
+#include "../PROJET PROG S1 2022/includer.h"
+#include "../Compte/Compte.h"
+#include "../"
 #include "Banque.h"
 
 

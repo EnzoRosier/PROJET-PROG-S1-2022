@@ -82,6 +82,3 @@ void Client::Ajouter_compte(Compte* compte) {
 	liste_comptes.push_back(compte);
 }
 
-void affiche_client() {
-	cout<< this->
-}
