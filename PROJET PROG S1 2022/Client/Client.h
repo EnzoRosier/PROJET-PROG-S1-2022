@@ -1,10 +1,11 @@
 #include "../includer.h"
+#include "../Compte/Compte.h"
 #include <optional>
 
 typedef struct transaction {
 	int montant;
-	string crediteur;
-	string debiteur;
+	int id_debiteur;
+	int id_crediteur;
 }Transaction;
 
 class Client {
@@ -37,4 +38,5 @@ public:
 	void Set_archive_transaction(vector<Transaction>& nouv_archive_transaction);
 	void Set_liste_comptes(vector<Compte*>& nouv_liste_comptes);
 	void Ajouter_transaction(Transaction& transaction, string& date);
+	void Ajouter_compte(Compte* compte);
 };
