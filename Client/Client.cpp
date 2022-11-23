@@ -2,7 +2,7 @@
 #include "../Compte/Compte.h"
 
 
-Client::Client(int id, string& nom, string& prenom, string& adresse, string& agence, float& taille_en_pouces, vector<Compte*>& liste_compte) {
+Client::Client(const int& id,const string& nom,const string& prenom,const string& adresse,const string& agence,const float& taille_en_pouces, vector<Compte*> liste_compte) {
 	this->id = id;
 	this->nom = nom;
 	this->prenom = prenom;
@@ -83,8 +83,8 @@ void Client::Ajouter_compte(Compte* compte) {
 }
 
 void Client::affiche_client() {
-	cout << "Numero de client : " << this->id << endl << "Informations personelles :" << endl << "  M. " << this->nom << " "
+	cout << "Numero de client : " << this->id << endl << "Informations personelles :" << endl << "  Bonjour Madame/Monsieur " << this->nom << " "
 		<< this->prenom << endl << "  " << this->adresse << endl << "  Mesurant : " << this->taille_en_pouces << " pouces"
-		<< endl << "Vous avez " << this->liste_comptes.size() << "comptes actuellement" << endl;
+		<< endl << "Vous avez " << this->liste_comptes.size() << " comptes actuellement" << endl;
 }
 
