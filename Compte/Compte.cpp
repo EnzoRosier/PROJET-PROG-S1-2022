@@ -9,6 +9,10 @@ Compte::~Compte() {
 	cout << "Compte '" << this->identifiant_Compte << "' detruit\n";
 }
 
+Compte_Epargnes::Compte_Epargnes(const string& id, double solde, double taux) : Compte(id,solde){
+	taux_Epargne = taux;
+}
+
 string Compte::get_Identifiant_Compte() const {
 	cout << "Demande identifiant compte : '" << this->identifiant_Compte << "'\n";
 	return this->identifiant_Compte;
