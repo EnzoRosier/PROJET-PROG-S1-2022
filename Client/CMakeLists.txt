@@ -4,10 +4,9 @@ project(Client)
 
 set (CMAKE_CXX_STANDARD 17)
 
-set(SRCS "Client.cpp")
+add_executable (mainClient "Test_client.cpp" "Client.h")
 
-add_executable (Client "Test_client.cpp" "Client.h")
-include_directories(Compte)
+add_library(ClientLib "Client.cpp" "Client.h")
 
-target_link_libraries (Client LINK_PUBLIC CompteLib)
-
+target_link_libraries (mainClient LINK_PUBLIC CompteLib UtilityFunctionLib)
+target_link_libraries (ClientLib LINK_PUBLIC CompteLib)

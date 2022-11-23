@@ -10,3 +10,4 @@ if (CMAKE_VERSION VERSION_GREATER 3.12)
 endif()
 
 # TODO: Ajoutez des tests et installez des cibles si nécessaire.
+add_library(UtilityFunctionLib "Fonctions/Transaction.cpp")
