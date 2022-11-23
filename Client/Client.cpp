@@ -1,5 +1,5 @@
 #include "Client.h"
-
+#include "../Compte/Compte.h"
 
 
 Client::Client(int id, string& nom, string& prenom, string& adresse, string& agence, float& taille_en_pouces, vector<Compte*>& liste_compte) {

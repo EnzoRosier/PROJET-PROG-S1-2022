@@ -1,7 +1,5 @@
 #include "Client.h"
-#include "../Compte/Compte.h"
 
 int main() {
-	Compte* compte = new(Compte);
-	Client 
+	auto A = new Compte("EZEZEZEZ");
 }
