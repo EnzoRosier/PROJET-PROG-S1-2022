@@ -4,6 +4,12 @@ project(Client)
 
 set (CMAKE_CXX_STANDARD 17)
 
+if(MSVC)
+	add_compile_options($<$<CONFIG:Release>:/MT> # Runtime library: Multi-threaded
+                      $<$<CONFIG:Debug>:/MTd> # Runtime library: Multi-threaded Debug
+                      )
+endif(MSVC)
+
 add_executable (mainClient "Test_client.cpp" "Client.h")
 
 add_library(ClientLib "Client.cpp" "Client.h")
