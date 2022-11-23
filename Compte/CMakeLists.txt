@@ -10,4 +10,3 @@ add_executable (mainCompte "Compte.h" "Compte.cpp" "mainCompte.cpp")
 
 
 add_library (CompteLib "Compte.cpp" "Compte.h")
-target_include_directories (CompteLib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
