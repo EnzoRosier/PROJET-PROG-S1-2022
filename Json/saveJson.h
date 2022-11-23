@@ -3,8 +3,10 @@
 #include <fstream>
 #include "../Banque/Banque.h"
 
+
 #ifdef _WIN32
 #include <SDKDDKVer.h>
 #endif
 
 int save_json_Banque(Banque_Centrale& bq);
+
