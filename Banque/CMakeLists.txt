@@ -4,9 +4,7 @@ project(Banque)
 
 set (CMAKE_CXX_STANDARD 17)
 
-set(SRCS "Banque.cpp")
+add_executable (mainBanque "mainBanque.cpp" "Banque.h" "Banque.cpp")
 
-add_executable (banqueMain "mainBanque.cpp" ${SRCS})
-
-add_library (Banque ${SRCS})
-target_include_directories (Banque PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+add_library(BanqueLib "Banque.h" "Banque.cpp")
+target_link_libraries (mainBanque LINK_PUBLIC ClientLib UtilityFunctionLib)
