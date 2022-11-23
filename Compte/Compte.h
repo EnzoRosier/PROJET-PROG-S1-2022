@@ -22,4 +22,5 @@ private:
 	double taux_Epargne;
 };
 
+
 #endif
