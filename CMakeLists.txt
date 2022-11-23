@@ -13,3 +13,4 @@ add_subdirectory (Compte)
 
 add_subdirectory ("Banque")
 add_subdirectory (Client)
+add_subdirectory (myapp)
