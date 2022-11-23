@@ -23,7 +23,7 @@ private:
 	vector<Compte*> liste_comptes;
 
 public:
-	Client(int id, string& nom, string& prenom, string& adresse, string& agence, float& taille_en_pouces, vector<Compte*>& liste_compte);
+	Client(const int& id=0,const string& nom="Pierre", const string& prenom = "Jacques", const string& adresse = "", const string& agence = "Paris", const float& taille_en_pouces = 65.5, vector<Compte*> liste_compte = {new Compte("test")});
 	int Get_id() const;
 	string Get_nom();
 	string Get_prenom();
