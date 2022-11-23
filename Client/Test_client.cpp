@@ -1,5 +1,4 @@
 #include "Client.h"
-#include "../Compte/Compte.h"
 
 int main() {
 	Compte* c1 = new Compte("1", 334);

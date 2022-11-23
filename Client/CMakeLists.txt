@@ -1,12 +1,13 @@
-﻿# CMakeList.txt : projet CMake pour PROJET PROG S1 2022, incluez la source et définissez
-# la logique spécifique au projet ici.
-#
-cmake_minimum_required (VERSION 3.8)
-# Ajoutez une source à l'exécutable de ce projet.
-add_executable (Client "Client.h" "Test_client.cpp" "Client.cpp")
+﻿cmake_minimum_required (VERSION 3.9)
 
-if (CMAKE_VERSION VERSION_GREATER 3.12)
-  set_property(TARGET CMakeTarget PROPERTY CXX_STANDARD 20)
-endif()
+project(Client)
 
-# TODO: Ajoutez des tests et installez des cibles si nécessaire.
+set (CMAKE_CXX_STANDARD 17)
+
+set(SRCS "Client.cpp")
+
+add_executable (Client "Test_client.cpp" "Client.h")
+include_directories(Compte)
+
+target_link_libraries (Client LINK_PUBLIC CompteLib)
+

@@ -4,8 +4,6 @@
 #ifndef __CLIENT_H
 #define __CLIENT_H
 
-
-
 typedef struct transaction {
 	int montant;
 	string id_debiteur;
