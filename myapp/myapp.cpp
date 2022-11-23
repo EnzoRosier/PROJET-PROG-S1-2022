@@ -91,5 +91,6 @@ void MyFrame::OnHello(wxCommandEvent& event)
 void MyFrame::OnGestion(wxCommandEvent& event)
 {
     Banque_Centrale Test;
-    wxLogInfo("Test Gestion");
+    Banque_Decentralise Truc;
+    wxLogMessage("Test Gestion");
 }
