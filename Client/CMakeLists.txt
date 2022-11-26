@@ -10,7 +10,7 @@ if(MSVC)
                       )
 endif(MSVC)
 
-add_executable (mainClient "Test_client.cpp" "Client.h")
+add_executable (mainClient "Test_client.cpp" "Client.cpp")
 
 add_library(ClientLib "Client.cpp" "Client.h")
 

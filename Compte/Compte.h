@@ -1,4 +1,6 @@
+#pragma once
 #include "../PROJET PROG S1 2022/includer.h"
+
 
 #ifndef __COMPTE_H
 #define __COMPTE_H

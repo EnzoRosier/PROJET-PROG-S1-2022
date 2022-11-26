@@ -8,9 +8,9 @@ PROJECT(all)
 
 # Incluez les sous-projets.
 add_subdirectory ("PROJET PROG S1 2022")
-add_subdirectory ("Json")
+add_subdirectory (Json)
 add_subdirectory (Compte)
 
-add_subdirectory ("Banque")
+add_subdirectory (Banque)
 add_subdirectory (Client)
 add_subdirectory (myapp)

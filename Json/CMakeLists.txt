@@ -21,5 +21,6 @@ endif (MSVC)
 find_package(Boost 1.80.0 COMPONENTS json serialization REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS})
 
-add_executable(mainJson "mainJson.cpp")
+add_executable(mainJson "mainJson.cpp" "saveJson.cpp")
 target_link_libraries (mainJson LINK_PUBLIC BanqueLib  ${Boost_LIBRARIES})
+target_link_libraries (mainJson LINK_PUBLIC ${Boost_LIBRARIES})
