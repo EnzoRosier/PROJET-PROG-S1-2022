@@ -23,7 +23,7 @@ find_package(Boost 1.80.0 COMPONENTS json serialization REQUIRED)
 
 add_executable(mainBanque "mainBanque.cpp" "Banque.cpp")
 
-include_directories(mainBanque ${Boost_INCLUDE_DIRS})
+include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${Boost_INCLUDE_DIRS})
 target_link_libraries (mainBanque LINK_PUBLIC ClientLib ${Boost_LIBRARIES})
 add_library(BanqueLib "Banque.cpp" "Banque.h")
-target_link_libraries (BanqueLib LINK_PUBLIC ClientLib)
+target_link_libraries (BanqueLib LINK_PUBLIC ClientLib ${Boost_LIBRARIES})
