@@ -5,7 +5,7 @@ wxIMPLEMENT_APP(MyApp);
 
 bool MyApp::OnInit()
 {
-    MyFrame* frame = new MyFrame();
+    MyFrame *frame = new MyFrame();
     frame->Show(true);
     // SetTopWindow(frame);
 
@@ -15,19 +15,19 @@ bool MyApp::OnInit()
 MyFrame::MyFrame()
     : wxFrame(nullptr, wxID_ANY, "Bank Agency", wxPoint(30, 30), wxSize(800, 600))
 {
-    wxMenu* menuFile = new wxMenu;
+    wxMenu *menuFile = new wxMenu;
     menuFile->Append(static_cast<int>(My_class_client::ID_Add_Customer), "&Add_Customer...\tCtrl-A",
-        "Add a customer");
+                     "Add a customer");
     menuFile->AppendSeparator();
     menuFile->Append(static_cast<int>(My_class_client::ID_Customers_save), "&Save all customers...\tCtrl-S",
-        "Save customers");
+                     "Save customers");
     menuFile->AppendSeparator();
     menuFile->Append(wxID_EXIT);
 
-    wxMenu* menuHelp = new wxMenu;
+    wxMenu *menuHelp = new wxMenu;
     menuHelp->Append(wxID_ABOUT);
 
-    wxMenuBar* menuBar = new wxMenuBar;
+    wxMenuBar *menuBar = new wxMenuBar;
     menuBar->Append(menuFile, "&Customers Management");
     menuBar->Append(menuHelp, "&Help");
 
@@ -42,18 +42,18 @@ MyFrame::MyFrame()
     Bind(wxEVT_MENU, &MyFrame::OnSaveCustomers, this, static_cast<int>(My_class_client::ID_Customers_save));
 }
 
-void MyFrame::OnExit(wxCommandEvent& event)
+void MyFrame::OnExit(wxCommandEvent &event)
 {
     Close(true);
 }
 
-void MyFrame::OnAbout(wxCommandEvent& event)
+void MyFrame::OnAbout(wxCommandEvent &event)
 {
     wxMessageBox("This is a wxWidgets demonstration for client management",
-        "About Client Management", wxOK | wxICON_INFORMATION);
+                 "About Client Management", wxOK | wxICON_INFORMATION);
 }
 
-void MyFrame::OnAdd_Customer(wxCommandEvent& event)
+void MyFrame::OnAdd_Customer(wxCommandEvent &event)
 {
 
     auto new_customer = new My_new_Customer_dialog(this, wxID_ANY, "Test_Dialog");
@@ -73,40 +73,40 @@ void MyFrame::OnAdd_Customer(wxCommandEvent& event)
         if (!customer_number.ToLong(&number))
         {
             wxMessageBox("Error number",
-                "Error ", wxOK | wxICON_INFORMATION);
+                         "Error ", wxOK | wxICON_INFORMATION);
             return;
         }
 
         if (!customer_number.ToLong(&account_numbers))
         {
             wxMessageBox("Account numbers",
-                "Error ", wxOK | wxICON_INFORMATION);
+                         "Error ", wxOK | wxICON_INFORMATION);
             return;
         }
 
         std::string name = std::string(customer_name);
-        Customer customer(number, std::move(name), { 1000 });
+        Customer customer(number, std::move(name), {1000});
         customers_.push_back(customer);
         delete new_customer;
     }
 }
 
-void MyFrame::OnSaveCustomers(wxCommandEvent& event)
+void MyFrame::OnSaveCustomers(wxCommandEvent &event)
 {
     ptree pt_write;
     ptree pt_accounts;
     try
     {
-        for (auto& customer : customers_)
+        for (auto &customer : customers_)
         {
-            pt_accounts.push_back({ "", get_a_ptree_from_a_customer(customer) });
+            pt_accounts.push_back({"", get_a_ptree_from_a_customer(customer)});
         }
         pt_write.add_child("Customers", pt_accounts);
         std::ofstream file_out("example_write_read.json");
         write_json(file_out, pt_write);
         file_out.close();
     }
-    catch (std::exception& e)
+    catch (std::exception &e)
     {
         // Other errors
         std::cout << "Error :" << e.what() << std::endl;
