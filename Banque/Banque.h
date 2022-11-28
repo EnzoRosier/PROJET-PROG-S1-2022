@@ -1,9 +1,13 @@
 #pragma once
-
+#include <boost/property_tree/json_parser.hpp>
+#include <boost/property_tree/ptree.hpp>
 #include "../PROJET PROG S1 2022/includer.h"
 #include "../Compte/Compte.h"
 #include "../Client/Client.h"
 
+using boost::property_tree::ptree;
+using boost::property_tree::read_json;
+using boost::property_tree::write_json;
 
 #ifdef _WIN32
 #include <SDKDDKVer.h>
@@ -11,7 +15,6 @@
 
 #ifndef __BANQUE_H
 #define __BANQUE_H
-
 
 class Banque_Centrale {
 private:
