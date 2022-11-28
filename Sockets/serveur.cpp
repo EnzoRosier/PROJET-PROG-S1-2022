@@ -1,9 +1,7 @@
 #include <iostream>
 #include <boost/asio.hpp>
 
-using std::string;
-using std::cout;
-using std::endl;
+using namespace std;
 using namespace boost::asio;
 using ip::tcp;
 
@@ -34,7 +32,7 @@ int main() {
     string message = read_(socket_);
     cout << message << endl;
     //write operation
-    send_(socket_, "Hello From Server!");
-    cout << "Servent sent Hello message to Client!" << endl;
+    send_(socket_, "Salut a toi!");
+    cout << "Server sent Hello message to Client!" << endl;
     return 0;
 }
