@@ -37,6 +37,7 @@ wxIMPLEMENT_APP(MyApp);
 bool MyApp::OnInit()
 {
     MyFrame* frame = new MyFrame();
+    ptree AAA = ptree();
     frame->Show(true);
     return true;
 }

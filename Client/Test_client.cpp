@@ -12,4 +12,8 @@ int main() {
 	Client cl1 = Client(0, "John", "McClain", "3 Rue de la paix", "Lille", 68.8, liste_comptes);
 	cl1.affiche_client();
 
+	std::ofstream file_out("Compte.json");
+	write_json(file_out, cl1.generate_Ptree_Client());
+	file_out.close();
+
 }

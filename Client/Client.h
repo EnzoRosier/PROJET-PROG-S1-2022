@@ -1,7 +1,12 @@
+#pragma once
 #include <boost/property_tree/json_parser.hpp>
-
+#include <boost/property_tree/ptree.hpp>
 #include "../PROJET PROG S1 2022/includer.h"
 #include "../Compte/Compte.h"
+
+using boost::property_tree::ptree;
+using boost::property_tree::read_json;
+using boost::property_tree::write_json;
 
 
 #ifndef __CLIENT_H
@@ -46,6 +51,7 @@ public:
 	void Ajouter_transaction(Transaction& transaction, string& date);
 	void Ajouter_compte(Compte* compte);
 	void affiche_client();
+	ptree generate_Ptree_Client();
 
 }; 
 

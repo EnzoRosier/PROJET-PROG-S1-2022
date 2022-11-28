@@ -88,3 +88,20 @@ void Client::affiche_client() {
 		<< endl << "Vous avez " << this->liste_comptes.size() << " comptes actuellement" << endl;
 }
 
+ptree Client::generate_Ptree_Client() {
+	ptree result;
+
+	result.put("Id", this->id);
+	result.put("Nom", this->nom);
+	result.put("Prenom", this->prenom);
+	result.put("Adresse", this->adresse);
+	ptree ptreeCompte;
+	for (auto value : this->liste_comptes)
+	{
+		ptreeCompte.push_back({ "", value->generate_Ptree_Compte()});
+	}
+	result.push_back({ "Compte", ptreeCompte});
+
+	return result;
+}
+

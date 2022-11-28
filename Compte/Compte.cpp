@@ -32,3 +32,10 @@ int Compte::set_Solde_Compte(double newSolde) {
 ostream& operator<<(ostream& os, Compte& c) {
 	return os << c.identifiant_Compte << " -> " << c.solde_Compte;
 }
+
+ptree Compte::generate_Ptree_Compte() {
+	ptree result;
+	result.put("Id", this->identifiant_Compte);
+	result.put("Solde", this->solde_Compte);
+	return result;
+}
