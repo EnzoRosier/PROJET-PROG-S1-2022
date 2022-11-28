@@ -21,5 +21,5 @@ find_package(Boost 1.80.0 COMPONENTS system thread regex serialization REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS})
 link_directories(${Boost_LIBRARY_DIRS})
 
-add_executable(socket_client "client.cpp")
-add_executable(socket_serveur "serveur.cpp")
+add_executable(socket_client "client.cpp" "fonctions_socket.cpp")
+add_executable(socket_serveur "serveur.cpp" "fonctions_socket.cpp")
