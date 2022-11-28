@@ -1,13 +1,20 @@
+#pragma once
+
 #include "../PROJET PROG S1 2022/includer.h"
 #include "../Compte/Compte.h"
 #include "../Client/Client.h"
+
+
+#ifdef _WIN32
+#include <SDKDDKVer.h>
+#endif
 
 #ifndef __BANQUE_H
 #define __BANQUE_H
 
 
 class Banque_Centrale {
-private: 
+private:
 	map <int, Client> registre;
 	int nb_banque_decentralise;
 protected:

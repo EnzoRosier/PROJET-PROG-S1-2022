@@ -1,7 +1,11 @@
+#pragma once
+
 #include "../PROJET PROG S1 2022/includer.h"
 #include "../Compte/Compte.h"
 #include "../Client/Client.h"
 #include "Banque.h"
+
+
 
 
 Banque_Centrale::Banque_Centrale() {
@@ -60,6 +64,8 @@ void Banque_Centrale::Ajouter_au_registre(Client ID) {
 void Banque_Centrale::Clear_registre() {
 	registre.clear();
 }
+
+
 
 /***********************************************************
 * 
