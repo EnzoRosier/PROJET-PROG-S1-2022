@@ -18,7 +18,8 @@ elseif(MSVC)
 endif (MSVC)
 
 find_package(Boost 1.80.0 COMPONENTS system thread regex serialization REQUIRED)
-include_directories(${Boost_INCLUDE_DIRS})
+include_directories(socket_client ${Boost_INCLUDE_DIRS})
+include_directories(socket_serveur ${Boost_INCLUDE_DIRS})
 link_directories(${Boost_LIBRARY_DIRS})
 
 add_executable(socket_client "client.cpp" "fonctions_socket.cpp")

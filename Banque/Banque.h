@@ -29,6 +29,7 @@ public:
 	Compte Chercher_compte_clients(string num_compte);
 	void Ajouter_au_registre(Client ID);
 	void Clear_registre();
+	ptree GeneratePtreeBanque();
 };
 
 

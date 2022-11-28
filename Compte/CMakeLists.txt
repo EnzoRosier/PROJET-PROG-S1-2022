@@ -24,6 +24,6 @@ find_package(Boost 1.80.0 COMPONENTS json serialization REQUIRED)
 
 
 add_executable (mainCompte "Compte.cpp" "mainCompte.cpp")
-include_directories(mainCompte ${Boost_INCLUDE_DIRS})
+include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${Boost_INCLUDE_DIRS})
 target_link_libraries (mainCompte LINK_PUBLIC ${Boost_LIBRARIES})
-add_library (CompteLib "Compte.cpp" "Compte.h")
+add_library (CompteLib "Compte.cpp")

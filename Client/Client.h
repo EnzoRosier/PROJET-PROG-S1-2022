@@ -1,5 +1,8 @@
+#include <boost/property_tree/json_parser.hpp>
+
 #include "../PROJET PROG S1 2022/includer.h"
 #include "../Compte/Compte.h"
+
 
 #ifndef __CLIENT_H
 #define __CLIENT_H

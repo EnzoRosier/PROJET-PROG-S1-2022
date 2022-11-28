@@ -1,3 +1,4 @@
+#include <boost/property_tree/json_parser.hpp>
 #include "../../Client/Client.h"
 #include "../../Compte/Compte.h"
 #include "../../Banque/Banque.h"
