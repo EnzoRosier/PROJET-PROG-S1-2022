@@ -11,7 +11,7 @@
 class App : public wxApp
 {
 public:
-	virtual bool Init();
+	virtual bool OnInit();
 };
 
 class Fenetre : public wxFrame
@@ -19,10 +19,4 @@ class Fenetre : public wxFrame
 public:
 	Fenetre();
 private:
-	void OnExit(wxCommandEvent& event);
 };
-
-void Fenetre::OnExit(wxCommandEvent& event)
-{
-	Close(true);
-}
