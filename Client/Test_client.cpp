@@ -9,7 +9,8 @@ int main() {
 	liste_comptes.push_back(c2);
 	liste_comptes.push_back(c3);
 
-	Client cl1 = Client(0, "John", "McClain", "3 Rue de la paix", "Lille", 68.8, liste_comptes);
+	Client cl1 = Client(0, "John", "McClain", "3 Rue de la paix", "Lille", 68.8);
+	cl1.Set_liste_comptes(liste_comptes);
 	cl1.affiche_client();
 
 	std::ofstream file_out("Compte.json");
