@@ -29,6 +29,10 @@ include(${wxWidgets_USE_FILE})
 add_executable(testxw testxw.cpp)
 
 
-
+    set_property(TARGET example_of_use PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 target_link_libraries(testxw LINK_PUBLIC ${wxWidgets_LIBRARIES} ${Boost_LIBRARIES})
+    set_property(TARGET example_of_use PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+endif (MSVC)
+
+target_link_libraries(example_of_use LINK_PUBLIC customer ${wxWidgets_LIBRARIES} ${Boost_LIBRARIES})
 
