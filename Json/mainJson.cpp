@@ -18,8 +18,10 @@ int main()
 	Banque_Centrale bq;
 	
 
-	Client cl1 = Client(0, "John", "McClain", "3 Rue de la paix", "Lille", 68.8, liste_comptes);
-	Client cl2 = Client(1, "Joh2", "McClai2", "3 Rue de la paix", "Lille", 68.8, liste_comptes2);
+	Client cl1 = Client(0, "John", "McClain", "3 Rue de la paix", "Lille", 68.8);
+	Client cl2 = Client(1, "Joh2", "McClai2", "3 Rue de la paix", "Lille", 68.8);
+	cl1.Set_liste_comptes(liste_comptes);
+	cl2.Set_liste_comptes(liste_comptes2);
 	cl1.affiche_client();
 
 	bq.Ajouter_au_registre(cl1);

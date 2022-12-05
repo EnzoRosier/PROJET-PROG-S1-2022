@@ -2,14 +2,13 @@
 #include "../Compte/Compte.h"
 
 
-Client::Client(const int& id, const string& nom, const string& prenom, const string& adresse, const string&, const float& taille_en_pouces, vector<Compte*> liste_compte) {
+Client::Client(const int& id, const string& nom, const string& prenom, const string& adresse, const string&, const float& taille_en_pouces) {
 	this->id = id;
 	this->nom = nom;
 	this->prenom = prenom;
 	this->adresse = adresse;
 	this->agence = agence;
-	this->taille_en_pouces=taille_en_pouces;
-	this->liste_comptes = liste_compte;
+	this->taille_en_pouces = taille_en_pouces;
 }
 
 
