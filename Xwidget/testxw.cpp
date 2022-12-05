@@ -21,18 +21,35 @@ Fenetre::Fenetre() : wxFrame(nullptr, wxID_ANY, "Test Banque", wxPoint(30, 30), 
     menu1->Append(2, "Test 2");
     menu1->AppendSeparator();
 
-
     wxMenu* menu2 = new wxMenu;
-    menu2->Append(1, "Aide");
-    menu2->AppendSeparator();
+    menu2->Append(1, "Login");
+
+    wxMenu* menu3 = new wxMenu;
+    menu3->Append(1, "Create");
+
+    wxMenu* menuHelp = new wxMenu;
+    menuHelp->Append(wxID_ABOUT);
+
 
     wxMenuBar* menu = new wxMenuBar;
     menu->Append(menu1, "Test");
-    menu->Append(menu2, "&Aide");
+    menu->Append(menu2, "Login");
+    menu->Append(menu3, "Create");
+    menu->Append(menuHelp, "&Help");
+
+
+    //vbox->Add(hbox2, 0, wxALIGN_RIGHT | wxRIGHT | wxBOTTOM, 10);
 
     SetMenuBar(menu);
 
     CreateStatusBar();
-    SetStatusText("Welcome to wxWidgets!");
+    SetStatusText("Bienvenue dans le gestionnaire de votre banque!");
 
+    Bind(wxEVT_MENU, &Fenetre::OnAbout, this, wxID_ABOUT);
+
+}
+
+void Fenetre::OnAbout(wxCommandEvent& event)
+{
+    wxLaunchDefaultBrowser("https://www.google.com/search?q=qu%27est-ce+qu%27une+banque&oq=qu%27est-ce+qu%27une+banque&aqs=chrome..69i57j0i512l9.9756j0j7&sourceid=chrome&ie=UTF-8");
 }

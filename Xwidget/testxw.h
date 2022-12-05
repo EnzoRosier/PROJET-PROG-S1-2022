@@ -18,5 +18,6 @@ class Fenetre : public wxFrame
 {
 public:
 	Fenetre();
+	void OnAbout(wxCommandEvent& event);
 private:
 };
