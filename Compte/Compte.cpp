@@ -1,7 +1,7 @@
 #include "../PROJET PROG S1 2022/includer.h"
 #include "Compte.h"
 
-Compte::Compte(const string& id, int solde) : identifiant_Compte(id), solde_Compte(solde) {
+Compte::Compte(const string& id,int id_Prop, int solde) : identifiant_Compte(id), id_Proprietaire(id_Prop), solde_Compte(solde) {
 	cout << "Nouveau compte cree id : '" << id << "', solde : " << solde << "\n";
 }
 
@@ -38,4 +38,8 @@ ptree Compte::generate_Ptree_Compte() {
 	result.put("Id", this->identifiant_Compte);
 	result.put("Solde", this->solde_Compte);
 	return result;
+}
+
+int Compte::get_Id_proprietaire() {
+	return this->id_Proprietaire;
 }
