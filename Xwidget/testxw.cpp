@@ -76,11 +76,6 @@ void Fenetre::OnDelAccount(wxCommandEvent& event) {
 void Fenetre::OnAccount(wxCommandEvent& event) {
 
 }
-    SetStatusText("Bienvenue dans le gestionnaire de votre banque!");
-
-    Bind(wxEVT_MENU, &Fenetre::OnAbout, this, wxID_ABOUT);
-
-}
 
 void Fenetre::OnReturn(wxCommandEvent& event) {
 
@@ -107,12 +102,15 @@ CreationClient::CreationClient(wxWindow* parent, wxWindowID id, const wxString& 
 
 
     edit_firstname_ = new wxTextCtrl(this, -1, "", wxPoint(160, 50), wxSize(100, 20));
-    edit_name_= new wxTextCtrl(this, -1, "", wxPoint(160, 50), wxSize(100, 20));
+    edit_name_ = new wxTextCtrl(this, -1, "", wxPoint(160, 50), wxSize(100, 20));
 
 
 
     wxButton* ok = new wxButton(this, wxID_OK, _("OK"), wxPoint(10, 120), wxDefaultSize);
     wxButton* cancel = new wxButton(this, wxID_CANCEL, _("Cancel"), wxPoint(100, 120), wxDefaultSize);
+
+
+}
 void Fenetre::OnAbout(wxCommandEvent& event)
 {
     wxLaunchDefaultBrowser("https://www.google.com/search?q=qu%27est-ce+qu%27une+banque&oq=qu%27est-ce+qu%27une+banque&aqs=chrome..69i57j0i512l9.9756j0j7&sourceid=chrome&ie=UTF-8");
