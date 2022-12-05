@@ -63,8 +63,11 @@ void Banque_Centrale::Ajouter_au_registre(Client ID) {
 void Banque_Centrale::Clear_registre() {
 	registre.clear();
 }
+/*
+ptree Banque_Centrale::GeneratePtreeBanque() {
+	ptree result;
 
-
+}*/
 
 
 

@@ -1,8 +1,8 @@
-cmake_minimum_required(VERSION 3.20)
+cmake_minimum_required (VERSION 3.9)
 
-project(Socket)
+project(customer)
 
-
+set (CMAKE_CXX_STANDARD 17)
 set(Boost_USE_STATIC_LIBS ON)
 set(Boost_USE_RELEASE_LIBS ON)
 
@@ -17,11 +17,10 @@ elseif(MSVC)
     set(Boost_DIR /usr/local/lib/cmake/Boost-1.80.0)
 endif (MSVC)
 
-find_package(Boost 1.80.0 COMPONENTS system thread regex serialization REQUIRED)
-include_directories(socket_client ${Boost_INCLUDE_DIRS})
-include_directories(socket_serveur ${Boost_INCLUDE_DIRS})
-link_directories(${Boost_LIBRARY_DIRS})
+find_package(Boost 1.80.0 COMPONENTS serialization REQUIRED)
+include_directories(${Boost_INCLUDE_DIRS})
 
-add_executable(socket_client "client.cpp")
-add_executable(socket_serveur "serveur.cpp")
+set(SRCS "Customer.cpp" "Customer_for_JSON.cpp")
 
+add_library (customer ${SRCS})
+target_include_directories (customer PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

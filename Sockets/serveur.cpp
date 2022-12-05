@@ -34,5 +34,7 @@ int main() {
     //write operation
     send_(socket_, "Salut a toi!");
     cout << "Server sent Hello message to Client!" << endl;
+    int i = 0;
+    cin >> i;
     return 0;
 }
