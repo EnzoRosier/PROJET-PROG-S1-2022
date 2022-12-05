@@ -1,6 +1,9 @@
 #pragma once
 #include <boost/property_tree/json_parser.hpp>
 #include <boost/property_tree/ptree.hpp>
+#include <boost/archive/text_iarchive.hpp>
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/serialization/vector.hpp>
 #include "../PROJET PROG S1 2022/includer.h"
 #include "../Compte/Compte.h"
 
@@ -52,6 +55,12 @@ public:
 	void Ajouter_compte(Compte* compte);
 	void affiche_client();
 	ptree generate_Ptree_Client();
+
+	template <class Archive>
+	void serialize(Archive& ar, unsigned int version)
+	{
+		ar& id ;
+	}
 
 }; 
 
