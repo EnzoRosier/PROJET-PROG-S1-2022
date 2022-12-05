@@ -22,6 +22,11 @@ include_directories(socket_client ${Boost_INCLUDE_DIRS})
 include_directories(socket_serveur ${Boost_INCLUDE_DIRS})
 link_directories(${Boost_LIBRARY_DIRS})
 
-add_executable(socket_client "client.cpp" "tools.cpp")
-add_executable(socket_serveur "serveur.cpp" "tools.cpp")
+add_executable(socket_client "client.cpp" )
+add_executable(socket_serveur "serveur.cpp")
+
+add_library(toolsSocketLib "tools.cpp")
+
+target_link_libraries(socket_serveur ClientLib toolsSocketLib)
+target_link_libraries(socket_client ClientLib toolsSocketLib)
 
