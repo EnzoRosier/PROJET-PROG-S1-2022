@@ -1,9 +1,4 @@
-#include <iostream>
-#include <boost/asio.hpp>
-
-using namespace std;
-using namespace boost::asio;
-using ip::tcp;
+#include "tools.cpp"
 
 
 string read_(tcp::socket& socket) { // La réception du socket met ledit socket dans une chaine de caractère qui pourra être traitée plus tard
@@ -25,14 +20,20 @@ int main() {
     //listen for new connection
     tcp::acceptor acceptor_(io_service, tcp::endpoint(tcp::v4(), 1234));
     //socket creation 
-    tcp::socket socket_(io_service);
+    socket_ptr socket(new tcp::socket (io_service));
     //waiting for connection
-    acceptor_.accept(socket_);
+    acceptor_.accept(*socket);
+
+    char data[10000] = {};
+
+    boost::system::error_code error;
+    size_t length = socket->read_some(boost::asio::buffer(data), error);
+
+
     //read operation
-    string message = read_(socket_);
-    cout << message << endl;
+    Client client = get_data_from_string<Client>(data);
+    client.affiche_client();
     //write operation
-    send_(socket_, "Salut a toi!");
     cout << "Server sent Hello message to Client!" << endl;
     int i = 0;
     cin >> i;

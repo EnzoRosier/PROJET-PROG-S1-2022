@@ -1,9 +1,5 @@
-#include <iostream>
-#include "boost/asio.hpp"
+#include "tools.cpp"
 
-using namespace std;
-using namespace boost::asio;
-using ip::tcp;
 
 // Entre la banque centrale et les banques décentralisées on a 2 types de requêtes :
 // La mise à jour du registre
@@ -30,19 +26,18 @@ void send_(tcp::socket& socket, const string& message) { // On crée le socket av
 
 
 
-
-
 int main() {
     boost::asio::io_service io_service;
     //socket creation
     tcp::socket socket(io_service);
     socket.connect(tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 1234));
     // request/message from client
-    const string msg = "Salut!\n";
+    Client cl1 = Client(0, "John", "McClain", "3 Rue de la paix", "Lille",68.8);
+    const string msg = get_string_from_data(cl1);
     boost::system::error_code error;
     boost::asio::write(socket, boost::asio::buffer(msg), error);
     if (!error) {
-        cout << "Client sent hello message!" << endl;
+        cout << "Client sent McClain!" << endl;
     }
     else {
         cout << "send failed: " << error.message() << endl;
