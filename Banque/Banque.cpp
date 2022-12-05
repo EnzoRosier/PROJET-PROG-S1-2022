@@ -39,7 +39,7 @@ Compte Banque_Centrale::Chercher_compte_clients(string num_compte) {
 	}
 }
 
-Client Banque_Centrale::Chercher_infos_clients(int num_client) {
+Client& Banque_Centrale::Chercher_infos_clients(int num_client) {
 	try {
 		for (auto itr = registre.begin(); itr != registre.end(); ++itr) {
 			auto id = itr->second.Get_id();
@@ -64,10 +64,7 @@ void Banque_Centrale::Clear_registre() {
 	registre.clear();
 }
 
-ptree Banque_Centrale::GeneratePtreeBanque() {
-	ptree result;
 
-}
 
 
 

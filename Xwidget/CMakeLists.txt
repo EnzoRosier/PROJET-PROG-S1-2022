@@ -26,7 +26,7 @@ include_directories(${Boost_INCLUDE_DIRS})
 find_package(wxWidgets REQUIRED COMPONENTS net core base)
 include(${wxWidgets_USE_FILE})
 
-add_executable(example_of_use example_of_use.cpp My_new_Customer_dialog.cpp)
+#add_executable(example_of_use example_of_use.cpp My_new_Customer_dialog.cpp)
 
 if(MSVC)
     set_target_properties(example_of_use PROPERTIES LINK_FLAGS /SUBSYSTEM:WINDOWS)

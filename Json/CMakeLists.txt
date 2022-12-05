@@ -19,7 +19,7 @@ elseif(MSVC)
 endif (MSVC)
 
 find_package(Boost 1.80.0 COMPONENTS json serialization REQUIRED)
-include_directories(${Boost_INCLUDE_DIRS})
+include_directories(${Boost_INCLUDE_DIRS} ${CMAKE_CURRENT_SOURCE_DIR}/../PROJET PROG S1 2022/Fonctions)
 
 add_executable(mainJson "mainJson.cpp" "saveJson.cpp")
-target_link_libraries (mainJson LINK_PUBLIC BanqueLib  ${Boost_LIBRARIES})
+target_link_libraries (mainJson LINK_PUBLIC BanqueLib UtilityFunctionLib ${Boost_LIBRARIES})

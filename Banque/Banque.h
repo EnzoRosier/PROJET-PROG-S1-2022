@@ -25,7 +25,7 @@ protected:
 public:
 	Banque_Centrale();
 	int Get_nb_banque_decentralise();
-	Client Chercher_infos_clients(int num_client);
+	Client& Chercher_infos_clients(int num_client);
 	Compte Chercher_compte_clients(string num_compte);
 	void Ajouter_au_registre(Client ID);
 	void Clear_registre();
