@@ -28,8 +28,6 @@ int main()
 	bq.Ajouter_au_registre(cl2);
 
 	doTransaction("202", "1", "2", 2, bq);
-
-	std::ofstream file_out("Compte.json");
-	write_json(file_out, bq.Chercher_infos_clients(1).generate_Ptree_Client());
-	file_out.close();
+	
+	save_json_registre(bq);
 }

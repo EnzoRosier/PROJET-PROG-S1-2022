@@ -63,11 +63,23 @@ void Banque_Centrale::Ajouter_au_registre(Client ID) {
 void Banque_Centrale::Clear_registre() {
 	registre.clear();
 }
-/*
+
 ptree Banque_Centrale::GeneratePtreeBanque() {
 	ptree result;
+	result.put("Id_Banque_Centrale", this->nb_banque_decentralise);
+	ptree ptreeRegistre;
+	
+	for (auto value : this->registre)
+	{
+		ptree _tmp;
+		_tmp.put("Id_Client", value.first);
+		_tmp.push_back({ "Client_Info", value.second.generate_Ptree_Client() });
+		ptreeRegistre.push_back({ "", _tmp });
+	}
+	result.push_back({ "Registre", ptreeRegistre });
 
-}*/
+	return result;
+}
 
 
 
