@@ -14,4 +14,5 @@ using boost::property_tree::write_json;
 #endif
 
 int save_json_registre(Banque_Centrale& bq);
-
+Compte Compte_from_ptree(ptree& pt);
+Client Client_from_ptree(ptree& pt);

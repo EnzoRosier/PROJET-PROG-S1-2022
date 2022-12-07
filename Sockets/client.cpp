@@ -1,3 +1,4 @@
+#pragma once
 #include "tools.cpp"
 
 
@@ -11,19 +12,6 @@
 // La demande d'une transaction
 
 
-string read_(tcp::socket& socket) { // La réception du socket met ledit socket dans une chaine de caractère qui pourra être traitée plus tard
-    boost::asio::streambuf buf;
-    boost::asio::read_until(socket, buf, "\n");
-    string data = boost::asio::buffer_cast<const char*>(buf.data());
-    return data;
-}
-
-
-void send_(tcp::socket& socket, const string& message) { // On crée le socket avec une chaine de caractères
-    const string msg = message + "\n";
-    boost::asio::write(socket, boost::asio::buffer(message));
-}
-
 
 
 int main() {
@@ -33,7 +21,17 @@ int main() {
     socket.connect(tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 1234));
     // request/message from client
     Client cl1 = Client(0, "John", "McClain", "3 Rue de la paix", "Lille",68.8);
+    Compte* c1 = new Compte("1", 334);
+    Compte* c2 = new Compte("2", 323);
+    Compte_Epargnes* c3 = new Compte_Epargnes("3", 10, 50);
+    vector<Compte*> liste_comptes;
+    liste_comptes.push_back(c1);
+    liste_comptes.push_back(c2);
+    liste_comptes.push_back(c3);
+    cl1.Set_liste_comptes(liste_comptes);
     const string msg = get_string_from_data(cl1);
+
+
     boost::system::error_code error;
     boost::asio::write(socket, boost::asio::buffer(msg), error);
     if (!error) {
@@ -41,18 +39,6 @@ int main() {
     }
     else {
         cout << "send failed: " << error.message() << endl;
-    }
-    // getting response from server
-    boost::asio::streambuf receive_buffer;
-    boost::asio::read(socket, receive_buffer, boost::asio::transfer_all(), error);
-    if (error && error != boost::asio::error::eof) {
-        cout << "receive failed: " << error.message() << endl;
-    }
-    else {
-        const char* data = boost::asio::buffer_cast<const char*>(receive_buffer.data());
-        int i = 0;
-        cout << data << endl;
-        cin >> i;
     }
     return EXIT_SUCCESS;
 }
