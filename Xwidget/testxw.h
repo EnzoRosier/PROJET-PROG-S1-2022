@@ -8,6 +8,8 @@
 #include <wx/wx.h>
 #endif
 
+#include "../Client/Client.h"
+
 class App : public wxApp
 {
 public:
@@ -32,19 +34,71 @@ private:
 };
 
 
+
 class CreationClient : public wxDialog
 {
 public:
 	CreationClient(wxWindow* parent, wxWindowID id, const wxString& title);
 
 	wxString get_customer_number();
+	wxString get_firstname();
 	wxString get_name();
+	wxString get_adresse();
+	wxString get_agence();
 	wxString get_account_numbers();
+	wxString get_taille();
 
 private:
 
 	void OnOk(wxCommandEvent& event);
 	wxTextCtrl* edit_firstname_;
 	wxTextCtrl* edit_name_;
+	wxTextCtrl* edit_adresse_;
+	wxComboBox* edit_agence_;
 	wxTextCtrl* edit_account_numbers_;
+	wxTextCtrl* edit_customer_number_;
+	wxTextCtrl* edit_taille_;
+};
+
+
+class LoginClient : public wxDialog
+{
+public:
+	LoginClient(wxWindow* parent, wxWindowID id, const wxString& title);
+
+	wxString get_customer_number();
+	wxString get_customer_password();
+
+private:
+
+	void OnOk(wxCommandEvent& event);
+	wxTextCtrl* edit_customer_number_;
+	wxTextCtrl* edit_customer_password_;
+};
+
+class FenetreEspacePerso : public wxFrame
+{
+public:
+	FenetreEspacePerso(wxWindow* parent, wxWindowID id);
+	void OnAbout(wxCommandEvent& event);
+private:
+	void OnConsulterCourant(wxCommandEvent& event);
+	void OnConsulterEpargne(wxCommandEvent& event);
+	void OnTransaction(wxCommandEvent& event);
+	void OnExit(wxCommandEvent& event);
+	void OnHelp(wxCommandEvent& event);
+};
+
+class Transactionwx : public wxDialog {
+public:
+	Transactionwx(wxWindow* parent, wxWindowID id, const wxString& title);
+
+	wxString get_receveur_number();
+	wxString get_somme_transaction();
+
+private:
+
+	void OnOk(wxCommandEvent& event);
+	wxTextCtrl* edit_receveur_number_;
+	wxTextCtrl* edit_somme_transaction_;
 };

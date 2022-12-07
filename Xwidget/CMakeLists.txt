@@ -34,5 +34,5 @@ if(MSVC)
     set_property(TARGET testxw PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 endif (MSVC)
 
-target_link_libraries(testxw LINK_PUBLIC ${wxWidgets_LIBRARIES} ${Boost_LIBRARIES})
+target_link_libraries(testxw LINK_PUBLIC ClientLib ${wxWidgets_LIBRARIES} ${Boost_LIBRARIES})
 
