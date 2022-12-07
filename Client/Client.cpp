@@ -93,6 +93,8 @@ ptree Client::generate_Ptree_Client() {
 	result.put("Nom", this->nom);
 	result.put("Prenom", this->prenom);
 	result.put("Adresse", this->adresse);
+	result.put("Agence", this->agence);
+	result.put("Taille", this->taille_en_pouces);
 	ptree ptreeCompte;
 	for (auto value : this->liste_comptes)
 	{

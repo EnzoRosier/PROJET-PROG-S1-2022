@@ -1,4 +1,4 @@
-#include "saveJson.h"
+#include "load_save_Json.h"
 #include "../PROJET PROG S1 2022/Fonctions/Transaction.h"
 
 using namespace std;
@@ -7,7 +7,7 @@ using namespace std;
 
 int main()
 {
-	Compte* c1 = new Compte("1", 0, 334);
+	Compte* c1 = new Compte("TESTINGO", 0, 334);
 	Compte* c2 = new Compte("2", 1, 323);
 	Compte_Epargnes* c3 = new Compte_Epargnes("3", 10, 50);
 	vector<Compte*> liste_comptes;
@@ -27,7 +27,16 @@ int main()
 	bq.Ajouter_au_registre(cl1);
 	bq.Ajouter_au_registre(cl2);
 
-	doTransaction("202", "1", "2", 2, bq);
+	doTransaction("202", "TESTINGO", "2", 2, bq);
 	
-	save_json_registre(bq);
+	std::ofstream file_out("test.json");
+	write_json(file_out, bq.Chercher_infos_clients(0).generate_Ptree_Client());
+	file_out.close();
+
+	std::ifstream file_in("test.json");
+	ptree in;
+	read_json(file_in, in);
+	auto test = Client_from_ptree(in);
+	file_out.close();
+
 }
