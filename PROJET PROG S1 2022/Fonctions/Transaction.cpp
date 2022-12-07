@@ -7,7 +7,7 @@
 
 
 pair<string, Transaction> doTransaction(string date, string debiteur, string crediteur, int montant, Banque_Centrale& Banque) {
-	Transaction transac = {montant,debiteur,crediteur};
+	Transaction transac = {date,montant,debiteur,crediteur};
 
 	Compte Debit = Banque.Chercher_compte_clients(debiteur);
 	Compte Credit = Banque.Chercher_compte_clients(crediteur);
@@ -17,8 +17,8 @@ pair<string, Transaction> doTransaction(string date, string debiteur, string cre
 
 	double solde_credit = Credit.get_Solde_Compte();
 	Debit.set_Solde_Compte(solde_credit + montant);
-	Banque.Chercher_infos_clients(Debit.get_Id_proprietaire()).Ajouter_transaction(transac, date);
-	Banque.Chercher_infos_clients(Credit.get_Id_proprietaire()).Ajouter_transaction(transac, date);
+	Banque.Chercher_infos_clients(Debit.get_Id_proprietaire()).Ajouter_transaction(transac);
+	Banque.Chercher_infos_clients(Credit.get_Id_proprietaire()).Ajouter_transaction(transac);
 
 	return make_pair(date, transac);
 }

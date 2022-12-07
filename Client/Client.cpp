@@ -36,7 +36,7 @@ float Client::Get_taille_en_pouces() {
 	return this->taille_en_pouces;
 }
 
-multimap<string, Transaction> Client::Get_archive_transaction() {
+vector<Transaction> Client::Get_archive_transaction() {
 	return this->archive_transaction;
 }
 
@@ -64,7 +64,7 @@ void Client::Set_taille_en_pouces(float& nouv_taille_en_pouces) {
 	taille_en_pouces = nouv_taille_en_pouces;
 }
 
-void Client::Set_archive_transaction(multimap<string, Transaction>& nouv_archive_transaction) {
+void Client::Set_archive_transaction(vector<Transaction>& nouv_archive_transaction) {
 	archive_transaction = nouv_archive_transaction;
 }
 
@@ -72,8 +72,8 @@ void Client::Set_liste_comptes(vector<Compte*>& nouv_liste_comptes) {
 	liste_comptes = nouv_liste_comptes;
 }
 
-void Client::Ajouter_transaction(Transaction& transaction, string& date) {
-	this->archive_transaction.insert({date, transaction});
+void Client::Ajouter_transaction(Transaction& transaction) {
+	this->archive_transaction.push_back(transaction);
 }
 
 void Client::Ajouter_compte(Compte* compte) {
@@ -104,11 +104,11 @@ ptree Client::generate_Ptree_Client() {
 	for (auto value : this->archive_transaction)
 	{
 		ptree transInfo;
-		transInfo.put("Date", value.first);
+		transInfo.put("Date", value.date);
 		ptree transInfo2;
-		transInfo2.put("Crediteur", value.second.id_crediteur);
-		transInfo2.put("Debiteur", value.second.id_debiteur);
-		transInfo2.put("Montant", value.second.montant);
+		transInfo2.put("Crediteur", value.id_crediteur);
+		transInfo2.put("Debiteur", value.id_debiteur);
+		transInfo2.put("Montant", value.montant);
 		transInfo.push_back({ "Info", transInfo2 });
 		ptreeTransaction.push_back({ "", transInfo });
 	}
@@ -116,4 +116,7 @@ ptree Client::generate_Ptree_Client() {
 
 	return result;
 }
+
+
+
 

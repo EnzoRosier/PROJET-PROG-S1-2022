@@ -2,6 +2,8 @@
 #include <boost/property_tree/json_parser.hpp>
 #include <boost/property_tree/ptree.hpp>
 #include "../PROJET PROG S1 2022/includer.h"
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
 
 
 using boost::property_tree::ptree;
@@ -17,7 +19,7 @@ protected:
 	int id_Proprietaire;
 	double solde_Compte;
 public:
-	Compte(const string& id, int id_Prop, int solde = 0); // Constructeur
+	Compte(const string& id="", int id_Prop = 0, int solde = 0); // Constructeur
 	~Compte(); // Desctructeur
 	double get_Solde_Compte() const; // Permet de récupérer le solde du compte
 	string get_Identifiant_Compte() const; // Permet de récupérer l'identifiant du compte
@@ -25,6 +27,14 @@ public:
 	ptree generate_Ptree_Compte();
 	int get_Id_proprietaire();
 	friend ostream& operator<<(ostream& os, Compte& c);
+
+
+	friend class boost::serialization::access;
+	template <class Archive>
+	void serialize(Archive& ar, unsigned int version)
+	{
+		ar& identifiant_Compte &id_Proprietaire &solde_Compte;
+	}
 };
 
 
@@ -33,6 +43,13 @@ private:
 	double taux_Epargne;
 public:
 	Compte_Epargnes(const string& id, double solde, double taux);
+
+	template <class Archive>
+	void serialize(Archive& ar, unsigned int version)
+	{
+		ar& taux_Epargne;
+	}
+
 };
 
 

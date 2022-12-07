@@ -16,9 +16,16 @@ using boost::property_tree::write_json;
 #define __CLIENT_H
 
 typedef struct transaction {
+	string date;
 	int montant;
 	string id_debiteur;
 	string id_crediteur;
+
+	template <class Archive>
+		void serialize(Archive& ar, unsigned int version)
+		{
+			ar &date &montant &id_debiteur &id_crediteur;
+		}
 }Transaction;
 
 
@@ -30,7 +37,7 @@ private:
 	string adresse;
 	string agence;
 	float taille_en_pouces;
-	multimap<string,Transaction> archive_transaction; // Transaction de la forme <date, Transaction>
+	vector<Transaction> archive_transaction; // Transaction de la forme <date, Transaction>
 	vector<Compte*> liste_comptes;
 
 public:
@@ -41,17 +48,16 @@ public:
 	string Get_adresse();
 	string Get_agence();
 	float Get_taille_en_pouces();
-	multimap<string, Transaction>
-	Get_archive_transaction();
+	vector<Transaction> Get_archive_transaction();
 	vector<Compte*> Get_liste_comptes();
 	void Set_nom(string& nouv_nom);
 	void Set_prenom(string& nouv_prenom);
 	void Set_adresse(string& nouv_adresse);
 	void Set_agence(string& nouv_agence);
 	void Set_taille_en_pouces(float& nouv_taille_en_pouces);
-	void Set_archive_transaction(multimap<string, Transaction>& nouv_archive_transaction);
+	void Set_archive_transaction(vector<Transaction>& nouv_archive_transaction);
 	void Set_liste_comptes(vector<Compte*>& nouv_liste_comptes);
-	void Ajouter_transaction(Transaction& transaction, string& date);
+	void Ajouter_transaction(Transaction& transaction);
 	void Ajouter_compte(Compte* compte);
 	void affiche_client();
 	ptree generate_Ptree_Client();
@@ -59,7 +65,7 @@ public:
 	template <class Archive>
 	void serialize(Archive& ar, unsigned int version)
 	{
-		ar& id ;
+		ar& id& nom& prenom& adresse& agence& archive_transaction &liste_comptes;
 	}
 
 }; 
