@@ -36,6 +36,7 @@ ostream& operator<<(ostream& os, Compte& c) {
 ptree Compte::generate_Ptree_Compte() {
 	ptree result;
 	result.put("Id", this->identifiant_Compte);
+	result.put("Id_Proprietaire", id_Proprietaire);
 	result.put("Solde", this->solde_Compte);
 	return result;
 }
