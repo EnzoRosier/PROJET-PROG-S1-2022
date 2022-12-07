@@ -40,7 +40,7 @@ vector<Transaction> Client::Get_archive_transaction() {
 	return this->archive_transaction;
 }
 
-vector<Compte*> Client::Get_liste_comptes() {
+vector<Compte> Client::Get_liste_comptes() {
 	return this->liste_comptes;
 }
 
@@ -68,7 +68,7 @@ void Client::Set_archive_transaction(vector<Transaction>& nouv_archive_transacti
 	archive_transaction = nouv_archive_transaction;
 }
 
-void Client::Set_liste_comptes(vector<Compte*>& nouv_liste_comptes) {
+void Client::Set_liste_comptes(vector<Compte>& nouv_liste_comptes) {
 	liste_comptes = nouv_liste_comptes;
 }
 
@@ -76,7 +76,7 @@ void Client::Ajouter_transaction(Transaction& transaction) {
 	this->archive_transaction.push_back(transaction);
 }
 
-void Client::Ajouter_compte(Compte* compte) {
+void Client::Ajouter_compte(Compte compte) {
 	liste_comptes.push_back(compte);
 }
 
@@ -98,7 +98,7 @@ ptree Client::generate_Ptree_Client() {
 	ptree ptreeCompte;
 	for (auto value : this->liste_comptes)
 	{
-		ptreeCompte.push_back({ "", value->generate_Ptree_Compte()});
+		ptreeCompte.push_back({ "", value.generate_Ptree_Compte()});
 	}
 	result.push_back({ "Compte", ptreeCompte});
 

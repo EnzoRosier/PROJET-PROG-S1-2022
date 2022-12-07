@@ -7,11 +7,11 @@ using namespace std;
 
 int main()
 {
-	Compte* c1 = new Compte("TESTINGO", 0, 334);
-	Compte* c2 = new Compte("2", 1, 323);
-	Compte_Epargnes* c3 = new Compte_Epargnes("3", 10, 50);
-	vector<Compte*> liste_comptes;
-	vector<Compte*> liste_comptes2;
+	Compte c1("TESTINGO", 0, 334);
+	Compte c2("2", 1, 323);
+	Compte_Epargnes c3("3", 10, 50);
+	vector<Compte> liste_comptes;
+	vector<Compte> liste_comptes2;
 	liste_comptes.push_back(c1);
 	liste_comptes2.push_back(c2);
 	liste_comptes2.push_back(c3);
