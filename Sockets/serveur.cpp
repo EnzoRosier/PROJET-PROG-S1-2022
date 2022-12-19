@@ -20,9 +20,10 @@ int main() {
     //read operation
     Client client = get_data_from_string<Client>(data);
     client.affiche_client();
-    cout << client.Get_liste_comptes()[0].get_Solde_Compte() << endl;
+    cout << client.Get_liste_comptes()[0] << endl;
+    cout << client.Get_liste_comptes()[1] << endl;
+    cout << client.Get_liste_comptes_epargnes()[0].get_taux() << endl;
     //write operation
-    cout << "Server sent Hello message to Client!" << endl;
     int i = 0;
     cin >> i;
     return 0;
