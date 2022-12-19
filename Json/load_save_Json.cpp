@@ -31,8 +31,8 @@ Client Client_from_ptree(ptree& pt) {
     Client tmp(move(id), move(nom), move(prenom), move(adresse), move(agence), move(taille));
     
     for (ptree::value_type& compte : pt.get_child("Compte")) {
-        Compte* tmpCompte = new Compte(Compte_from_ptree(compte.second));
-        tmp.Ajouter_compte(tmpCompte);
+        // Compte tmpCompte = new Compte(Compte_from_ptree(compte.second));
+        tmp.Ajouter_compte(Compte_from_ptree(compte.second));
     }
 
     return tmp;

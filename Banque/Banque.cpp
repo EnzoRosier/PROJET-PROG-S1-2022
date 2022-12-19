@@ -1,4 +1,3 @@
-#pragma once
 #include "../PROJET PROG S1 2022/includer.h"
 #include "../Compte/Compte.h"
 #include "../Client/Client.h"
@@ -26,14 +25,14 @@ Compte Banque_Centrale::Chercher_compte_clients(string num_compte) {
 		for (auto itr = registre.begin(); itr != registre.end(); ++itr) {
 			auto id = itr->second.Get_liste_comptes();
 			for (int i = 0; i < id.size(); i++) {
-				if (id.at(i)->get_Identifiant_Compte() == num_compte) {
-					return *(id.at(i));
+				if (id.at(i).get_Identifiant_Compte() == num_compte) {
+					return (id.at(i));
 				}
 			}
 		}
 		throw string("Pas de numero de compte trouve.");
 	}
-	catch (string const& chaine) //On rattrape les strings lancés
+	catch (string const& chaine) //On rattrape les strings lancï¿½s
 	{
 		cerr << chaine << endl;
 	}
@@ -50,7 +49,7 @@ Client& Banque_Centrale::Chercher_infos_clients(int num_client) {
 		}
 		throw string("Pas de numero client. Contactez un administrateur");
 	}
-	catch (string const& chaine) //On rattrape les strings lancés
+	catch (string const& chaine) //On rattrape les strings lancï¿½s
 	{
 		cerr << chaine << endl;
 	}
@@ -86,7 +85,7 @@ ptree Banque_Centrale::GeneratePtreeBanque() {
 /***********************************************************
 * 
 * 
-* Définition Banque_Decentralise
+* Dï¿½finition Banque_Decentralise
 * 
 * 
 ***********************************************************/

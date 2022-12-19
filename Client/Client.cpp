@@ -40,8 +40,12 @@ vector<Transaction> Client::Get_archive_transaction() {
 	return this->archive_transaction;
 }
 
-vector<Compte*> Client::Get_liste_comptes() {
+vector<Compte> Client::Get_liste_comptes() {
 	return this->liste_comptes;
+}
+
+vector<Compte_Epargnes> Client::Get_liste_comptes_epargnes() {
+	return this->liste_comptes_epargnes;
 }
 
 void Client::Set_nom(string& nouv_nom) {
@@ -68,22 +72,30 @@ void Client::Set_archive_transaction(vector<Transaction>& nouv_archive_transacti
 	archive_transaction = nouv_archive_transaction;
 }
 
-void Client::Set_liste_comptes(vector<Compte*>& nouv_liste_comptes) {
+void Client::Set_liste_comptes(vector<Compte>& nouv_liste_comptes) {
 	liste_comptes = nouv_liste_comptes;
+}
+
+void Client::Set_liste_comptes_epargnes(vector<Compte_Epargnes>& nouv_liste_comptes) {
+	liste_comptes_epargnes = nouv_liste_comptes;
 }
 
 void Client::Ajouter_transaction(Transaction& transaction) {
 	this->archive_transaction.push_back(transaction);
 }
 
-void Client::Ajouter_compte(Compte* compte) {
+void Client::Ajouter_compte(Compte compte) {
 	liste_comptes.push_back(compte);
 }
 
+void Client::Ajouter_compte_epargnes(Compte_Epargnes compte) {
+	liste_comptes_epargnes.push_back(compte);
+}
+
 void Client::affiche_client() {
-	cout << "Numero de client : " << this->id << endl << "Informations personelles :" << endl << "  Bonjour Madame/Monsieur " << this->nom << " "
-		<< this->prenom << endl << "  " << this->adresse << endl << "  Mesurant : " << this->taille_en_pouces << " pouces"
-		<< endl << "Vous avez " << this->liste_comptes.size() << " comptes actuellement" << endl;
+	cout << "Informations personelles :" << endl << "  Bonjour Madame/Monsieur " << this->nom << " "
+		<< this->prenom << endl << "  " << "Numero de client : " << this->id << endl << this->adresse << endl << "  Mesurant : " << this->taille_en_pouces << " pouces"
+		<< endl << "Vous avez " << this->liste_comptes.size()+this->liste_comptes_epargnes.size() << " comptes actuellement" << endl;
 }
 
 ptree Client::generate_Ptree_Client() {
@@ -98,7 +110,7 @@ ptree Client::generate_Ptree_Client() {
 	ptree ptreeCompte;
 	for (auto value : this->liste_comptes)
 	{
-		ptreeCompte.push_back({ "", value->generate_Ptree_Compte()});
+		ptreeCompte.push_back({ "", value.generate_Ptree_Compte()});
 	}
 	result.push_back({ "Compte", ptreeCompte});
 

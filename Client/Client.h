@@ -38,7 +38,8 @@ private:
 	string agence;
 	float taille_en_pouces;
 	vector<Transaction> archive_transaction; // Transaction de la forme <date, Transaction>
-	vector<Compte*> liste_comptes;
+	vector<Compte> liste_comptes;
+	vector<Compte_Epargnes> liste_comptes_epargnes;
 
 public:
 	Client(const int& id=0,const string& nom="Pierre", const string& prenom = "Jacques", const string& adresse = "", const string& agence = "Paris", const float& taille_en_pouces = 65.5);
@@ -49,16 +50,19 @@ public:
 	string Get_agence();
 	float Get_taille_en_pouces();
 	vector<Transaction> Get_archive_transaction();
-	vector<Compte*> Get_liste_comptes();
+	vector<Compte> Get_liste_comptes();
+	vector<Compte_Epargnes> Get_liste_comptes_epargnes();
 	void Set_nom(string& nouv_nom);
 	void Set_prenom(string& nouv_prenom);
 	void Set_adresse(string& nouv_adresse);
 	void Set_agence(string& nouv_agence);
 	void Set_taille_en_pouces(float& nouv_taille_en_pouces);
 	void Set_archive_transaction(vector<Transaction>& nouv_archive_transaction);
-	void Set_liste_comptes(vector<Compte*>& nouv_liste_comptes);
+	void Set_liste_comptes(vector<Compte>& nouv_liste_comptes);
+	void Set_liste_comptes_epargnes(vector<Compte_Epargnes>& nouv_liste_comptes_epargnes);
 	void Ajouter_transaction(Transaction& transaction);
-	void Ajouter_compte(Compte* compte);
+	void Ajouter_compte(Compte compte);
+	void Ajouter_compte_epargnes(Compte_Epargnes compte);
 	void affiche_client();
 	ptree generate_Ptree_Client();
 
@@ -70,4 +74,4 @@ public:
 
 }; 
 
-#endif __CLIENT_H
+#endif 
