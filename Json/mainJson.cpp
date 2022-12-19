@@ -30,13 +30,13 @@ int main()
 	doTransaction("202", "TESTINGO", "2", 2, bq);
 	
 	std::ofstream file_out("test.json");
-	write_json(file_out, bq.Chercher_infos_clients(0).generate_Ptree_Client());
+	write_json(file_out, bq.GeneratePtreeBanque());
 	file_out.close();
 
 	std::ifstream file_in("test.json");
 	ptree in;
 	read_json(file_in, in);
-	auto test = Client_from_ptree(in);
+	auto test = Banque_from_ptree(in);
 	file_out.close();
 
 }

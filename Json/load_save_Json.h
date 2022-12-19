@@ -13,6 +13,7 @@ using boost::property_tree::write_json;
 #include <SDKDDKVer.h>
 #endif
 
-int save_json_registre(Banque_Centrale& bq);
-Compte Compte_from_ptree(ptree& pt);
-Client Client_from_ptree(ptree& pt);
+int save_json_registre(Banque_Centrale& bq); //sauvegarde le registre principal
+Compte Compte_from_ptree(ptree& pt); // Convertie un Compte en Ptree
+Client Client_from_ptree(ptree& pt); // Convertie un Client en Ptree
+Banque_Centrale Banque_from_ptree(ptree& pt); // Convertie une Banque en Ptree

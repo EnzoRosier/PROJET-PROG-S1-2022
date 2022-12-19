@@ -38,3 +38,18 @@ Client Client_from_ptree(ptree& pt) {
     return tmp;
 
 }
+
+Banque_Centrale Banque_from_ptree(ptree& pt) {
+
+
+    Banque_Centrale tmp = Banque_Centrale();
+    for (ptree::value_type& client : pt.get_child("Registre")) {
+        ofstream file_out("testeze.json");
+        write_json(file_out, client.second.get_child("Client_Info"));
+        file_out.close();
+        tmp.Ajouter_au_registre(Client_from_ptree(client.second.get_child("Client_Info")));
+    }
+
+    return tmp;
+
+}
