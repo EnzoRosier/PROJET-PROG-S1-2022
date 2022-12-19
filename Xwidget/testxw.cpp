@@ -2,7 +2,7 @@
 #include <string>
 
 wxIMPLEMENT_APP(App);
-// On définit les ID suivants :
+// On dï¿½finit les ID suivants :
 // 1:login
 // 2:register
 // 3:ajout compte
@@ -95,7 +95,7 @@ void Fenetre::OnLogin(wxCommandEvent& event) {
         }
 
         /*
-        // Ici il faut mettre le traitement du login (récupérer le registre)
+        // Ici il faut mettre le traitement du login (rï¿½cupï¿½rer le registre)
         */
 
         bool connected = true;
@@ -125,11 +125,11 @@ void Fenetre::OnRegister(wxCommandEvent& event) {
         auto taille = nouveau_client->get_taille();
         //auto account_number = nouveau_client->get_account_numbers();
 
-        string new_prenom = prenom;
-        string new_nom = nom;
-        string new_adresse = adresse;
-        string new_agence = agence;
-        string new_taille_str = taille;
+        string new_prenom = prenom.ToStdString();
+        string new_nom = nom.ToStdString();
+        string new_adresse = adresse.ToStdString();
+        string new_agence = agence.ToStdString();
+        string new_taille_str = taille.ToStdString();
 
         int new_taille = stoi(new_taille_str);
 
@@ -311,19 +311,19 @@ void FenetreEspacePerso::OnConsulterCourant(wxCommandEvent& event) {
     /*
     //
     *
-    * Si on récupère le client à la connexion on peut y accéder directement
-    * Sinon : requête serveur correspondant au nom du client
+    * Si on rï¿½cupï¿½re le client ï¿½ la connexion on peut y accï¿½der directement
+    * Sinon : requï¿½te serveur correspondant au nom du client
     * 
     //
     */
-    // Tableau rempli par le retour de la requête faite précédemment
+    // Tableau rempli par le retour de la requï¿½te faite prï¿½cï¿½demment
     int numero_compte[] = { 32,112,114 };
     int nb_comptes = sizeof(numero_compte) / sizeof(int);
     string final_str;
     for (int i = 0; i < nb_comptes; i++) {
         int montant = 100 + i;
         string montant_str = std::to_string(montant);
-        string str1 = "Le montant de votre compte courant numéro ";
+        string str1 = "Le montant de votre compte courant numï¿½ro ";
 
         string numero_compte_str = std::to_string(numero_compte[i]);
         str1 += numero_compte_str;
@@ -346,19 +346,19 @@ void FenetreEspacePerso::OnConsulterEpargne(wxCommandEvent& event) {
     /*
     //
     *
-    * Si on récupère le client à la connexion on peut y accéder directement
-    * Sinon : requête serveur correspondant au nom du client
+    * Si on rï¿½cupï¿½re le client ï¿½ la connexion on peut y accï¿½der directement
+    * Sinon : requï¿½te serveur correspondant au nom du client
     *
     //
     */
-    // Tableau rempli par le retour de la requête faite précédemment
+    // Tableau rempli par le retour de la requï¿½te faite prï¿½cï¿½demment
     int numero_compte[] = {35,14};
     int nb_comptes = sizeof(numero_compte)/sizeof(int);
     string final_str;
     for (int i = 0; i < nb_comptes; i++) {
         int montant = 100+i;
         string montant_str = std::to_string(montant);
-        string str1 = "Le montant de votre compte epargne numéro ";
+        string str1 = "Le montant de votre compte epargne numï¿½ro ";
 
         string numero_compte_str = std::to_string(numero_compte[i]);
         str1 += numero_compte_str;
@@ -418,7 +418,7 @@ void FenetreEspacePerso::OnTransaction(wxCommandEvent& event) {
         }
 
         /*
-        // Ici il faut mettre l'envoie de la requête au serveur
+        // Ici il faut mettre l'envoie de la requï¿½te au serveur
         */
 
 
@@ -451,7 +451,7 @@ FenetreEspacePerso::FenetreEspacePerso(wxWindow* parent, wxWindowID id) : wxFram
     wxMenu* menuComptes = new wxMenu;
     menuComptes->Append(6, "Voir ses comptes courants");
     menuComptes->AppendSeparator();
-    menuComptes->Append(7, "Voir ses comptes épargnes");
+    menuComptes->Append(7, "Voir ses comptes ï¿½pargnes");
 
     wxMenu* menuEnvoyer = new wxMenu;
     menuEnvoyer->Append(8, "Envoyer");
@@ -489,8 +489,8 @@ wxString Transactionwx::get_somme_transaction() {
 }
 
 Transactionwx::Transactionwx(wxWindow* parent, wxWindowID id, const wxString& title) : wxDialog(parent, id, title) {
-    auto text_receveur_number = new wxStaticText(this, -1, "Numéro de compte créditeur: ", wxPoint(20, 20), wxSize(130, 30));
-    auto text_somme_transaction = new wxStaticText(this, -1, "Somme à transmettre: ", wxPoint(20, 60), wxSize(130, 30));
+    auto text_receveur_number = new wxStaticText(this, -1, "Numï¿½ro de compte crï¿½diteur: ", wxPoint(20, 20), wxSize(130, 30));
+    auto text_somme_transaction = new wxStaticText(this, -1, "Somme ï¿½ transmettre: ", wxPoint(20, 60), wxSize(130, 30));
 
     edit_receveur_number_ = new wxTextCtrl(this, -1, "", wxPoint(180, 20), wxSize(100, 20));
     edit_somme_transaction_ = new wxTextCtrl(this, -1, "", wxPoint(180, 60), wxSize(100, 20));

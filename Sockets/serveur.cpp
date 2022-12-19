@@ -1,4 +1,3 @@
-#pragma once
 #include "tools.cpp"
 
 
@@ -21,7 +20,7 @@ int main() {
     //read operation
     Client client = get_data_from_string<Client>(data);
     client.affiche_client();
-    cout << client.Get_liste_comptes()[0]->get_Solde_Compte() << endl;
+    cout << client.Get_liste_comptes()[0].get_Solde_Compte() << endl;
     //write operation
     cout << "Server sent Hello message to Client!" << endl;
     int i = 0;
