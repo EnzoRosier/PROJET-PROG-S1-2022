@@ -6,7 +6,7 @@
 #define __TRANSACTION
 
 
-pair<string, Transaction> doTransaction(string date, string debiteur, string crediteur, int montant, Banque_Centrale& Banque) {
+Transaction doTransaction(string date, string debiteur, string crediteur, int montant, Banque_Centrale& Banque) {
 	Transaction transac = {date,montant,debiteur,crediteur};
 
 	Compte Debit = Banque.Chercher_compte_clients(debiteur);
@@ -20,7 +20,7 @@ pair<string, Transaction> doTransaction(string date, string debiteur, string cre
 	Banque.Chercher_infos_clients(Debit.get_Id_proprietaire()).Ajouter_transaction(transac);
 	Banque.Chercher_infos_clients(Credit.get_Id_proprietaire()).Ajouter_transaction(transac);
 
-	return make_pair(date, transac);
+	return transac;
 }
 
 #endif

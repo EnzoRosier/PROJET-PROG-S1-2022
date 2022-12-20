@@ -37,7 +37,7 @@ private:
 	string adresse;
 	string agence;
 	float taille_en_pouces;
-	vector<Transaction> archive_transaction; // Transaction de la forme <date, Transaction>
+	vector<Transaction> archive_transaction;
 	vector<Compte> liste_comptes;
 	vector<Compte_Epargnes> liste_comptes_epargnes;
 
@@ -69,7 +69,7 @@ public:
 	template <class Archive>
 	void serialize(Archive& ar, unsigned int version)
 	{
-		ar& id& nom& prenom& adresse& agence& archive_transaction &liste_comptes;
+		ar& id& nom& prenom& adresse& agence& archive_transaction &liste_comptes &liste_comptes_epargnes;
 	}
 
 }; 
