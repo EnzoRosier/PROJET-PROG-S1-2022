@@ -1,4 +1,5 @@
 #include "testxw.h"
+#include "LoginManagement.h"
 #include <string>
 
 wxIMPLEMENT_APP(App);
@@ -95,10 +96,21 @@ void Fenetre::OnLogin(wxCommandEvent& event) {
         }
 
         /*
-        // Ici il faut mettre le traitement du login (r�cup�rer le registre)
+        // Ici il faut mettre le traitement du login (recuperer le registre)
         */
 
-        bool connected = true;
+        string new_password = customer_password.ToStdString();
+        int new_login = customer_number.ToInt(&new_login);
+        
+        map <int, string, greater<>> m;
+
+        /*
+        * Il faut prendre les numéros de comptes et les mots de passe du regsitre
+        * et les insérer dans la map
+            m.insert(pair <int, string>(user, psw));
+        */
+
+        bool connected = verification_password(new_login, new_password, m);
 
         if (connected == true) {
             FenetreEspacePerso* frame_espace_perso = new FenetreEspacePerso(NULL, wxID_ANY);
@@ -106,7 +118,11 @@ void Fenetre::OnLogin(wxCommandEvent& event) {
             frame_espace_perso->Show(true);
             return;
         }
-
+        else {
+            wxMessageBox("Numéro de compte ou mot de passe invalide",
+                "Error ", wxOK | wxICON_INFORMATION);
+            return;
+        }
 
 
     }
@@ -323,7 +339,7 @@ void FenetreEspacePerso::OnConsulterCourant(wxCommandEvent& event) {
     for (int i = 0; i < nb_comptes; i++) {
         int montant = 100 + i;
         string montant_str = std::to_string(montant);
-        string str1 = "Le montant de votre compte courant num�ro ";
+        string str1 = "Le montant de votre compte courant numéro ";
 
         string numero_compte_str = std::to_string(numero_compte[i]);
         str1 += numero_compte_str;
@@ -358,7 +374,7 @@ void FenetreEspacePerso::OnConsulterEpargne(wxCommandEvent& event) {
     for (int i = 0; i < nb_comptes; i++) {
         int montant = 100+i;
         string montant_str = std::to_string(montant);
-        string str1 = "Le montant de votre compte epargne num�ro ";
+        string str1 = "Le montant de votre compte epargne numéro ";
 
         string numero_compte_str = std::to_string(numero_compte[i]);
         str1 += numero_compte_str;
@@ -373,7 +389,7 @@ void FenetreEspacePerso::OnConsulterEpargne(wxCommandEvent& event) {
     }
 
     wxMessageBox(final_str,
-        "Consulter compte epargne ", wxOK | wxICON_INFORMATION);
+        "Consulter compte épargne ", wxOK | wxICON_INFORMATION);
     return;
 }
 
@@ -451,7 +467,7 @@ FenetreEspacePerso::FenetreEspacePerso(wxWindow* parent, wxWindowID id) : wxFram
     wxMenu* menuComptes = new wxMenu;
     menuComptes->Append(6, "Voir ses comptes courants");
     menuComptes->AppendSeparator();
-    menuComptes->Append(7, "Voir ses comptes �pargnes");
+    menuComptes->Append(7, "Voir ses comptes épargnes");
 
     wxMenu* menuEnvoyer = new wxMenu;
     menuEnvoyer->Append(8, "Envoyer");
@@ -489,8 +505,8 @@ wxString Transactionwx::get_somme_transaction() {
 }
 
 Transactionwx::Transactionwx(wxWindow* parent, wxWindowID id, const wxString& title) : wxDialog(parent, id, title) {
-    auto text_receveur_number = new wxStaticText(this, -1, "Num�ro de compte cr�diteur: ", wxPoint(20, 20), wxSize(130, 30));
-    auto text_somme_transaction = new wxStaticText(this, -1, "Somme � transmettre: ", wxPoint(20, 60), wxSize(130, 30));
+    auto text_receveur_number = new wxStaticText(this, -1, "Numéro de compte créditeur: ", wxPoint(20, 20), wxSize(130, 30));
+    auto text_somme_transaction = new wxStaticText(this, -1, "Somme à transmettre: ", wxPoint(20, 60), wxSize(130, 30));
 
     edit_receveur_number_ = new wxTextCtrl(this, -1, "", wxPoint(180, 20), wxSize(100, 20));
     edit_somme_transaction_ = new wxTextCtrl(this, -1, "", wxPoint(180, 60), wxSize(100, 20));

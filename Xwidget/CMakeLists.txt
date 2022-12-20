@@ -26,7 +26,7 @@ include_directories(${Boost_INCLUDE_DIRS})
 find_package(wxWidgets REQUIRED COMPONENTS net core base)
 include(${wxWidgets_USE_FILE})
 
-add_executable(testxw testxw.cpp)
+add_executable(testxw testxw.cpp "LoginManagement.cpp" "LoginManagement.h")
 
 
 if(MSVC)
