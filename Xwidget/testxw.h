@@ -33,7 +33,16 @@ private:
 	void OnHelp(wxCommandEvent& event);
 };
 
-
+class ChoixBanque : public wxDialog {
+public:
+	ChoixBanque(wxWindow* parent, wxWindowID id, const wxString& title);
+	wxString get_agence();
+	string get_nom_agence();
+	void edit_nom_agence(string nom_agence);
+private:
+	wxComboBox* edit_agence_;
+	string nom_agence;
+};
 
 class CreationClient : public wxDialog
 {
@@ -44,7 +53,7 @@ public:
 	wxString get_firstname();
 	wxString get_name();
 	wxString get_adresse();
-	wxString get_agence();
+	string get_agence(ChoixBanque name_of_banque);
 	wxString get_account_numbers();
 	wxString get_taille();
 

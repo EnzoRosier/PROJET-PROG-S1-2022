@@ -22,6 +22,32 @@ bool App::OnInit()
     return true;
 }
 
+ChoixBanque::ChoixBanque(wxWindow* parent, wxWindowID id, const wxString& title) : wxDialog(parent, id, title) {
+    
+    auto client_agence = new wxStaticText(this, -1, "Agence", wxPoint(10, 20), wxSize(50, 20));
+
+    wxString tab[] = { "Test", "Test2" };
+
+    edit_agence_ = new wxComboBox(this, -1, "", wxPoint(160, 20), wxSize(100, 100), sizeof(tab) / sizeof(wxString), tab);
+
+
+    wxButton* ok = new wxButton(this, wxID_OK, _("OK"), wxPoint(10, 60), wxDefaultSize);
+    wxButton* cancel = new wxButton(this, wxID_CANCEL, _("Cancel"), wxPoint(100, 60), wxDefaultSize);
+
+}
+
+wxString ChoixBanque::get_agence() {
+    return edit_agence_->GetValue();
+}
+
+string ChoixBanque::get_nom_agence() {
+    return this->nom_agence;
+}
+
+void ChoixBanque::edit_nom_agence(string new_nom_agence) {
+    this->nom_agence = new_nom_agence;
+}
+
 Fenetre::Fenetre() : wxFrame(nullptr, wxID_ANY, "Test Banque", wxPoint(30, 30), wxSize(1000, 600))
 {
     wxMenu* menu1 = new wxMenu;
@@ -56,10 +82,26 @@ Fenetre::Fenetre() : wxFrame(nullptr, wxID_ANY, "Test Banque", wxPoint(30, 30), 
     SetMenuBar(menu);
 
     CreateStatusBar();
-    SetStatusText("Welcome to wxWidgets!");
+    SetStatusText("Bienvenue dans le gestionnaire de votre banque!");
 
     Bind(wxEVT_MENU, &Fenetre::OnLogin, this, 1);
     Bind(wxEVT_MENU, &Fenetre::OnRegister, this, 2);
+
+    ChoixBanque* choix = new ChoixBanque(this, wxID_ANY, "ChoixBanque");
+    choix->Show(true);
+    if (choix->ShowModal() == wxID_OK) {
+        auto agence_name = choix->get_agence();
+
+        if (agence_name == "") {
+            wxMessageBox("Vous devez choisir une agence",
+                "Error ", wxOK | wxICON_INFORMATION);
+            ChoixBanque* choix = new ChoixBanque(this, wxID_ANY, "ChoixBanque");
+            choix->Show(true);
+            return;
+        }
+        string new_agence_name = agence_name.ToStdString();
+        choix->edit_nom_agence(new_agence_name);
+    }
 }
 
 void Fenetre::OnLogin(wxCommandEvent& event) {
@@ -137,6 +179,12 @@ void Fenetre::OnRegister(wxCommandEvent& event) {
         auto prenom = nouveau_client->get_firstname();
         auto nom = nouveau_client->get_name();
         auto adresse = nouveau_client->get_adresse();
+        /*
+        * Problème en dessous :
+        * Il faut trouver un moyen d'envoyer l'information prise dans le premier 
+        * menu (le nom de l'agence)
+        * pour la mettre en paramètre en dessous
+        */
         auto agence = nouveau_client->get_agence();
         auto taille = nouveau_client->get_taille();
         //auto account_number = nouveau_client->get_account_numbers();
@@ -144,7 +192,6 @@ void Fenetre::OnRegister(wxCommandEvent& event) {
         string new_prenom = prenom.ToStdString();
         string new_nom = nom.ToStdString();
         string new_adresse = adresse.ToStdString();
-        string new_agence = agence.ToStdString();
         string new_taille_str = taille.ToStdString();
 
         int new_taille = stoi(new_taille_str);
@@ -205,7 +252,7 @@ void Fenetre::OnRegister(wxCommandEvent& event) {
         }
 
         const int ID = 0;
-        Client new_client(ID, new_nom, new_prenom, new_adresse, new_agence, new_taille);
+        Client new_client(ID, new_nom, new_prenom, new_adresse, agence, new_taille);
 
         map <int, Client> registre_local;
         registre_local.emplace(1,new_client);
@@ -245,29 +292,27 @@ void Fenetre::OnHelp(wxCommandEvent& event) {
 
 }
 
+
 CreationClient::CreationClient(wxWindow* parent, wxWindowID id, const wxString& title) : wxDialog(parent, id, title) //, position, size, style)
 {
     auto client_firstname = new wxStaticText(this, -1, "Firstname : ", wxPoint(10, 20), wxSize(120, 20));
     auto client_name = new wxStaticText(this, -1, "Name", wxPoint(10, 50), wxSize(120, 20));
     auto client_adresse = new wxStaticText(this, -1, "Adresse", wxPoint(10, 80), wxSize(120, 20));
-    auto client_agence = new wxStaticText(this, -1, "Agence", wxPoint(10, 110), wxSize(120, 20));
-    auto client_taille = new wxStaticText(this, -1, "Taille (en pouce)", wxPoint(10, 140), wxSize(120, 20));
+    auto client_taille = new wxStaticText(this, -1, "Taille (en pouce)", wxPoint(10, 110), wxSize(120, 20));
 
-    wxString tab[] = { "Test", "Test2" };
 
     edit_firstname_ = new wxTextCtrl(this, -1, "", wxPoint(160, 20), wxSize(100, 20));
     edit_name_ = new wxTextCtrl(this, -1, "", wxPoint(160, 50), wxSize(100, 20));
     edit_adresse_ = new wxTextCtrl(this, -1, "", wxPoint(160, 80), wxSize(100, 20));
-    edit_agence_ = new wxComboBox(this, -1, "", wxPoint(160, 110), wxSize(100, 100), sizeof(tab)/sizeof(wxString), tab);
-    edit_taille_ = new wxTextCtrl(this, -1, "", wxPoint(160, 140), wxSize(100, 20));
+    edit_taille_ = new wxTextCtrl(this, -1, "", wxPoint(160, 110), wxSize(100, 20));
 
 
 
-    wxButton* ok = new wxButton(this, wxID_OK, _("OK"), wxPoint(10, 180), wxDefaultSize);
-    wxButton* cancel = new wxButton(this, wxID_CANCEL, _("Cancel"), wxPoint(100, 180), wxDefaultSize);
-
+    wxButton* ok = new wxButton(this, wxID_OK, _("OK"), wxPoint(10, 160), wxDefaultSize);
+    wxButton* cancel = new wxButton(this, wxID_CANCEL, _("Cancel"), wxPoint(100, 160), wxDefaultSize);
 
 }
+
 void Fenetre::OnAbout(wxCommandEvent& event)
 {
     wxLaunchDefaultBrowser("https://www.google.com/search?q=qu%27est-ce+qu%27une+banque&oq=qu%27est-ce+qu%27une+banque&aqs=chrome..69i57j0i512l9.9756j0j7&sourceid=chrome&ie=UTF-8");
@@ -311,8 +356,8 @@ wxString CreationClient::get_adresse() {
     return edit_adresse_->GetValue();
 }
 
-wxString CreationClient::get_agence() {
-    return edit_agence_->GetValue();
+string CreationClient::get_agence(ChoixBanque name_of_banque) {
+    return name_of_banque.get_nom_agence();
 }
 
 wxString CreationClient::get_account_numbers() {
