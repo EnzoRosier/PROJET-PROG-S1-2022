@@ -13,6 +13,7 @@ wxIMPLEMENT_APP(App);
 // 7:accueil
 // >10: Pour l'affichage des comptes
 
+string nom_agence_decentralise = "";
 
 
 bool App::OnInit()
@@ -90,17 +91,16 @@ Fenetre::Fenetre() : wxFrame(nullptr, wxID_ANY, "Test Banque", wxPoint(30, 30), 
     ChoixBanque* choix = new ChoixBanque(this, wxID_ANY, "ChoixBanque");
     choix->Show(true);
     if (choix->ShowModal() == wxID_OK) {
-        auto agence_name = choix->get_agence();
+        nom_agence_decentralise = choix->get_agence();
 
-        if (agence_name == "") {
+        if (nom_agence_decentralise == "") {
             wxMessageBox("Vous devez choisir une agence",
                 "Error ", wxOK | wxICON_INFORMATION);
             ChoixBanque* choix = new ChoixBanque(this, wxID_ANY, "ChoixBanque");
             choix->Show(true);
             return;
         }
-        string new_agence_name = agence_name.ToStdString();
-        choix->edit_nom_agence(new_agence_name);
+        choix->edit_nom_agence(nom_agence_decentralise);
     }
 }
 
@@ -185,7 +185,7 @@ void Fenetre::OnRegister(wxCommandEvent& event) {
         * menu (le nom de l'agence)
         * pour la mettre en paramètre en dessous
         */
-        auto agence = nouveau_client->get_agence();
+
         auto taille = nouveau_client->get_taille();
         //auto account_number = nouveau_client->get_account_numbers();
 
@@ -237,13 +237,6 @@ void Fenetre::OnRegister(wxCommandEvent& event) {
             return;
         }
 
-        if (agence == "")
-        {
-            wxMessageBox("Veuillez entrer une agence valide",
-                "Error ", wxOK | wxICON_INFORMATION);
-            return;
-        }
-
         if (taille == ""&& !taille.ToLong(&number))
         {
             wxMessageBox("Veuillez entrer une taille valide",
@@ -252,12 +245,12 @@ void Fenetre::OnRegister(wxCommandEvent& event) {
         }
 
         const int ID = 0;
-        Client new_client(ID, new_nom, new_prenom, new_adresse, agence, new_taille);
+        Client new_client(ID, new_nom, new_prenom, new_adresse, nom_agence_decentralise, new_taille);
 
         map <int, Client> registre_local;
         registre_local.emplace(1,new_client);
 
-        wxMessageBox("Y'a pas d'erreur", "Error ", wxOK | wxICON_INFORMATION);
+        wxMessageBox("Votre compte a bien été créé", "Error ", wxOK | wxICON_INFORMATION);
         return;
 
     }
