@@ -3,6 +3,7 @@
 #include <boost/property_tree/ptree.hpp>
 #include <fstream>
 #include "../Banque/Banque.h"
+#include "../PROJET PROG S1 2022/Fonctions/Transaction.h"
 
 
 using boost::property_tree::ptree;
