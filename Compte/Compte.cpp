@@ -87,7 +87,7 @@ ptree Compte_Epargnes::generate_Ptree_Compte() {
 	result.put("Id", this->identifiant_Compte);
 	result.put("Id_Proprietaire", id_Proprietaire);
 	result.put("Solde", this->solde_Compte);
-	result.put("Taux Epargne", this->taux_Epargne);
+	result.put("Taux_Epargne", this->taux_Epargne);
 	return result;
 }
 

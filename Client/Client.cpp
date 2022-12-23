@@ -114,6 +114,13 @@ ptree Client::generate_Ptree_Client() {
 	}
 	result.push_back({ "Compte", ptreeCompte});
 
+	ptree ptreeCompteEpargne;
+	for (auto value : this->liste_comptes_epargnes)
+	{
+		ptreeCompteEpargne.push_back({ "", value.generate_Ptree_Compte() });
+	}
+	result.push_back({ "Compte_Epargne", ptreeCompteEpargne });
+
 	ptree ptreeTransaction;
 	for (auto value : this->archive_transaction)
 	{
@@ -126,7 +133,7 @@ ptree Client::generate_Ptree_Client() {
 		transInfo.push_back({ "Info", transInfo2 });
 		ptreeTransaction.push_back({ "", transInfo });
 	}
-	result.push_back({ "Trasactions", ptreeTransaction });
+	result.push_back({ "Transactions", ptreeTransaction });
 
 	return result;
 }
