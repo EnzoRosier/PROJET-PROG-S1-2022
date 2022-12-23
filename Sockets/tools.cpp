@@ -6,6 +6,8 @@
 #include <boost/asio.hpp>
 #include <boost/thread.hpp>
 #include "../Client/Client.h"
+#include "../Banque/Banque.h"
+#include "../Compte/Compte.h"
 
 using namespace std;
 using boost::asio::ip::tcp;

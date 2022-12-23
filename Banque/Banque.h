@@ -30,6 +30,12 @@ public:
 	void Ajouter_au_registre(Client ID);
 	void Clear_registre();
 	ptree GeneratePtreeBanque();
+
+	template<class Archive>
+	void serialize(Archive& ar, unsigned int version)
+	{
+		ar& registre& nb_banque_decentralise;
+	}
 };
 
 
@@ -45,8 +51,13 @@ public:
 	map <int, Client> Get_registre_local();
 	void Ajouter_au_registre(Client new_client);
 	void Supprimer_du_registre(Client Compte_client);
-	//void Transaction(int num_compte_receveur);
 	void Consulter();
+
+	template<class Archive>
+	void serialize(Archive& ar, unsigned int version)
+	{
+		ar& ID_agence& nom_agence& registre_local;
+	}
 };
 
 #endif // !__BANQUE_H
