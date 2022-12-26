@@ -12,12 +12,20 @@ Banque_Centrale::Banque_Centrale() {
 	cout << "test constructeur" << endl;
 }
 
+map<int, Client> Banque_Centrale::Get_registre() {
+	return this->registre;
+}
+
 void Banque_Centrale::Set_nb_banque_decentralise(int incrementation) {
 	nb_banque_decentralise += incrementation;
 }
 
 int Banque_Centrale::Get_nb_banque_decentralise() {
 	return nb_banque_decentralise;
+}
+
+void Banque_Centrale::Set_registre(map<int, Client> nouv_registre) {
+	this->registre = nouv_registre;
 }
 
 Compte Banque_Centrale::Chercher_compte_clients(string num_compte) {

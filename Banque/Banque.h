@@ -24,7 +24,9 @@ protected:
 	void Set_nb_banque_decentralise(int incrementation);
 public:
 	Banque_Centrale();
+	map<int, Client> Get_registre();
 	int Get_nb_banque_decentralise();
+	void Set_registre(map<int, Client> nouv_registre);
 	Client& Chercher_infos_clients(int num_client);
 	Compte Chercher_compte_clients(string num_compte);
 	void Ajouter_au_registre(Client ID);

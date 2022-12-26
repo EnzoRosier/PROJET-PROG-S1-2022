@@ -5,6 +5,7 @@
 #include <boost/smart_ptr.hpp>
 #include <boost/asio.hpp>
 #include <boost/thread.hpp>
+#include <boost/serialization/map.hpp>
 #include "../Client/Client.h"
 #include "../Banque/Banque.h"
 #include "../Compte/Compte.h"
