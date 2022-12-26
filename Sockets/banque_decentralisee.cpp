@@ -15,7 +15,18 @@ Types de requêtes avec l'interface (IP : 0123):
     - Transaction : L'interface crée une demande de transaction
 */
 
-vector< map<int,Client>> init_BD(map<int, Client>){}
+map<string,map<int, Client>> init_BD(map<int, Client> g_registre) {
+    // On recoit un registre complet et on va le compartimenter en un map contenant les registres de chaque BD
+    map<string, map<int, Client>> liste_registre;
+    vector<map<int, Client>> temp; // On fait un vecteur temporaire
+
+    auto it = g_registre.begin();
+    map<int, Client> temp_map;
+    
+    for (it; it != g_registre.end(); it++) {
+
+    }
+}
 
 
 int main() {
@@ -34,7 +45,28 @@ int main() {
 
     // On récupère le registre de la BC
     map<int, Client> temp_registre = get_data_from_string<map<int, Client>>(retour);
-    vector<map<int,Client>> all_BD = init_BD(temp_registre);
+    map<string,map<int,Client>> all_BD = init_BD(temp_registre);
+    // map de la forme <nom_agence,registre_agence>
+
+    bool exit = false;
+    while (!exit) {
+        // On se met en attente d'une requête de l'interface
+        acceptor_CL.accept(socket);
+        size_t length = socket.read_some(boost::asio::buffer(retour), error);
+
+        // Une fois qu'on a la requête, on l'analyse
+
+        if (retour == "Exit") {
+            // On doit prévenir la BC de l'exit
+            demande = "Exit";
+            socket.connect(tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 1234));
+            boost::asio::write(socket, boost::asio::buffer(demande), error);
+
+        }
+        if (string(retour).substr(0, 5) == "Login") { // L'interface tente de se connecter à un compte
+            int id_client = string(retour).substr(6, string(retour).size() - 5);
+        }
+    }
 
     return EXIT_SUCCESS;
 }
