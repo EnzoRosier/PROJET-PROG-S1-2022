@@ -18,15 +18,15 @@ elseif(MSVC)
 endif (MSVC)
 
 find_package(Boost 1.80.0 COMPONENTS system thread regex serialization REQUIRED)
-include_directories(socket_client ${Boost_INCLUDE_DIRS})
-include_directories(socket_serveur ${Boost_INCLUDE_DIRS})
+include_directories(socket_decentralisee ${Boost_INCLUDE_DIRS})
+include_directories(socket_centrale ${Boost_INCLUDE_DIRS})
 link_directories(${Boost_LIBRARY_DIRS})
 
-add_executable(socket_client "client.cpp" )
-add_executable(socket_serveur "serveur.cpp")
+add_executable(socket_decentralisee "banque_decentralisee.cpp" )
+add_executable(socket_centrale "banque_centrale.cpp")
 
 add_library(toolsSocketLib "tools.cpp")
 
-target_link_libraries(socket_serveur ClientLib toolsSocketLib)
-target_link_libraries(socket_client ClientLib toolsSocketLib)
+target_link_libraries(socket_decentralisee LINK_PUBLIC ClientLib BanqueLib CompteLib toolsSocketLib JsonLib)
+target_link_libraries(socket_centrale LINK_PUBLIC ClientLib BanqueLib CompteLib toolsSocketLib JsonLib)
 

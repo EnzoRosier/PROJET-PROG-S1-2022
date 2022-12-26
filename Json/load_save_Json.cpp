@@ -35,6 +35,22 @@ Client Client_from_ptree(ptree& pt) {
         tmp.Ajouter_compte(Compte_from_ptree(compte.second));
     }
 
+    for (ptree::value_type& compte : pt.get_child("Compte_Epargne")) {
+        // Compte tmpCompte = new Compte(Compte_from_ptree(compte.second));
+        tmp.Ajouter_compte(Compte_from_ptree(compte.second));
+    }
+
+    for (ptree::value_type& compte : pt.get_child("Transactions")) {
+        // Compte tmpCompte = new Compte(Compte_from_ptree(compte.second));
+        Transaction tmpTrans;
+        tmpTrans.montant = compte.second.get_child("Info").get<int>("Montant");
+        tmpTrans.date = compte.second.get<string>("Date");
+        tmpTrans.id_debiteur = compte.second.get_child("Info").get<string>("Debiteur");
+        tmpTrans.id_crediteur = compte.second.get_child("Info").get<string>("Crediteur");
+
+        tmp.Ajouter_transaction(tmpTrans);
+    }
+
     return tmp;
 
 }
