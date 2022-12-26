@@ -35,6 +35,8 @@ int main() {
     socket.connect(tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 1234));
     boost::asio::write(socket, boost::asio::buffer(demande), error);
 
+    thread threadEparne(epargneThread, BC); //Lancement thread Epargne
+
     bool exit = false;
     while (exit == false) {  // Tant que l'utilisateur ne quitte pas l'interface
 

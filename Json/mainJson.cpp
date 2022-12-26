@@ -1,4 +1,5 @@
 #include "load_save_Json.h"
+#include "../PROJET PROG S1 2022/Fonctions/Threadfonctions.h"
 
 
 using namespace std;
@@ -9,7 +10,7 @@ int main()
 {
 	Compte c1("TESTINGO", 0, 334);
 	Compte c2("2", 1, 323);
-	Compte_Epargnes c3("3",1, 10, 50);
+	Compte_Epargnes c3("3",2, 10, 50);
 	vector<Compte> liste_comptes;
 	vector<Compte_Epargnes> liste_comptes2;
 	liste_comptes.push_back(c1);

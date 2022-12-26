@@ -32,6 +32,7 @@ public:
 	void Ajouter_au_registre(Client ID);
 	void Clear_registre();
 	ptree GeneratePtreeBanque();
+	friend void epargneCalcule(Banque_Centrale& bq);
 
 	template<class Archive>
 	void serialize(Archive& ar, unsigned int version)

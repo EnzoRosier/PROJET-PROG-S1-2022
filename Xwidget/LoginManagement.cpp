@@ -16,5 +16,5 @@ bool verification_password(int login, string password, map <int, string, greater
 		}
 	}
 
-	return false;
+	return true; // A changer en false lorsque le registre est lié
 }
