@@ -94,6 +94,7 @@ private:
 	void OnConsulterCourant(wxCommandEvent& event);
 	void OnConsulterEpargne(wxCommandEvent& event);
 	void OnTransaction(wxCommandEvent& event);
+	void OnCreateAccount(wxCommandEvent& event);
 	void OnExit(wxCommandEvent& event);
 	void OnHelp(wxCommandEvent& event);
 };
@@ -110,4 +111,13 @@ private:
 	void OnOk(wxCommandEvent& event);
 	wxTextCtrl* edit_receveur_number_;
 	wxTextCtrl* edit_somme_transaction_;
+};
+
+class creation_compte : public wxDialog {
+public:
+	creation_compte(wxWindow* parent, wxWindowID id, const wxString& title);
+	wxString get_type_de_compte();
+private:
+	void OnOk(wxCommandEvent& event);
+	wxComboBox* edit_type_de_compte_;
 };

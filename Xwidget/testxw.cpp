@@ -88,7 +88,7 @@ Fenetre::Fenetre() : wxFrame(nullptr, wxID_ANY, "Test Banque", wxPoint(30, 30), 
     Bind(wxEVT_MENU, &Fenetre::OnLogin, this, 1);
     Bind(wxEVT_MENU, &Fenetre::OnRegister, this, 2);
 
-    ChoixBanque* choix = new ChoixBanque(this, wxID_ANY, "ChoixBanque");
+    ChoixBanque* choix = new ChoixBanque(this, wxID_ANY, "Choix de la Banque");
     choix->Show(true);
     if (choix->ShowModal() == wxID_OK) {
         nom_agence_decentralise = choix->get_agence();
@@ -96,9 +96,8 @@ Fenetre::Fenetre() : wxFrame(nullptr, wxID_ANY, "Test Banque", wxPoint(30, 30), 
         if (nom_agence_decentralise == "") {
             wxMessageBox("Vous devez choisir une agence",
                 "Error ", wxOK | wxICON_INFORMATION);
-            ChoixBanque* choix = new ChoixBanque(this, wxID_ANY, "ChoixBanque");
-            choix->Show(true);
-            return;
+            ChoixBanque* new_choix = new ChoixBanque(this, wxID_ANY, "ChoixBanque");
+            new_choix->Show(true);
         }
         choix->edit_nom_agence(nom_agence_decentralise);
     }
@@ -479,6 +478,25 @@ void FenetreEspacePerso::OnTransaction(wxCommandEvent& event) {
     }
 }
 
+void FenetreEspacePerso::OnCreateAccount(wxCommandEvent& event) {
+    creation_compte* nouveau_compte = new creation_compte(this, wxID_ANY, "Creation de compte");
+    nouveau_compte->Show(true);
+    if (nouveau_compte->ShowModal() == wxID_OK) {
+        auto type_compte = nouveau_compte->get_type_de_compte();
+
+        if (type_compte == "") {
+            wxMessageBox("Il faut remplir le champ",
+                "Error ", wxOK | wxICON_INFORMATION);
+            return;
+        }
+
+        /*
+        * Il faut créer un ID de compte
+        * Il faut créer le nouveau compte dans le registre
+        */
+    }
+}
+
 void FenetreEspacePerso::OnHelp(wxCommandEvent& event) {
     // Normal que ce soit vide 
 }
@@ -510,6 +528,9 @@ FenetreEspacePerso::FenetreEspacePerso(wxWindow* parent, wxWindowID id) : wxFram
     wxMenu* menuEnvoyer = new wxMenu;
     menuEnvoyer->Append(8, "Envoyer");
 
+    wxMenu* menuCreerCompte = new wxMenu;
+    menuCreerCompte->Append(10, "Creer un compte");
+
     wxMenu* menuHelp = new wxMenu;
     menuHelp->Append(9, "Besoin d'aide ?");
 
@@ -518,6 +539,7 @@ FenetreEspacePerso::FenetreEspacePerso(wxWindow* parent, wxWindowID id) : wxFram
     //menu->Append(menuTest, "Test");
     menu->Append(menuComptes, "Consulter");
     menu->Append(menuEnvoyer, "Transaction");
+    menu->Append(menuCreerCompte, "Creer un compte");
     menu->Append(menuHelp, "&Help");
 
 
@@ -532,6 +554,7 @@ FenetreEspacePerso::FenetreEspacePerso(wxWindow* parent, wxWindowID id) : wxFram
     Bind(wxEVT_MENU, &FenetreEspacePerso::OnConsulterEpargne, this, 7);
     Bind(wxEVT_MENU, &FenetreEspacePerso::OnTransaction, this, 8);
     Bind(wxEVT_MENU, &FenetreEspacePerso::OnAbout, this, 9);
+    Bind(wxEVT_MENU, &FenetreEspacePerso::OnCreateAccount, this, 10);
 }
 
 wxString Transactionwx::get_receveur_number() {
@@ -551,4 +574,19 @@ Transactionwx::Transactionwx(wxWindow* parent, wxWindowID id, const wxString& ti
 
     wxButton* ok = new wxButton(this, wxID_OK, _("OK"), wxPoint(10, 90), wxDefaultSize);
     wxButton* cancel = new wxButton(this, wxID_CANCEL, _("Cancel"), wxPoint(100, 90), wxDefaultSize);
+}
+
+wxString creation_compte::get_type_de_compte() {
+    return edit_type_de_compte_->GetValue();
+}
+
+creation_compte::creation_compte(wxWindow* parent, wxWindowID id, const wxString& title) : wxDialog(parent, id, title) {
+    auto type_de_compte = new wxStaticText(this, -1, "Type de compte: ", wxPoint(20, 20), wxSize(130, 30));
+
+    wxString tab[] = { "Compte courant", "Compte epargne" };
+
+    edit_type_de_compte_ = new wxComboBox(this, -1, "", wxPoint(160, 20), wxSize(100, 100), sizeof(tab) / sizeof(wxString), tab);
+
+    wxButton* ok = new wxButton(this, wxID_OK, _("OK"), wxPoint(10, 50), wxDefaultSize);
+    wxButton* cancel = new wxButton(this, wxID_CANCEL, _("Cancel"), wxPoint(100, 50), wxDefaultSize);
 }
