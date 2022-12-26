@@ -10,6 +10,8 @@
 #include "../Banque/Banque.h"
 #include "../Compte/Compte.h"
 #include "../Json/load_save_Json.h"
+#include "../PROJET PROG S1 2022/Fonctions/Threadfonctions.h"
+#include <thread>
 
 using namespace std;
 using boost::asio::ip::tcp;

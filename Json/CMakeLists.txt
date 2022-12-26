@@ -24,4 +24,4 @@ include_directories(${Boost_INCLUDE_DIRS} ${CMAKE_CURRENT_SOURCE_DIR}/../PROJET 
 add_executable(mainJson "mainJson.cpp" )
 
 add_library(JsonLib load_save_Json.cpp)
-target_link_libraries (mainJson LINK_PUBLIC BanqueLib JsonLib UtilityFunctionLib ${Boost_LIBRARIES})
+target_link_libraries (mainJson LINK_PUBLIC BanqueLib JsonLib UtilityFunctionLib ThreadFunctionLib ${Boost_LIBRARIES})
