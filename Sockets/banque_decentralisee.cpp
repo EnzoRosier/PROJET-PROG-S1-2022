@@ -64,7 +64,7 @@ int main() {
 
         }
         if (string(retour).substr(0, 5) == "Login") { // L'interface tente de se connecter à un compte
-            int id_client = string(retour).substr(6, string(retour).size() - 5);
+            int id_client = atoi(string(retour).substr(6, string(retour).size() - 5).c_str());
         }
     }
 
