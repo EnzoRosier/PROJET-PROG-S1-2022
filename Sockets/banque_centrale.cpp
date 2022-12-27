@@ -7,7 +7,7 @@ Types de requêtes :
     - Update : la banque centrale met à jour sa base de donnée en collectant la base de donnée de la banque décentralisée
                envoie un string ("Update") et recoit un registe map<int,Client>
     - Find : Pour retrouver un compte,recoit un id de compte, renvoie un client
-             La reception est de la forme "Find Id_compte_recherche"
+             La reception est de la forme "FindId_compte_recherche"
     - Exit : Pour fermer l'executable et sauvegarder le registre, recoit un string ("Exit") et ne renvoie rien
 
 */
@@ -52,7 +52,7 @@ int main() {
         }
         if (string(retour).substr(0, 4) == "Find") { // Si la première partie de la requête est Find alors
 
-            string id_compte = demande.substr(6, string(retour).size() - 4); // On prend la partie de la requête qui nous intéresse
+            string id_compte = demande.substr(5, string(retour).size() - 4); // On prend la partie de la requête qui nous intéresse
             Compte compte = BC.Chercher_compte_clients(id_compte);
             Client c = BC.Chercher_infos_clients(compte.get_Id_proprietaire());
 

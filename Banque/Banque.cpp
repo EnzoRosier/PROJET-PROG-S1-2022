@@ -61,6 +61,7 @@ Client& Banque_Centrale::Chercher_infos_clients(int num_client) {
 	{
 		cerr << chaine << endl;
 	}
+	return Client(-1); // Si on ne trouve rien on renvoie un client avec un ID de -1, pour signifier une erreur
 }
 
 void Banque_Centrale::Ajouter_au_registre(Client ID) {
@@ -112,6 +113,12 @@ Banque_Decentralise::Banque_Decentralise() {
 	Set_nb_banque_decentralise(1);
 }
 
+Banque_Decentralise::Banque_Decentralise(int id, string agence, map <int, Client> registre) {
+	this->ID_agence = id;
+	this->nom_agence = agence;
+	this->registre_local;
+}
+
 int Banque_Decentralise:: Get_ID_agence() {
 	return ID_agence;
 }
@@ -160,4 +167,26 @@ void Banque_Decentralise::Supprimer_du_registre(Client Compte_client) {
 			cout << "Error registre_local erase" << endl;
 		}
 	}
+}
+
+Client& Banque_Decentralise::Chercher_infos_clients(int num_client) {
+	for (auto itr = registre_local.begin(); itr != registre_local.end(); ++itr) {
+		auto id = itr->second.Get_id();
+		if (id == num_client) {
+			return (itr->second);
+		}
+	}
+	return Client(-1);
+}
+
+Compte Banque_Decentralise::Chercher_compte_clients(string num_compte) {
+	for (auto itr = registre_local.begin(); itr != registre_local.end(); ++itr) {
+		auto id = itr->second.Get_liste_comptes();
+		for (int i = 0; i < id.size(); i++) {
+			if (id.at(i).get_Identifiant_Compte() == num_compte) {
+				return (id.at(i));
+			}
+		}
+	}
+	return Compte("-1"); // On renvoie un compte erreur si la recherche n'aboutit pas
 }
