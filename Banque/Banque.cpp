@@ -100,17 +100,11 @@ ptree Banque_Centrale::GeneratePtreeBanque() {
 ***********************************************************/
 
 Banque_Decentralise::Banque_Decentralise() {
-	string nom_agence_temp;
-	cout << "Entrez le nom de la banque decentralise : " << endl;
-	cin >> nom_agence_temp;
-	
-	nom_agence = nom_agence_temp;
-
-	map <int, Client> registre_local;
-
-	ID_agence = Get_nb_banque_decentralise() + 1;
-
-	Set_nb_banque_decentralise(1);
+	this->nom_agence = "Lille";
+	this->ID_agence = 0;
+	map<int, Client> registre;
+	cout << "COnstructeur" << registre.size() << endl;
+	this->registre_local = registre;
 }
 
 Banque_Decentralise::Banque_Decentralise(int id, string agence, map <int, Client> registre) {
@@ -145,14 +139,6 @@ void Banque_Decentralise::Consulter() {
 }
 
 void Banque_Decentralise::Ajouter_au_registre(Client new_client) {
-	if (registre_local.size() != 0) {
-		auto itr = registre_local.end();
-		auto last_ind = itr->first;
-		last_ind++;
-	}
-	else {
-		auto last_ind = 1;
-	}
 	registre_local.insert(pair <int, Client>(new_client.Get_id(), new_client));
 }
 

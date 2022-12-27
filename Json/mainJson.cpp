@@ -17,6 +17,7 @@ int main()
 	liste_comptes.push_back(c2);
 	liste_comptes2.push_back(c3);
 	Banque_Centrale bq;
+	Banque_Decentralise BD;
 	
 
 	Client cl1 = Client(0, "John", "McClain", "3 Rue de la paix", "Lille", 68.8);
@@ -25,12 +26,14 @@ int main()
 	cl2.Set_liste_comptes_epargnes(liste_comptes2);
 	cl1.affiche_client();
 
-	bq.Ajouter_au_registre(cl1);
-	bq.Ajouter_au_registre(cl2);
+	BD.Ajouter_au_registre(cl1);
+	BD.Ajouter_au_registre(cl2);
 
-	doTransaction("202", "TESTINGO", "2", 2, bq);
+	doTransaction("202", "TESTINGO", "2", 2, BD, BD);
+
+	bq.Set_registre(BD.Get_registre_local());
 	
-	std::ofstream file_out("test.json");
+	std::ofstream file_out("Registre.json");
 	write_json(file_out, bq.GeneratePtreeBanque());
 	file_out.close();
 

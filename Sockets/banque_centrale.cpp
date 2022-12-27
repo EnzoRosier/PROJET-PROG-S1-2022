@@ -28,12 +28,14 @@ int main() {
     ptree in;
     read_json(file_in, in);
     Banque_Centrale BC = Banque_from_ptree(in);
+    cout << "Registre loaded sucessfully" << endl;
 
     // On initialise les banques décentralisées
 
     demande = get_string_from_data(BC.Get_registre()); // On crée une demande pour l'initialisation
     socket.connect(tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 1234));
     boost::asio::write(socket, boost::asio::buffer(demande), error);
+    cout << "Init sent to BD" << endl;
 
     thread threadEparne(epargneThread, BC); //Lancement thread Epargne
 
@@ -48,21 +50,33 @@ int main() {
         // Hourra on a reçu un socket, il faut maintenant analyser la demande
    
         if (retour == "Exit") { // Si c'est pour finir
+            cout << "Received Exit" << endl;
             exit = true;
         }
         if (string(retour).substr(0, 4) == "Find") { // Si la première partie de la requête est Find alors
+            cout << "Received a Find request" << endl;
 
             string id_compte = demande.substr(5, string(retour).size() - 4); // On prend la partie de la requête qui nous intéresse
             Compte compte = BC.Chercher_compte_clients(id_compte);
             Client c = BC.Chercher_infos_clients(compte.get_Id_proprietaire());
 
-            // On a le client, maintenant il faut le renvoyer
+            if (c.Get_id() != -1) {
 
-            demande = get_string_from_data(c); // On convertit le client en chaîne de caractères
+                // On a le client, maintenant il faut le renvoyer
 
-            // On connecte le socket avec la banque_decentralisee
-            socket.connect(tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 1234));
-            boost::asio::write(socket, boost::asio::buffer(demande), error); // On l'envoie avec la reponse
+                demande = get_string_from_data(c); // On convertit le client en chaîne de caractères
+
+                // On connecte le socket avec la banque_decentralisee
+                socket.connect(tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 1234));
+                boost::asio::write(socket, boost::asio::buffer(demande), error); // On l'envoie avec la reponse
+                cout << "Client sent to BD" << endl;
+            }
+            else {
+                demande = "Fail";
+                socket.connect(tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 1234));
+                boost::asio::write(socket, boost::asio::buffer(demande), error);
+                cout << "Client search failed" << endl;
+            }
         }
 
         
@@ -72,17 +86,20 @@ int main() {
     demande = "Update";
     socket.connect(tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 1234));
     boost::asio::write(socket, boost::asio::buffer(demande), error);
+    cout << "Final Update request sent" << endl;
 
     // On attend la réponse
     acceptor_.accept(socket);
     size_t length = socket.read_some(boost::asio::buffer(retour), error);
     map<int, Client> temp_registre = get_data_from_string<map<int,Client>>(retour);
     BC.Set_registre(temp_registre);
+    cout << "Final update complete, ready to save" << endl;
 
     //Sauvegarde du registre
 
     std::ofstream file_out("registre_BC.json");
     write_json(file_out, BC.GeneratePtreeBanque());
     file_out.close();
-    return 0;
+    cout << "File saved" << endl;
+    return EXIT_SUCCESS;
 }

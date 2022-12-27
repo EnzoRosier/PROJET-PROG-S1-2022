@@ -36,6 +36,16 @@ map<string,Banque_Decentralise> init_BD(map<int, Client> g_registre) {
     return all_BD;
 }
 
+map<int, Client> registre_exit(map<string, Banque_Decentralise> all_BD) {
+    map<int, Client> registre;
+    for (auto it=all_BD.begin();it!=all_BD.end();it++){
+        for (auto it2 = it->second.Get_registre_local().begin(); it2 != it->second.Get_registre_local().end(); it2++) {
+            registre.emplace(pair<int, Client>(it2->first, Client(it2->second)));
+        }
+    }
+    return registre;
+}
+
 
 int main() {
     boost::asio::io_service io_service;
@@ -71,12 +81,17 @@ int main() {
         // Une fois qu'on a la requête, on l'analyse
 
         if (retour == "Exit") {
+            // On va remettre tous les registres des BD en un registre complet à renvoyer à la BC
+            map<int, Client> registre_complet = registre_exit(all_BD);
             cout << "Exit received from user" << endl;
             // On doit prévenir la BC de l'exit
             demande = "Exit";
             socket.connect(tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 1234));
             boost::asio::write(socket, boost::asio::buffer(demande), error);
             cout << "Exit sent to BC" << endl;
+
+            // La procédure d'Exit fait que la BC va faire une requête d'Update, on doit donc attendre sa requête
+
 
         }
         if (string(retour).substr(0, 5) == "Login") { // L'interface tente de se connecter à un compte
@@ -158,7 +173,6 @@ int main() {
             all_BD[current_BD.Get_nom_agence()] = current_BD;
         }
     }
-
     return EXIT_SUCCESS;
 }
 
