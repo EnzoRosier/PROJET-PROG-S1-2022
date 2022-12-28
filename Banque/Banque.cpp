@@ -60,7 +60,6 @@ Client& Banque_Centrale::Chercher_infos_clients(int num_client) {
 	{
 		cerr << chaine << endl;
 	}
-	return Client(-1); // Si on ne trouve rien on renvoie un client avec un ID de -1, pour signifier une erreur
 }
 
 void Banque_Centrale::Ajouter_au_registre(Client ID) {
