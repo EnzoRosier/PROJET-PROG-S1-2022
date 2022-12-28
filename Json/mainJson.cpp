@@ -53,4 +53,6 @@ int main()
 	auto test = Banque_from_ptree(in);
 	file_out.close();
 
+	saveThread(bq);
+
 }
