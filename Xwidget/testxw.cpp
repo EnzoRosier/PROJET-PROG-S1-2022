@@ -1,6 +1,8 @@
 #include "testxw.h"
 #include "LoginManagement.h"
 #include <string>
+#include <time.h>
+#include "../PROJET PROG S1 2022/Fonctions/Def_id.h"
 
 wxIMPLEMENT_APP(App);
 // On d�finit les ID suivants :
@@ -103,6 +105,11 @@ Fenetre::Fenetre() : wxFrame(nullptr, wxID_ANY, "Test Banque", wxPoint(30, 30), 
     }
 }
 
+int login_num_client = 0;
+string login_mdp_client = "";
+
+Client login_client(1, "NomRecupGraceAuNumClient", "MemeChose", "MemeChose", nom_agence_decentralise, 65.5);
+
 void Fenetre::OnLogin(wxCommandEvent& event) {
     
     LoginClient* login = new LoginClient(this, wxID_ANY, "Test");
@@ -154,6 +161,8 @@ void Fenetre::OnLogin(wxCommandEvent& event) {
         bool connected = verification_password(new_login, new_password, m);
 
         if (connected == true) {
+            login_num_client = new_login;
+            login_mdp_client = new_password;
             FenetreEspacePerso* frame_espace_perso = new FenetreEspacePerso(NULL, wxID_ANY);
             frame_espace_perso->SetBackgroundColour(wxColour(*wxWHITE));
             frame_espace_perso->Show(true);
@@ -164,8 +173,6 @@ void Fenetre::OnLogin(wxCommandEvent& event) {
                 "Error ", wxOK | wxICON_INFORMATION);
             return;
         }
-
-
     }
 }
 
@@ -364,12 +371,12 @@ void FenetreEspacePerso::OnConsulterCourant(wxCommandEvent& event) {
     /*
     //
     *
-    * Si on r�cup�re le client � la connexion on peut y acc�der directement
-    * Sinon : requ�te serveur correspondant au nom du client
+    * Si on recupere le client a la connexion on peut y acceder directement
+    * Sinon : requete serveur correspondant au nom du client
     * 
     //
     */
-    // Tableau rempli par le retour de la requ�te faite pr�c�demment
+    // Tableau rempli par le retour de la requete faite precedemment
     int numero_compte[] = { 32,112,114 };
     int nb_comptes = sizeof(numero_compte) / sizeof(int);
     string final_str;
@@ -442,6 +449,8 @@ void FenetreEspacePerso::OnTransaction(wxCommandEvent& event) {
 
         long account_numbers;
 
+        int new_somme_transaction;
+
         if (!receveur_number.ToLong(&number))
         {
             wxMessageBox("Error number receveur",
@@ -456,19 +465,23 @@ void FenetreEspacePerso::OnTransaction(wxCommandEvent& event) {
             return;
         }
 
-        if (!somme_transaction.ToLong(&number))
+        if (!somme_transaction.ToInt(&new_somme_transaction))
         {
             wxMessageBox("Error number transaction",
                 "Error ", wxOK | wxICON_INFORMATION);
             return;
         }
 
-        if (!somme_transaction.ToLong(&account_numbers))
-        {
-            wxMessageBox("Transaction numbers",
-                "Error ", wxOK | wxICON_INFORMATION);
-            return;
-        }
+        time_t now = time(NULL);
+        struct tm* tm = localtime(&now);
+        
+
+        transaction new_transaction;
+
+        new_transaction.date = now;
+        new_transaction.id_crediteur = receveur_number;
+        new_transaction.id_debiteur = login_num_client;
+        new_transaction.montant = new_somme_transaction;
 
         /*
         // Ici il faut mettre l'envoie de la requ�te au serveur
@@ -489,6 +502,17 @@ void FenetreEspacePerso::OnCreateAccount(wxCommandEvent& event) {
                 "Error ", wxOK | wxICON_INFORMATION);
             return;
         }
+        else {
+            if (type_compte == "Compte courant") {
+                string generation_ID = generateIDCompte(nom_agence_decentralise, login_client, false);
+                Compte new_compte(generation_ID, login_num_client, 0);
+            }
+            else if (type_compte == "Compte epargne") {
+                string generation_ID = generateIDCompte(nom_agence_decentralise, login_client, true);
+                Compte new_compte(generation_ID, login_num_client, 0);
+            }
+        }
+
 
         /*
         * Il faut créer un ID de compte
