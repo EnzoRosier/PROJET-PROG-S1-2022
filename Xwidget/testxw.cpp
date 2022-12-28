@@ -27,7 +27,7 @@ ChoixBanque::ChoixBanque(wxWindow* parent, wxWindowID id, const wxString& title)
     
     auto client_agence = new wxStaticText(this, -1, "Agence", wxPoint(10, 20), wxSize(50, 20));
 
-    wxString tab[] = { "Test", "Test2" };
+    wxString tab[] = { "Lille", "Pekin", "Moscou"};
 
     edit_agence_ = new wxComboBox(this, -1, "", wxPoint(160, 20), wxSize(100, 100), sizeof(tab) / sizeof(wxString), tab);
 
