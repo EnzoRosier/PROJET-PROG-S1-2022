@@ -49,12 +49,15 @@ private:
 	map <int, Client> registre_local;
 public:
 	Banque_Decentralise();
+	Banque_Decentralise(int id, string agence, map <int, Client> registre);
 	string Get_nom_agence();
 	int Get_ID_agence();
 	map <int, Client> Get_registre_local();
 	void Ajouter_au_registre(Client new_client);
 	void Supprimer_du_registre(Client Compte_client);
 	void Consulter();
+	Client& Chercher_infos_clients(int num_client);
+	Compte Chercher_compte_clients(string num_compte);
 
 	template<class Archive>
 	void serialize(Archive& ar, unsigned int version)
