@@ -27,5 +27,5 @@ include_directories(${Boost_INCLUDE_DIRS})
 add_library(UtilityFunctionLib "Fonctions/Transaction.cpp")
 target_link_libraries (UtilityFunctionLib LINK_PUBLIC BanqueLib)
 
-add_library(ThreadFunctionLib "Fonctions/EpargneThread.cpp")
-target_link_libraries (ThreadFunctionLib LINK_PUBLIC BanqueLib)
+add_library(ThreadFunctionLib "Fonctions/EpargneThread.cpp" "Fonctions/saveJsonthread.cpp")
+target_link_libraries (ThreadFunctionLib LINK_PUBLIC BanqueLib JsonLib)
