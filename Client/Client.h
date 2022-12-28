@@ -7,6 +7,7 @@
 #include "../PROJET PROG S1 2022/includer.h"
 #include "../Compte/Compte.h"
 
+
 using boost::property_tree::ptree;
 using boost::property_tree::read_json;
 using boost::property_tree::write_json;
@@ -41,8 +42,9 @@ private:
 	vector<Compte> liste_comptes;
 	vector<Compte_Epargnes> liste_comptes_epargnes;
 
+
 public:
-	Client(const int& id=0,const string& nom="Pierre", const string& prenom = "Jacques", const string& adresse = "", const string& agence = "Paris", const float& taille_en_pouces = 65.5);
+	Client(const int& id=0,const string& nom="Pierre", const string& prenom = "Jacques", const string& adresse = "", const string& agence = "Lille", const float& taille_en_pouces = 65.5);
 	int Get_id() const;
 	string Get_nom();
 	string Get_prenom();

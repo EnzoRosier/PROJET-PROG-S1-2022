@@ -24,5 +24,8 @@ endif (MSVC)
 
 find_package(Boost 1.80.0 COMPONENTS json serialization REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS})
-add_library(UtilityFunctionLib "Fonctions/Transaction.cpp")
+add_library(UtilityFunctionLib "Fonctions/Transaction.cpp" "Fonctions/Def_id.cpp")
 target_link_libraries (UtilityFunctionLib LINK_PUBLIC BanqueLib)
+
+add_library(ThreadFunctionLib "Fonctions/EpargneThread.cpp" "Fonctions/saveJsonthread.cpp")
+target_link_libraries (ThreadFunctionLib LINK_PUBLIC BanqueLib JsonLib)

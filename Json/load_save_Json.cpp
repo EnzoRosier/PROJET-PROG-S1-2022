@@ -19,6 +19,18 @@ Compte Compte_from_ptree(ptree &pt) {
     
 }
 
+Compte_Epargnes CompteEp_from_ptree(ptree& pt) {
+
+    string id = pt.get<string>("Id");
+    int id_prop = pt.get<int>("Id_Proprietaire", 0);
+    float solde = pt.get<float>("Solde", 0.);
+    float taux = pt.get<float>("Taux_Epargne", 0.);
+
+    Compte_Epargnes tmp(id, id_prop, solde, taux);
+    return tmp;
+
+}
+
 Client Client_from_ptree(ptree& pt) {
 
     int id = pt.get<int>("Id");
@@ -37,7 +49,7 @@ Client Client_from_ptree(ptree& pt) {
 
     for (ptree::value_type& compte : pt.get_child("Compte_Epargne")) {
         // Compte tmpCompte = new Compte(Compte_from_ptree(compte.second));
-        tmp.Ajouter_compte(Compte_from_ptree(compte.second));
+        tmp.Ajouter_compte_epargnes(CompteEp_from_ptree(compte.second));
     }
 
     for (ptree::value_type& compte : pt.get_child("Transactions")) {
