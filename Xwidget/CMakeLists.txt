@@ -20,7 +20,7 @@ elseif(MSVC)
     set(Boost_DIR /usr/local/lib/cmake/Boost-1.80.0)
 endif (MSVC)
 
-find_package(Boost 1.80.0 COMPONENTS json serialization REQUIRED)
+find_package(Boost 1.80.0 COMPONENTS thread json serialization REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS})
 
 find_package(wxWidgets REQUIRED COMPONENTS net core base)
