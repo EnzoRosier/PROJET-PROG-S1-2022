@@ -445,6 +445,7 @@ void FenetreEspacePerso::OnTransaction(wxCommandEvent& event) {
     {
         auto receveur_number = transac->get_receveur_number();
         auto somme_transaction = transac->get_somme_transaction();
+        auto envoyeur_number = transac->get_envoyeur_number();
 
         long number;
 
@@ -489,9 +490,9 @@ void FenetreEspacePerso::OnTransaction(wxCommandEvent& event) {
         */
 
         // J'ai besoin de l'id du compte receveur, de l'id du compte envoyeur et du montant dans les variables correspondantes
-        string id_debiteur;
-        string id_crediteur;
-        int montant;
+        string id_debiteur = envoyeur_number;
+        string id_crediteur = receveur_number;
+        int montant = new_somme_transaction;
 
         // On définit le nécessaire pour l'envoi
 
@@ -613,15 +614,21 @@ wxString Transactionwx::get_somme_transaction() {
     return edit_somme_transaction_->GetValue();
 }
 
+wxString Transactionwx::get_envoyeur_number() {
+    return edit_envoyeur_number_->GetValue();
+}
+
 Transactionwx::Transactionwx(wxWindow* parent, wxWindowID id, const wxString& title) : wxDialog(parent, id, title) {
-    auto text_receveur_number = new wxStaticText(this, -1, "Numéro de compte créditeur: ", wxPoint(20, 20), wxSize(130, 30));
-    auto text_somme_transaction = new wxStaticText(this, -1, "Somme à transmettre: ", wxPoint(20, 60), wxSize(130, 30));
+    auto text_receveur_number = new wxStaticText(this, -1, "Numero de compte crediteur: ", wxPoint(20, 20), wxSize(130, 30));
+    auto text_somme_transaction = new wxStaticText(this, -1, "Somme a transmettre: ", wxPoint(20, 60), wxSize(130, 30));
+    auto text_envoyeur_number = new wxStaticText(this, -1, "Numero de votre compte: ", wxPoint(20, 100), wxSize(130, 30));
 
     edit_receveur_number_ = new wxTextCtrl(this, -1, "", wxPoint(180, 20), wxSize(100, 20));
     edit_somme_transaction_ = new wxTextCtrl(this, -1, "", wxPoint(180, 60), wxSize(100, 20));
+    edit_envoyeur_number_ = new wxTextCtrl(this, -1, "", wxPoint(180, 100), wxSize(100, 20));
 
-    wxButton* ok = new wxButton(this, wxID_OK, _("OK"), wxPoint(10, 90), wxDefaultSize);
-    wxButton* cancel = new wxButton(this, wxID_CANCEL, _("Cancel"), wxPoint(100, 90), wxDefaultSize);
+    wxButton* ok = new wxButton(this, wxID_OK, _("OK"), wxPoint(10, 150), wxDefaultSize);
+    wxButton* cancel = new wxButton(this, wxID_CANCEL, _("Cancel"), wxPoint(100, 150), wxDefaultSize);
 }
 
 wxString creation_compte::get_type_de_compte() {

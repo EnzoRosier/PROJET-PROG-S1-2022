@@ -105,12 +105,14 @@ public:
 
 	wxString get_receveur_number();
 	wxString get_somme_transaction();
+	wxString get_envoyeur_number();
 
 private:
 
 	void OnOk(wxCommandEvent& event);
 	wxTextCtrl* edit_receveur_number_;
 	wxTextCtrl* edit_somme_transaction_;
+	wxTextCtrl* edit_envoyeur_number_;
 };
 
 class creation_compte : public wxDialog {
