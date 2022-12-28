@@ -2,7 +2,7 @@
 #include "../Compte/Compte.h"
 
 
-Client::Client(const int& id, const string& nom, const string& prenom, const string& adresse, const string&, const float& taille_en_pouces) {
+Client::Client(const int& id, const string& nom, const string& prenom, const string& adresse, const string& agence, const float& taille_en_pouces) {
 	this->id = id;
 	this->nom = nom;
 	this->prenom = prenom;
@@ -94,8 +94,11 @@ void Client::Ajouter_compte_epargnes(Compte_Epargnes compte) {
 
 void Client::affiche_client() {
 	cout << "Informations personelles :" << endl << "  Bonjour Madame/Monsieur " << this->nom << " "
-		<< this->prenom << endl << "  " << "Numero de client : " << this->id << endl << this->adresse << endl << "  Mesurant : " << this->taille_en_pouces << " pouces"
-		<< endl << "Vous avez " << this->liste_comptes.size()+this->liste_comptes_epargnes.size() << " comptes actuellement" << endl;
+		<< this->prenom << endl
+		<< "Numero de client : " << this->id << endl << this->adresse << endl << "  Mesurant : " << this->taille_en_pouces << " pouces"
+		<< endl
+		<< "Vous êtes enregistré dans l'agence de :" << this->agence << endl
+		<< "Vous avez " << this->liste_comptes.size() + this->liste_comptes_epargnes.size() << " comptes actuellement" << endl;
 }
 
 ptree Client::generate_Ptree_Client() {

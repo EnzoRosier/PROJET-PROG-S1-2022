@@ -40,7 +40,7 @@ map<int, Client> registre_exit(map<string, Banque_Decentralise> all_BD) {
     map<int, Client> registre;
     for (auto it=all_BD.begin();it!=all_BD.end();it++){
         for (auto it2 = it->second.Get_registre_local().begin(); it2 != it->second.Get_registre_local().end(); it2++) {
-            registre.emplace(pair<int, Client>(it2->first, Client(it2->second)));
+            registre.emplace(pair<int, Client>(it2->first, it2->second));
         }
     }
     return registre;
@@ -61,7 +61,7 @@ int main() {
     // Au lancement il faut attendre le INIT de la BC
     acceptor_BC.accept(socket);
     size_t length = socket.read_some(boost::asio::buffer(retour), error);
-    cout << "Init sent" << endl;
+    cout << "Init received" << endl;
 
     // On récupère le registre de la BC
     map<int, Client> temp_registre = get_data_from_string<map<int, Client>>(retour);
@@ -71,17 +71,19 @@ int main() {
 
     Banque_Decentralise current_BD=all_BD["Lille"]; // On prend Lille comme étant la banque actuelle par défaut
 
-    char test[1000] = "Exit";
+    char test[1000] = "Add_custdhfugk";
+    cout << test << endl;
     bool exit = false;
     while (!exit) {
-        cout << "Enter the while" << endl;
+        
         // On se met en attente d'une requête de l'interface
     //    acceptor_CL.accept(socket);
     //    size_t length = socket.read_some(boost::asio::buffer(retour), error);
 
         // Une fois qu'on a la requête, on l'analyse
 
-        if (test=="Exit") {
+        if (string(retour)=="Exit") {
+            cout << "Enter exit" << endl;
             // On va remettre tous les registres des BD en un registre complet à renvoyer à la BC
             map<int, Client> registre_complet = registre_exit(all_BD);
             cout << "Exit received from user" << endl;
@@ -121,25 +123,37 @@ int main() {
                 cout << "Client connection failed" << endl;
             }
         }
-        if (string(retour).substr(0, 8) == "Add_cust") {
+        if (string(test).substr(0, 8) == "Add_cust") {
             cout << "New customer received" << endl;
-            Client nouv_client = get_data_from_string<Client>(string(retour).substr(9, string(retour).size() - 8).c_str());
+            //Client nouv_client = get_data_from_string<Client>(string(retour).substr(9, string(retour).size() - 8).c_str());
 
+
+            Client nouv_client(56, "James", "Bond", "Londres", "Lille", 70.6);
+            nouv_client.affiche_client();
             // On doit maintenant ajouter le client au registre
             // Pour cela on va d'abord trouver la BD dans laquelle ajouter le client
             string agence = nouv_client.Get_agence();
+            cout << "Agence :" << agence << endl;
             for (auto it = all_BD.begin(); it != all_BD.end();it++) {
+                cout << it->second.Get_nom_agence() << endl;
                 if (agence == it->second.Get_nom_agence()) {
+                    cout << "Match" << endl;
                     current_BD = it->second;
                     current_BD.Ajouter_au_registre(nouv_client);
                 }
             }
 
             // Le client à été ajouté il faut le renvoyer pour que l'interface puisse le connecter
+
+            /*
             demande = get_string_from_data(nouv_client);
             socket.connect(tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 0123));
             boost::asio::write(socket, boost::asio::buffer(demande), error);
+            */
             cout << "New client connected succesfully" << endl;
+            cout << current_BD.Chercher_infos_clients(nouv_client.Get_id()).Get_id() << endl;;
+            exit = true;
+            
         }
         if (string(retour).substr(0, 11) == "Transaction") {  
             cout << "Transaction request received" << endl;

@@ -49,7 +49,7 @@ int main() {
 
     bool exit = false;
     while (exit == false) {  // Tant que l'utilisateur ne quitte pas l'interface
-        cout << "Enter the while" << endl;
+        cout << "Enter the BC while" << endl;
 
         // On commence par se mettre en attente de reception d'un socket
 
