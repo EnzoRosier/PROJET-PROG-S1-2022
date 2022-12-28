@@ -364,12 +364,12 @@ void FenetreEspacePerso::OnConsulterCourant(wxCommandEvent& event) {
     /*
     //
     *
-    * Si on r�cup�re le client � la connexion on peut y acc�der directement
-    * Sinon : requ�te serveur correspondant au nom du client
+    * Si on recupere le client a la connexion on peut y acceder directement
+    * Sinon : requete serveur correspondant au nom du client
     * 
     //
     */
-    // Tableau rempli par le retour de la requ�te faite pr�c�demment
+    // Tableau rempli par le retour de la requete faite precedemment
     int numero_compte[] = { 32,112,114 };
     int nb_comptes = sizeof(numero_compte) / sizeof(int);
     string final_str;
