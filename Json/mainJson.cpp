@@ -1,5 +1,6 @@
 #include "load_save_Json.h"
 #include "../PROJET PROG S1 2022/Fonctions/Threadfonctions.h"
+#include "../PROJET PROG S1 2022/Fonctions/Def_id.h"
 
 
 using namespace std;
@@ -23,6 +24,8 @@ int main()
 	cl1.Set_liste_comptes(liste_comptes);
 	cl1.Set_liste_comptes_epargnes(liste_comptes2);
 	
+	cout << generateIDCompte("FR", cl1, false);
+
 	Client cl2 = Client(1, "Jane", "McClain", "3 Rue de la paix", "Lille", 60.7);
 	cl2.Set_liste_comptes(vector<Compte> {Compte("FR00060701", 1, 315)});
 

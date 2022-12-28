@@ -121,7 +121,7 @@ string Banque_Decentralise:: Get_nom_agence() {
 	return nom_agence_temp;
 }
 
-map <int, Client> Banque_Decentralise::Get_registre_local(){
+map <int, Client>& Banque_Decentralise::Get_registre_local(){
 	return registre_local;
 }
 
@@ -154,7 +154,7 @@ void Banque_Decentralise::Supprimer_du_registre(Client Compte_client) {
 	}
 }
 
-Client& Banque_Decentralise::Chercher_infos_clients(int num_client) {
+Client Banque_Decentralise::Chercher_infos_clients(int num_client) {
 	for (auto itr = registre_local.begin(); itr != registre_local.end(); ++itr) {
 		auto id = itr->second.Get_id();
 		if (id == num_client) {
