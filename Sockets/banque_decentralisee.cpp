@@ -71,7 +71,7 @@ int main() {
 
     Banque_Decentralise current_BD=all_BD["Lille"]; // On prend Lille comme étant la banque actuelle par défaut
 
-    char test[1000] = "Add_custdhfugk";
+    char test[1000] = "Exit";
     cout << test << endl;
     bool exit = false;
     while (!exit) {
@@ -82,7 +82,7 @@ int main() {
 
         // Une fois qu'on a la requête, on l'analyse
 
-        if (string(retour)=="Exit") {
+        if (string(test)=="Exit") {
             cout << "Enter exit" << endl;
             // On va remettre tous les registres des BD en un registre complet à renvoyer à la BC
             map<int, Client> registre_complet = registre_exit(all_BD);
@@ -123,13 +123,10 @@ int main() {
                 cout << "Client connection failed" << endl;
             }
         }
-        if (string(test).substr(0, 8) == "Add_cust") {
+        if (string(retour).substr(0, 8) == "Add_cust") {
             cout << "New customer received" << endl;
-            //Client nouv_client = get_data_from_string<Client>(string(retour).substr(9, string(retour).size() - 8).c_str());
+            Client nouv_client = get_data_from_string<Client>(string(retour).substr(9, string(retour).size() - 8).c_str());
 
-
-            Client nouv_client(56, "James", "Bond", "Londres", "Lille", 70.6);
-            nouv_client.affiche_client();
             // On doit maintenant ajouter le client au registre
             // Pour cela on va d'abord trouver la BD dans laquelle ajouter le client
             string agence = nouv_client.Get_agence();
@@ -145,13 +142,11 @@ int main() {
 
             // Le client à été ajouté il faut le renvoyer pour que l'interface puisse le connecter
 
-            /*
+            
             demande = get_string_from_data(nouv_client);
             socket.connect(tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 0123));
             boost::asio::write(socket, boost::asio::buffer(demande), error);
-            */
             cout << "New client connected succesfully" << endl;
-            cout << current_BD.Chercher_infos_clients(nouv_client.Get_id()).Get_id() << endl;;
             exit = true;
             
         }
