@@ -50,7 +50,7 @@ map<int, Client> registre_exit(map<string, Banque_Decentralise> all_BD) {
 int main() {
     boost::asio::io_service io_service;
     tcp::acceptor acceptor_BC(io_service, tcp::endpoint(tcp::v4(), 1234)); // Banque centrale
- //   tcp::acceptor acceptor_CL(io_service, tcp::endpoint(tcp::v4(), 0123)); // Interface
+    tcp::acceptor acceptor_CL(io_service, tcp::endpoint(tcp::v4(), 0123)); // Interface
     tcp::socket socket(io_service);
     string demande = {};
     char retour[1000] = {};

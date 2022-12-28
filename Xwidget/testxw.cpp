@@ -3,6 +3,7 @@
 #include <string>
 #include <time.h>
 #include "../PROJET PROG S1 2022/Fonctions/Def_id.h"
+#include "../Sockets/tools.cpp"
 
 wxIMPLEMENT_APP(App);
 // On d�finit les ID suivants :
@@ -484,9 +485,32 @@ void FenetreEspacePerso::OnTransaction(wxCommandEvent& event) {
         new_transaction.montant = new_somme_transaction;
 
         /*
-        // Ici il faut mettre l'envoie de la requ�te au serveur
+        // Ici il faut mettre l'envoi de la requ�te au serveur
         */
 
+        // J'ai besoin de l'id du compte receveur, de l'id du compte envoyeur et du montant dans les variables correspondantes
+        string id_debiteur;
+        string id_crediteur;
+        int montant;
+
+        // On définit le nécessaire pour l'envoi
+
+        boost::asio::io_service io_service;
+        tcp::acceptor acceptor_(io_service, tcp::endpoint(tcp::v4(), 0123));
+        tcp::socket socket(io_service);
+        string demande = {};
+        char retour[1000] = {};
+        boost::system::error_code error;
+
+        demande = "Transaction";
+        demande.append(id_debiteur);
+        demande.append(id_crediteur);
+        stringstream ss;
+        ss << montant;
+        demande.append(ss.str());
+
+        socket.connect(tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 1234)); // On se connecte avec la banque décentralisée
+        boost::asio::write(socket, boost::asio::buffer(demande), error);
 
     }
 }
