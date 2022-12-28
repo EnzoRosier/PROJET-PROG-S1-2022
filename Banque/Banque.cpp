@@ -9,7 +9,6 @@
 Banque_Centrale::Banque_Centrale() {
 	map <int, Client, greater<>> registre;
 	nb_banque_decentralise = 0;
-	cout << "test constructeur" << endl;
 }
 
 map<int, Client> Banque_Centrale::Get_registre() {

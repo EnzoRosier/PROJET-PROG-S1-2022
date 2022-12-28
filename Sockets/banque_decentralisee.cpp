@@ -50,7 +50,7 @@ map<int, Client> registre_exit(map<string, Banque_Decentralise> all_BD) {
 int main() {
     boost::asio::io_service io_service;
     tcp::acceptor acceptor_BC(io_service, tcp::endpoint(tcp::v4(), 1234)); // Banque centrale
-    tcp::acceptor acceptor_CL(io_service, tcp::endpoint(tcp::v4(), 0123)); // Interface
+ //   tcp::acceptor acceptor_CL(io_service, tcp::endpoint(tcp::v4(), 0123)); // Interface
     tcp::socket socket(io_service);
     string demande = {};
     char retour[1000] = {};
@@ -71,16 +71,17 @@ int main() {
 
     Banque_Decentralise current_BD=all_BD["Lille"]; // On prend Lille comme étant la banque actuelle par défaut
 
-
+    char test[1000] = "Exit";
     bool exit = false;
     while (!exit) {
+        cout << "Enter the while" << endl;
         // On se met en attente d'une requête de l'interface
-        acceptor_CL.accept(socket);
-        size_t length = socket.read_some(boost::asio::buffer(retour), error);
+    //    acceptor_CL.accept(socket);
+    //    size_t length = socket.read_some(boost::asio::buffer(retour), error);
 
         // Une fois qu'on a la requête, on l'analyse
 
-        if (retour == "Exit") {
+        if (test=="Exit") {
             // On va remettre tous les registres des BD en un registre complet à renvoyer à la BC
             map<int, Client> registre_complet = registre_exit(all_BD);
             cout << "Exit received from user" << endl;

@@ -25,27 +25,38 @@ int main() {
     // On initialise le registre à partir d'un .Json sauvegardé au préalable
 
     std::ifstream file_in("registre_BC.json");
-    ptree in;
-    read_json(file_in, in);
-    Banque_Centrale BC = Banque_from_ptree(in);
-    cout << "Registre loaded sucessfully" << endl;
+    Banque_Centrale BC;
+    if (file_in.is_open()) {
+        cout << "Registre loaded sucessfully" << endl;
+        ptree in;
+        cout << "Hello" << endl;
+        read_json(file_in, in);
+        Banque_Centrale BC = Banque_from_ptree(in);
+    }
+    else {
+        cout << "Registre load failed" << endl;
+    }
 
     // On initialise les banques décentralisées
+
 
     demande = get_string_from_data(BC.Get_registre()); // On crée une demande pour l'initialisation
     socket.connect(tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 1234));
     boost::asio::write(socket, boost::asio::buffer(demande), error);
     cout << "Init sent to BD" << endl;
 
-    thread threadEparne(epargneThread, BC); //Lancement thread Epargne
+    //thread threadEparne(epargneThread, BC); //Lancement thread Epargne
 
     bool exit = false;
     while (exit == false) {  // Tant que l'utilisateur ne quitte pas l'interface
+        cout << "Enter the while" << endl;
 
         // On commence par se mettre en attente de reception d'un socket
 
         acceptor_.accept(socket);
         size_t length = socket.read_some(boost::asio::buffer(retour), error);
+
+        cout << "Request received : " << retour << endl;
 
         // Hourra on a reçu un socket, il faut maintenant analyser la demande
    
