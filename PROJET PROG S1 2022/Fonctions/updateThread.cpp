@@ -1,10 +1,24 @@
 #include "Threadfonctions.h"
 
-void update() {
-	//Tes sockets ici Olivier
+void update((Banque_Centrale& BC, boost::asio::io_service io_service) {
+	tcp::socket socket(io_service);
+	string demande = {};
+	char retour[1000] = {};
+	boost::system::error_code error;
+
+	demande = "Update";
+	socket.connect(tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 1234));
+	boost::asio::write(socket, boost::asio::buffer(demande), error);
+	cout << "Update request sent to BD" << endl;
+
+	// On attend la réponse de BD
+	size_t length = socket.read_some(boost::asio::buffer(retour), error);
+	cout << "BC updated" << endl;
+
+
 }
 
-void updateThread(Banque_Centrale& bq)
+void updateThread(Banque_Centrale& bq, boost::asio::io_service io_service)
 {
 	while (true) {
 		int n = 30;
@@ -15,7 +29,7 @@ void updateThread(Banque_Centrale& bq)
 
 			if (time(0) - start >= n)
 			{
-				update();
+				update(boost::asio::io_service io_service);
 			}
 		}
 	}

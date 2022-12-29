@@ -103,6 +103,8 @@ int main() {
             socket_BC.close();
             
             cout << "Exit sent to BC" << endl;
+
+            
         }
 
 
