@@ -114,6 +114,7 @@ int main() {
             bool match = false;
             auto it = all_BD.begin();
             while (it != all_BD.end() && !match) { // On va chercher le client dans l'ensemble des BD
+                it->second.Chercher_infos_clients(id_client).affiche_client();
                 if (id_client == it->second.Chercher_infos_clients(id_client).Get_id()) { // Si on trouve un match
                     current_BD = it->second; // On se met sur la bonne BD
                     match = true;

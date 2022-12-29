@@ -1,6 +1,6 @@
 #include "Threadfonctions.h"
 
-void update((Banque_Centrale& BC, boost::asio::io_service io_service) {
+void update_BC((Banque_Centrale& BC, boost::asio::io_service io_service) {
 	tcp::socket socket(io_service);
 	string demande = {};
 	char retour[1000] = {};
@@ -18,7 +18,8 @@ void update((Banque_Centrale& BC, boost::asio::io_service io_service) {
 
 }
 
-void updateThread(Banque_Centrale& bq, boost::asio::io_service io_service)
+
+void updateThread(Banque_Centrale& bq)
 {
 	while (true) {
 		int n = 30;
@@ -29,7 +30,7 @@ void updateThread(Banque_Centrale& bq, boost::asio::io_service io_service)
 
 			if (time(0) - start >= n)
 			{
-				update(boost::asio::io_service io_service);
+				update_BC(boost::asio::io_service io_service);
 			}
 		}
 	}
