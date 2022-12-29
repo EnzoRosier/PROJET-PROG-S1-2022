@@ -28,7 +28,7 @@ public:
 	int Get_nb_banque_decentralise();
 	void Set_registre(map<int, Client> nouv_registre);
 	Client& Chercher_infos_clients(int num_client);
-	Compte Banque_Centrale::Chercher_compte_clients(string num_compte);
+	Compte Chercher_compte_clients(string num_compte);
 	void Ajouter_au_registre(Client ID);
 	void Clear_registre();
 	ptree GeneratePtreeBanque();
