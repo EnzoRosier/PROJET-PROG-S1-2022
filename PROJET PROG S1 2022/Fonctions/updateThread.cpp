@@ -1,6 +1,8 @@
+#pragma once
 #include "Threadfonctions.h"
 
-void update_BC((Banque_Centrale& BC, boost::asio::io_service io_service) {
+
+void update_BC(Banque_Centrale& BC, boost::asio::io_service io_service) {
 	tcp::socket socket(io_service);
 	string demande = {};
 	char retour[1000] = {};
@@ -30,7 +32,7 @@ void updateThread(Banque_Centrale& bq)
 
 			if (time(0) - start >= n)
 			{
-				update_BC(boost::asio::io_service io_service);
+				update_BC(bq, boost::asio::io_service io_service);
 			}
 		}
 	}
