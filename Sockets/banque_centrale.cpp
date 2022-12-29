@@ -45,7 +45,12 @@ int main() {
     boost::asio::write(socket, boost::asio::buffer(demande), error);
     cout << "Init sent to BD" << endl;
 
-    //thread threadEparne(epargneThread, BC); //Lancement thread Epargne
+    // On attend le check de la BD
+    acceptor_.accept(socket);
+    size_t length = socket.read_some(boost::asio::buffer(retour), error);
+    cout << retour << endl;
+
+    thread threadEparne(epargneThread, BC); //Lancement thread Epargne
 
     bool exit = false;
     while (exit == false) {  // Tant que l'utilisateur ne quitte pas l'interface
@@ -56,14 +61,17 @@ int main() {
         acceptor_.accept(socket);
         size_t length = socket.read_some(boost::asio::buffer(retour), error);
 
-        cout << "Request received : " << retour << endl;
+        cout << "Request received" << endl;
 
         // Hourra on a reçu un socket, il faut maintenant analyser la demande
-   
-        if (retour == "Exit") { // Si c'est pour finir
+
+        if (string(retour).substr(0,4) == "Exit") { // Si c'est pour finir
             cout << "Received Exit" << endl;
+            map<int, Client> registre_maj = get_data_from_string<map<int, Client>>(string(retour).substr(4, string(retour).size() - 4).c_str());
+            BC.Set_registre(registre_maj);
             exit = true;
         }
+
         if (string(retour).substr(0, 4) == "Find") { // Si la première partie de la requête est Find alors
             cout << "Received a Find request" << endl;
 
@@ -90,21 +98,8 @@ int main() {
             }
         }
 
-        
-    }
-    // On met à jour le registre avant de quitter
-    
-    demande = "Update";
-    socket.connect(tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 1234));
-    boost::asio::write(socket, boost::asio::buffer(demande), error);
-    cout << "Final Update request sent" << endl;
 
-    // On attend la réponse
-    acceptor_.accept(socket);
-    size_t length = socket.read_some(boost::asio::buffer(retour), error);
-    map<int, Client> temp_registre = get_data_from_string<map<int,Client>>(retour);
-    BC.Set_registre(temp_registre);
-    cout << "Final update complete, ready to save" << endl;
+    }
 
     //Sauvegarde du registre
 
