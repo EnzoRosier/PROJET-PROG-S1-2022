@@ -67,12 +67,19 @@ int main() {
     map<int, Client> temp_registre = get_data_from_string<map<int, Client>>(retour);
     map<string,Banque_Decentralise> all_BD = init_BD(temp_registre);
     cout << "Init complete" << endl;
+
+    // On peut envoyer un check à la BC
+    demande = "Check";
+    socket.connect(tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 1234));
+    boost::asio::write(socket, boost::asio::buffer(demande), error);
+
+    cout << "Check sent to BC" << endl;
+
     
 
     Banque_Decentralise current_BD=all_BD["Lille"]; // On prend Lille comme étant la banque actuelle par défaut
 
-    char test[1000] = "Exit";
-    cout << test << endl;
+  
     bool exit = false;
     while (!exit) {
         
@@ -82,7 +89,7 @@ int main() {
 
         // Une fois qu'on a la requête, on l'analyse
 
-        if (string(test)=="Exit") {
+        if (string(retour)=="Exit") {
             cout << "Enter exit" << endl;
 
             // On va remettre tous les registres des BD en un registre complet à renvoyer à la BC
@@ -90,11 +97,10 @@ int main() {
             cout << "Exit received from user" << endl;
             // On doit prévenir la BC de l'exit
             demande = "Exit";
+            demande.append(get_string_from_data(registre_complet));
             socket.connect(tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 1234));
             boost::asio::write(socket, boost::asio::buffer(demande), error);
             cout << "Exit sent to BC" << endl;
-
-            // La procédure d'Exit fait que la BC va faire une requête d'Update, on doit donc attendre sa requête
 
 
         }
