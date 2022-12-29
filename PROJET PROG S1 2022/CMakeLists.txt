@@ -22,7 +22,7 @@ elseif(MSVC)
     set(Boost_DIR /usr/local/lib/cmake/Boost-1.80.0)
 endif (MSVC)
 
-find_package(Boost 1.80.0 COMPONENTS json serialization REQUIRED)
+find_package(Boost 1.80.0 COMPONENTS system thread regex serialization REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS})
 link_directories(${Boost_LIBRARY_DIRS})
 add_library(UtilityFunctionLib "Fonctions/Transaction.cpp" "Fonctions/Def_id.cpp")
