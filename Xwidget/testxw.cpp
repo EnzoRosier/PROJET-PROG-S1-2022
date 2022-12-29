@@ -106,13 +106,17 @@ Fenetre::Fenetre() : wxFrame(nullptr, wxID_ANY, "Test Banque", wxPoint(30, 30), 
     }
 }
 
-int login_num_client = 0;
+int login_num_client = 1;
 string login_mdp_client = "";
+string login_nom = "";
+string login_prenom = "";
+string login_adresse = "";
+int taille_du_client = 65;
 
-Client login_client(1, "NomRecupGraceAuNumClient", "MemeChose", "MemeChose", nom_agence_decentralise, 65.5);
+Client login_client(login_num_client, login_nom, login_prenom, login_adresse, nom_agence_decentralise, taille_du_client);
 
 void Fenetre::OnLogin(wxCommandEvent& event) {
-    
+
     LoginClient* login = new LoginClient(this, wxID_ANY, "Test");
     login->Show(true);
     if (login->ShowModal() == wxID_OK)
