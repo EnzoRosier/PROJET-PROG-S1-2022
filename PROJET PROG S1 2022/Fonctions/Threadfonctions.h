@@ -9,5 +9,6 @@
 
 void epargneThread(Banque_Centrale& bq);
 void saveThread(Banque_Centrale& bq);
+void updateThread(Banque_Centrale& bq);
 
 #endif
