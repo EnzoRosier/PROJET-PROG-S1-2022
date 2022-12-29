@@ -3,6 +3,8 @@
 #include "../../Client/Client.h"
 #include "../../Banque/Banque.h"
 #include "../../Json/load_save_Json.h"
+#include <boost/thread.hpp>
+#include <boost/serialization/map.hpp>
 
 #ifndef __THREADFONCTIONS
 #define __THREADFONCTIONS

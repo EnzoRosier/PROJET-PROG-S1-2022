@@ -1,6 +1,6 @@
 #include "Threadfonctions.h"
 
-void update(boost::asio::io_service io_service) {
+void update((Banque_Centrale& BC, boost::asio::io_service io_service) {
 	tcp::socket socket(io_service);
 	string demande = {};
 	char retour[1000] = {};
@@ -14,6 +14,7 @@ void update(boost::asio::io_service io_service) {
 	// On attend la réponse de BD
 	size_t length = socket.read_some(boost::asio::buffer(retour), error);
 	cout << "BC updated" << endl;
+
 
 }
 
