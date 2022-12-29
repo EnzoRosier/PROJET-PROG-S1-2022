@@ -9,7 +9,7 @@ using namespace std;
 
 int main()
 {
-	Banque_Centrale bq;
+	/*Banque_Centrale bq;
 	Banque_Decentralise BD;
 
 	Client cl1 = Client(0, "John", "McClain", "3 Rue de la paix", "Lille", 68.8);
@@ -27,7 +27,7 @@ int main()
 	cout << generateIDCompte("FR", cl1, false);
 
 	Client cl2 = Client(1, "Jane", "McClain", "3 Rue de la paix", "Lille", 60.7);
-	cl2.Set_liste_comptes(vector<Compte> {Compte("FR00060701", 1, 315)});
+	cl2.Set_liste_comptes(liste_comptes);
 
 	Client cl3 = Client(2, "Jude", "McClain", "67 Rue Vlad", "Moscou", 64.5);
 	cl3.Set_liste_comptes(vector<Compte> {Compte("RU00064502", 2, 167)});
@@ -56,6 +56,6 @@ int main()
 	auto test = Banque_from_ptree(in);
 	file_out.close();
 
-	saveThread(bq);
+	saveThread(bq);*/
 
 }
