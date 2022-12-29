@@ -58,6 +58,7 @@ int main() {
     string date;
 
 
+    /*
     // Au lancement il faut attendre le INIT de la BC
     acceptor_BC.accept(socket);
     size_t length = socket.read_some(boost::asio::buffer(retour), error);
@@ -74,7 +75,21 @@ int main() {
     boost::asio::write(socket, boost::asio::buffer(demande), error);
 
     cout << "Check sent to BC" << endl;
+    */
+    std::ifstream file_in("registre_BC.json");
+    Banque_Centrale BC;
+    if (file_in.is_open()) {
+        cout << "Registre loaded sucessfully" << endl;
+        ptree in;
+        cout << "Hello" << endl;
+        read_json(file_in, in);
+        Banque_Centrale BC = Banque_from_ptree(in);
+    }
+    else {
+        cout << "Registre load failed" << endl;
+    }
 
+    map<string, Banque_Decentralise> all_BD = init_BD(BC.Get_registre());
     
 
     Banque_Decentralise current_BD=all_BD["Lille"]; // On prend Lille comme étant la banque actuelle par défaut
@@ -82,7 +97,7 @@ int main() {
   
     bool exit = false;
     while (!exit) {
-        
+        cout << "Enter BD while" << endl;
         // On se met en attente d'une requête de l'interface
         acceptor_CL.accept(socket);
         size_t length = socket.read_some(boost::asio::buffer(retour), error);
@@ -91,15 +106,18 @@ int main() {
 
         if (string(retour)=="Exit") {
             cout << "Enter exit" << endl;
-
+            exit = true;
             // On va remettre tous les registres des BD en un registre complet à renvoyer à la BC
             map<int, Client> registre_complet = registre_exit(all_BD);
             cout << "Exit received from user" << endl;
+
+            /*
             // On doit prévenir la BC de l'exit
             demande = "Exit";
             demande.append(get_string_from_data(registre_complet));
             socket.connect(tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 1234));
             boost::asio::write(socket, boost::asio::buffer(demande), error);
+            */
             cout << "Exit sent to BC" << endl;
 
 

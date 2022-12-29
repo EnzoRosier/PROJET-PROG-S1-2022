@@ -593,6 +593,7 @@ void FenetreEspacePerso::OnCreateAccount(wxCommandEvent& event) {
         * Il faut créer un ID de compte
         * Il faut créer le nouveau compte dans le registre
         */
+
         // On doit prévenir la BD de cette modification
 
         demande = "Add_acc";
