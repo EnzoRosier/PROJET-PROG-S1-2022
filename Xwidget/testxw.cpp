@@ -62,18 +62,8 @@ void ChoixBanque::edit_nom_agence(string new_nom_agence) {
     this->nom_agence = new_nom_agence;
 }
 
-Fenetre::Fenetre() : wxFrame(nullptr, wxID_ANY, "Test Banque", wxPoint(30, 30), wxSize(1000, 600))
+Fenetre::Fenetre() : wxFrame(nullptr, wxID_ANY, "Projet Banque", wxPoint(30, 30), wxSize(1000, 600))
 {
-    wxMenu* menu1 = new wxMenu;
-    menu1->Append(3,"&Test_1\tCtrl A","Test 1");
-    menu1->AppendSeparator();
-
-    menu1->Append(4, "Test 3");
-    menu1->AppendSeparator();
-
-    menu1->Append(5, "Test 2");
-    menu1->AppendSeparator();
-
     wxMenu* menu2 = new wxMenu;
     menu2->Append(1, "Login");
 
@@ -83,12 +73,15 @@ Fenetre::Fenetre() : wxFrame(nullptr, wxID_ANY, "Test Banque", wxPoint(30, 30), 
     wxMenu* menuHelp = new wxMenu;
     menuHelp->Append(wxID_ABOUT);
 
+    wxMenu* menuExit = new wxMenu;
+    menuExit->Append(wxID_EXIT);
+
 
     wxMenuBar* menu = new wxMenuBar;
-    menu->Append(menu1, "Test");
     menu->Append(menu2, "Login");
     menu->Append(menu3, "Create");
     menu->Append(menuHelp, "&Help");
+    menu->Append(menuExit, "Exit");
 
 
     //vbox->Add(hbox2, 0, wxALIGN_RIGHT | wxRIGHT | wxBOTTOM, 10);
@@ -129,7 +122,7 @@ Client login_client(login_num_client, login_nom, login_prenom, login_adresse, no
 
 void Fenetre::OnLogin(wxCommandEvent& event) {
 
-    LoginClient* login = new LoginClient(this, wxID_ANY, "Test");
+    LoginClient* login = new LoginClient(this, wxID_ANY, "Agence de "+nom_agence_decentralise);
     login->Show(true);
     if (login->ShowModal() == wxID_OK)
     {
@@ -208,7 +201,7 @@ void Fenetre::OnLogin(wxCommandEvent& event) {
             return;
         }
         else {
-            wxMessageBox("Numéro de compte ou mot de passe invalide",
+            wxMessageBox("Numero de compte ou mot de passe invalide",
                 "Error ", wxOK | wxICON_INFORMATION);
             return;
         }
@@ -216,7 +209,7 @@ void Fenetre::OnLogin(wxCommandEvent& event) {
 }
 
 void Fenetre::OnRegister(wxCommandEvent& event) {
-    CreationClient* nouveau_client = new CreationClient(this, wxID_ANY, "Test");
+    CreationClient* nouveau_client = new CreationClient(this, wxID_ANY, "Creation client");
     nouveau_client->Show(true);
 
     if (nouveau_client->ShowModal() == wxID_OK)
@@ -308,9 +301,13 @@ void Fenetre::OnRegister(wxCommandEvent& event) {
         map <int, Client> registre_local;
         registre_local.emplace(1,new_client);
 
-        wxMessageBox("Votre compte a bien été créé", "Error ", wxOK | wxICON_INFORMATION);
+        wxMessageBox("Votre compte a bien ete cree", "Info ", wxOK | wxICON_INFORMATION);
         return;
 
+        FenetreEspacePerso* frame_espace_perso = new FenetreEspacePerso(NULL, wxID_ANY);
+        frame_espace_perso->SetBackgroundColour(wxColour(*wxWHITE));
+        frame_espace_perso->Show(true);
+        return;
     }
 }
 
@@ -372,6 +369,7 @@ void Fenetre::OnAbout(wxCommandEvent& event)
 {
     wxLaunchDefaultBrowser("https://www.google.com/search?q=qu%27est-ce+qu%27une+banque&oq=qu%27est-ce+qu%27une+banque&aqs=chrome..69i57j0i512l9.9756j0j7&sourceid=chrome&ie=UTF-8");
 }
+
 
 
 LoginClient::LoginClient(wxWindow* parent, wxWindowID id, const wxString& title) : wxDialog(parent, id, title)
@@ -439,7 +437,7 @@ void FenetreEspacePerso::OnConsulterCourant(wxCommandEvent& event) {
     for (int i = 0; i < nb_comptes; i++) {
         int montant = 100 + i;
         string montant_str = std::to_string(montant);
-        string str1 = "Le montant de votre compte courant numéro ";
+        string str1 = "Le montant de votre compte courant numero ";
 
         string numero_compte_str = std::to_string(numero_compte[i]);
         str1 += numero_compte_str;
@@ -474,7 +472,7 @@ void FenetreEspacePerso::OnConsulterEpargne(wxCommandEvent& event) {
     for (int i = 0; i < nb_comptes; i++) {
         int montant = 100+i;
         string montant_str = std::to_string(montant);
-        string str1 = "Le montant de votre compte epargne numéro ";
+        string str1 = "Le montant de votre compte epargne numero ";
 
         string numero_compte_str = std::to_string(numero_compte[i]);
         str1 += numero_compte_str;
@@ -484,8 +482,9 @@ void FenetreEspacePerso::OnConsulterEpargne(wxCommandEvent& event) {
         str1 += str2;
 
         str1 += montant_str;
-        str1 += "\n";
         final_str += str1;
+
+
     }
 
     wxMessageBox(final_str,
@@ -615,6 +614,10 @@ void FenetreEspacePerso::OnAbout(wxCommandEvent& event) {
 }
 
 void FenetreEspacePerso::OnExit(wxCommandEvent& event) {
+    // On doit prévenir la BD de l'exit
+    socket_.connect(tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 0123));
+    demande = "Exit";
+    boost::asio::write(socket_, boost::asio::buffer(demande), error);
     Close(true);
 }
 

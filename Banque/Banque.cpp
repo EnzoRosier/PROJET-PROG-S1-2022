@@ -109,7 +109,7 @@ Banque_Decentralise::Banque_Decentralise() {
 Banque_Decentralise::Banque_Decentralise(int id, string agence, map <int, Client> registre) {
 	this->ID_agence = id;
 	this->nom_agence = agence;
-	this->registre_local;
+	this->registre_local = registre;
 }
 
 int Banque_Decentralise:: Get_ID_agence() {

@@ -2,6 +2,7 @@
 #include "Threadfonctions.h"
 #include "../../Sockets/tools.cpp"
 
+/*
 void update_BC(Banque_Centrale& BC) {
 	boost::asio::io_service io_service;
 	tcp::socket socket(io_service);
@@ -38,3 +39,4 @@ void updateThread(Banque_Centrale& bq)
 	}
 }
 
+*/

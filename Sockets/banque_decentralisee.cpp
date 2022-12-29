@@ -22,9 +22,9 @@ map<string,Banque_Decentralise> init_BD(map<int, Client> g_registre) {
     vector<string> agences = { "Lille","Pekin","Moscou" }; // Les noms des agences
     map<int, Client> temp; // Registre temporaire
     int id = 0;
-
     for (string& name:agences) {
         for (pair<int, Client> elem : g_registre) {
+            
             if (name == elem.second.Get_agence()) {
                 temp.emplace(elem);
             }
@@ -68,12 +68,10 @@ int main() {
 
     // On récupère le registre de la BC
     map<int, Client> temp_registre = get_data_from_string<map<int, Client>>(retour);
+
     map<string,Banque_Decentralise> all_BD = init_BD(temp_registre);
     cout << "Init complete" << endl;
 
-    for (auto it= temp_registre.begin(); it != temp_registre.end(); it++) {
-        it->second.affiche_client();
-    }
 
     socket_BC.close();
 
@@ -89,6 +87,7 @@ int main() {
         // On se met en attente d'une requête de l'interface
         
         size_t length = socket_CL.read_some(boost::asio::buffer(retour), error);
+        cout << retour ;
 
         // Une fois qu'on a la requête, on l'analyse
 
@@ -115,6 +114,7 @@ int main() {
 
         if (string(retour).substr(0, 5) == "Login") { // L'interface tente de se connecter à un compte
             cout << "Login received from user" << endl;
+            cout << retour << endl;
             int id_client = atoi(string(retour).substr(5, string(retour).size() - 5).c_str());
             bool match = false;
             auto it = all_BD.begin();
@@ -162,7 +162,6 @@ int main() {
             boost::asio::write(socket_CL, boost::asio::buffer(demande), error);
             cout << "New client connected succesfully" << endl;
             nouv_client.affiche_client();
-            exit = true;
             
         }
 
