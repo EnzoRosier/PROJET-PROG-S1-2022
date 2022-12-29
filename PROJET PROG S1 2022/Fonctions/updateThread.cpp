@@ -1,6 +1,6 @@
 #include "Threadfonctions.h"
 
-void update_BC((Banque_Centrale& BC, boost::asio::io_service io_service) {
+void update_BC((Banque_Centrale& BC, boost::asio::io_service io_service)) {
 	tcp::socket socket(io_service);
 	string demande = {};
 	char retour[1000] = {};

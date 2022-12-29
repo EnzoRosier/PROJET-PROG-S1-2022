@@ -70,9 +70,14 @@ int main() {
     map<int, Client> temp_registre = get_data_from_string<map<int, Client>>(retour);
     map<string,Banque_Decentralise> all_BD = init_BD(temp_registre);
     cout << "Init complete" << endl;
+
+    for (auto it= temp_registre.begin(); it != temp_registre.end(); it++) {
+
+    }
+
     socket_BC.close();
 
-    cout << "Taille registre" << temp_registre.size() << endl;
+    
 
 
     Banque_Decentralise current_BD=all_BD["Lille"]; // On prend Lille comme étant la banque actuelle par défaut
