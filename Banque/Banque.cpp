@@ -27,7 +27,7 @@ void Banque_Centrale::Set_registre(map<int, Client> nouv_registre) {
 	this->registre = nouv_registre;
 }
 
-Compte Banque_Centrale::Chercher_compte_clients(string num_compte) {
+boost::optional<Compte&> Banque_Centrale::Chercher_compte_clients(string num_compte) {
 	try {
 		for (auto itr = registre.begin(); itr != registre.end(); ++itr) {
 			auto id = itr->second.Get_liste_comptes();
@@ -43,6 +43,7 @@ Compte Banque_Centrale::Chercher_compte_clients(string num_compte) {
 	{
 		cerr << chaine << endl;
 	}
+	return boost::optional<Compte&>();
 }
 
 Client& Banque_Centrale::Chercher_infos_clients(int num_client) {

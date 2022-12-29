@@ -68,8 +68,8 @@ int main() {
             cout << "Received a Find request" << endl;
 
             string id_compte = demande.substr(5, string(retour).size() - 4); // On prend la partie de la requête qui nous intéresse
-            Compte compte = BC.Chercher_compte_clients(id_compte);
-            Client c = BC.Chercher_infos_clients(compte.get_Id_proprietaire());
+            auto compte = BC.Chercher_compte_clients(id_compte);
+            Client c = BC.Chercher_infos_clients(compte.get().get_Id_proprietaire());
 
             if (c.Get_id() != -1) {
 
