@@ -1,3 +1,4 @@
+#pragma once
 #include "Threadfonctions.h"
 
 void update_BC((Banque_Centrale& BC, boost::asio::io_service io_service)) {
@@ -30,7 +31,7 @@ void updateThread(Banque_Centrale& bq)
 
 			if (time(0) - start >= n)
 			{
-				update_BC(boost::asio::io_service io_service);
+				update_BC(bq, boost::asio::io_service io_service);
 			}
 		}
 	}

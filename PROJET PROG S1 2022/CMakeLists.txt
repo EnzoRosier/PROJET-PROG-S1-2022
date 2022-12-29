@@ -24,6 +24,7 @@ endif (MSVC)
 
 find_package(Boost 1.80.0 COMPONENTS system thread regex serialization REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS})
+include_directories(ThreadFunctionLib ${Boost_INCLUDE_DIRS})
 link_directories(${Boost_LIBRARY_DIRS})
 add_library(UtilityFunctionLib "Fonctions/Transaction.cpp" "Fonctions/Def_id.cpp")
 target_link_libraries (UtilityFunctionLib LINK_PUBLIC BanqueLib)
