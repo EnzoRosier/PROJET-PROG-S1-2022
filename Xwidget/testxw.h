@@ -29,6 +29,7 @@ private:
 	void OnAccount(wxCommandEvent& event);
 	void OnReturn(wxCommandEvent& event);
 	void OnHome(wxCommandEvent& event);
+	void OnClose(wxCommandEvent& event);
 	void OnExit(wxCommandEvent& event);
 	void OnHelp(wxCommandEvent& event);
 };

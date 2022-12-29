@@ -74,7 +74,7 @@ Fenetre::Fenetre() : wxFrame(nullptr, wxID_ANY, "Projet Banque", wxPoint(30, 30)
     menuHelp->Append(wxID_ABOUT);
 
     wxMenu* menuExit = new wxMenu;
-    menuExit->Append(wxID_EXIT);
+    menuExit->Append(40, "Exit");
 
 
     wxMenuBar* menu = new wxMenuBar;
@@ -93,6 +93,7 @@ Fenetre::Fenetre() : wxFrame(nullptr, wxID_ANY, "Projet Banque", wxPoint(30, 30)
 
     Bind(wxEVT_MENU, &Fenetre::OnLogin, this, 1);
     Bind(wxEVT_MENU, &Fenetre::OnRegister, this, 2);
+    Bind(wxEVT_MENU, &Fenetre::OnExit, this, 40);
 
     ChoixBanque* choix = new ChoixBanque(this, wxID_ANY, "Choix de la Banque");
     choix->Show(true);
@@ -301,7 +302,13 @@ void Fenetre::OnRegister(wxCommandEvent& event) {
         map <int, Client> registre_local;
         registre_local.emplace(1,new_client);
 
-        wxMessageBox("Votre compte a bien ete cree", "Info ", wxOK | wxICON_INFORMATION);
+        string str1 = "Votre compte a bien ete cree";
+        string str2 = " Votre numero client est : ";
+        string str_num = std::to_string(current_client.Get_id());
+
+        string str_final = str1 + str2 + str_num;
+
+        wxMessageBox(str_final, "Info ", wxOK | wxICON_INFORMATION);
         return;
 
         FenetreEspacePerso* frame_espace_perso = new FenetreEspacePerso(NULL, wxID_ANY);
@@ -337,7 +344,7 @@ void Fenetre::OnExit(wxCommandEvent& event)
     socket_.connect(tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 0123));
     demande = "Exit";
     boost::asio::write(socket_, boost::asio::buffer(demande), error);
-    Close(true);
+    wxWindow::Destroy();
 }
 
 void Fenetre::OnHelp(wxCommandEvent& event) {
@@ -643,6 +650,9 @@ FenetreEspacePerso::FenetreEspacePerso(wxWindow* parent, wxWindowID id) : wxFram
     wxMenu* menuCreerCompte = new wxMenu;
     menuCreerCompte->Append(10, "Creer un compte");
 
+    wxMenu* menuExit = new wxMenu;
+    menuExit->Append(40, "Exit");
+
     wxMenu* menuHelp = new wxMenu;
     menuHelp->Append(9, "Besoin d'aide ?");
 
@@ -652,6 +662,7 @@ FenetreEspacePerso::FenetreEspacePerso(wxWindow* parent, wxWindowID id) : wxFram
     menu->Append(menuComptes, "Consulter");
     menu->Append(menuEnvoyer, "Transaction");
     menu->Append(menuCreerCompte, "Creer un compte");
+    menu->Append(menuExit, "Exit");
     menu->Append(menuHelp, "&Help");
 
 
@@ -666,7 +677,21 @@ FenetreEspacePerso::FenetreEspacePerso(wxWindow* parent, wxWindowID id) : wxFram
     Bind(wxEVT_MENU, &FenetreEspacePerso::OnConsulterEpargne, this, 7);
     Bind(wxEVT_MENU, &FenetreEspacePerso::OnTransaction, this, 8);
     Bind(wxEVT_MENU, &FenetreEspacePerso::OnAbout, this, 9);
+    Bind(wxEVT_MENU, &FenetreEspacePerso::OnExit, this, 40);
     Bind(wxEVT_MENU, &FenetreEspacePerso::OnCreateAccount, this, 10);
+}
+
+void FenetreEspacePerso::OnExit(wxCommandEvent& event)
+{
+    // Pour Olivier, c'est le code qui était sur le Exit de la page d'accueil
+    // On doit prévenir la BD de l'exit
+    /*
+    socket_.connect(tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 0123));
+    demande = "Exit";
+    boost::asio::write(socket_, boost::asio::buffer(demande), error);
+    wxWindow::Destroy();
+    */
+
 }
 
 wxString Transactionwx::get_receveur_number() {
