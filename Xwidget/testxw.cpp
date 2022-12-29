@@ -116,14 +116,16 @@ Fenetre::Fenetre() : wxFrame(nullptr, wxID_ANY, "Test Banque", wxPoint(30, 30), 
     }
 }
 
-int login_num_client = 1;
+//int login_num_client = 1;
 string login_mdp_client = "";
-string login_nom = "";
+
+/*string login_nom = "";
 string login_prenom = "";
 string login_adresse = "";
 int taille_du_client = 65;
 
 Client login_client(login_num_client, login_nom, login_prenom, login_adresse, nom_agence_decentralise, taille_du_client);
+*/
 
 void Fenetre::OnLogin(wxCommandEvent& event) {
 
@@ -200,7 +202,7 @@ void Fenetre::OnLogin(wxCommandEvent& event) {
 
 
         if (connected == true) {
-            login_num_client = new_login;
+            //login_num_client = new_login;
             login_mdp_client = new_password;
             FenetreEspacePerso* frame_espace_perso = new FenetreEspacePerso(NULL, wxID_ANY);
             frame_espace_perso->SetBackgroundColour(wxColour(*wxWHITE));
@@ -537,7 +539,7 @@ void FenetreEspacePerso::OnTransaction(wxCommandEvent& event) {
 
         new_transaction.date = now;
         new_transaction.id_crediteur = receveur_number;
-        new_transaction.id_debiteur = login_num_client;
+        new_transaction.id_debiteur = current_client.Get_id();
         new_transaction.montant = new_somme_transaction;
 
         /*
@@ -581,13 +583,13 @@ void FenetreEspacePerso::OnCreateAccount(wxCommandEvent& event) {
         }
         else {
             if (type_compte == "Compte courant") {
-                string generation_ID = generateIDCompte(nom_agence_decentralise, login_client, false);
-                Compte new_compte(generation_ID, login_num_client, 0);
+                string generation_ID = generateIDCompte(nom_agence_decentralise, current_client, false);
+                Compte new_compte(generation_ID, current_client.Get_id(), 0);
                 current_client.Ajouter_compte(new_compte);
             }
             else if (type_compte == "Compte epargne") {
-                string generation_ID = generateIDCompte(nom_agence_decentralise, login_client, true);
-                Compte_Epargnes new_compte(generation_ID, login_num_client, 0, 3);
+                string generation_ID = generateIDCompte(nom_agence_decentralise, current_client, true);
+                Compte_Epargnes new_compte(generation_ID, current_client.Get_id(), 0, 3);
                 current_client.Ajouter_compte_epargnes(new_compte);
             }
         }
