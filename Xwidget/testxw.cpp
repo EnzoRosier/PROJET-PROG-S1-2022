@@ -23,7 +23,7 @@ Client current_client;
 
 boost::asio::io_service io_service;
 tcp::acceptor acceptor_(io_service, tcp::endpoint(tcp::v4(), 0123));
-tcp::socket socket(io_service);
+tcp::socket socket_(io_service);
 string demande = {};
 char retour[1000] = {};
 boost::system::error_code error;
@@ -164,13 +164,13 @@ void Fenetre::OnLogin(wxCommandEvent& event) {
         demande = "Login";
         demande.append(id_client);  // La requête est de la forme "LoginId_client"
 
-        socket.connect(tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 1234)); // On se connecte avec la banque décentralisée
-        boost::asio::write(socket, boost::asio::buffer(demande), error);
+        socket_.connect(tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 1234)); // On se connecte avec la banque décentralisée
+        boost::asio::write(socket_, boost::asio::buffer(demande), error);
 
         // Maintenant on doit attendre la réponse de la BD
 
-        acceptor_.accept(socket);
-        size_t length = socket.read_some(boost::asio::buffer(retour), error);
+        acceptor_.accept(socket_);
+        size_t length = socket_.read_some(boost::asio::buffer(retour), error);
 
         bool connected;
 
@@ -290,13 +290,13 @@ void Fenetre::OnRegister(wxCommandEvent& event) {
 
         // On a le nouveau client, il faut l'envoyer à la BD pour qu'elle se mette à jour
         demande = get_string_from_data(new_client);
-        socket.connect(tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 1234)); // On se connecte avec la banque décentralisée
-        boost::asio::write(socket, boost::asio::buffer(demande), error);
+        socket_.connect(tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 1234)); // On se connecte avec la banque décentralisée
+        boost::asio::write(socket_, boost::asio::buffer(demande), error);
 
         // Maintenant on doit attendre la réponse de la BD
 
-        acceptor_.accept(socket);
-        size_t length = socket.read_some(boost::asio::buffer(retour), error);
+        acceptor_.accept(socket_);
+        size_t length = socket_.read_some(boost::asio::buffer(retour), error);
         current_client = get_data_from_string<Client>(retour);
 
 
@@ -334,8 +334,8 @@ void Fenetre::OnExit(wxCommandEvent& event)
     // On doit prévenir la BD de l'exit
 
     demande = "Exit";
-    socket.connect(tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 0123));
-    boost::asio::write(socket, boost::asio::buffer(demande), error);
+    socket_.connect(tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 0123));
+    boost::asio::write(socket_, boost::asio::buffer(demande), error);
     Close(true);
 }
 
@@ -553,12 +553,12 @@ void FenetreEspacePerso::OnTransaction(wxCommandEvent& event) {
         ss << montant;
         demande.append(ss.str());
 
-        socket.connect(tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 0123)); // On se connecte avec la banque décentralisée
-        boost::asio::write(socket, boost::asio::buffer(demande), error);
+        socket_.connect(tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 0123)); // On se connecte avec la banque décentralisée
+        boost::asio::write(socket_, boost::asio::buffer(demande), error);
 
         // Maintenant on doit se mettre en attente de la réponse de la BD
-        acceptor_.accept(socket);
-        size_t length = socket.read_some(boost::asio::buffer(retour), error);
+        acceptor_.accept(socket_);
+        size_t length = socket_.read_some(boost::asio::buffer(retour), error);
         Client current_user = get_data_from_string<Client>(retour);
 
     }
@@ -597,8 +597,8 @@ void FenetreEspacePerso::OnCreateAccount(wxCommandEvent& event) {
 
         demande = "Add_acc";
         demande.append(get_string_from_data(current_client));
-        socket.connect(tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 0123));
-        boost::asio::write(socket, boost::asio::buffer(demande), error);
+        socket_.connect(tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 0123));
+        boost::asio::write(socket_, boost::asio::buffer(demande), error);
         
     }
 }
