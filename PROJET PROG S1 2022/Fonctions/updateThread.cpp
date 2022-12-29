@@ -1,5 +1,9 @@
 #include "Threadfonctions.h"
 
+void update() {
+	//Tes sockets ici Olivier
+}
+
 void updateThread(Banque_Centrale& bq)
 {
 	while (true) {
@@ -17,6 +21,3 @@ void updateThread(Banque_Centrale& bq)
 	}
 }
 
-void update() {
-	//Tes sockets ici Olivier
-}
