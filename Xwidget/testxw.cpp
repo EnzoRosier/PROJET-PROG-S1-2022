@@ -241,19 +241,6 @@ void Fenetre::OnRegister(wxCommandEvent& event) {
 
         wxString string_agence;
 
-        /*if (!customer_number.ToLong(&number))
-        {
-            wxMessageBox("Error number",
-                "Error ", wxOK | wxICON_INFORMATION);
-            return;
-        }*/
-
-       /* if (!account_number.ToLong(&account_numbers))
-        {
-            wxMessageBox("Account numbers",
-                "Error ", wxOK | wxICON_INFORMATION);
-            return;
-        }*/
 
         if (prenom == "")
         {
@@ -504,7 +491,7 @@ void FenetreEspacePerso::OnConsulterEpargne(wxCommandEvent& event) {
 }
 
 void FenetreEspacePerso::OnTransaction(wxCommandEvent& event) {
-    Transactionwx* transac = new Transactionwx(this, wxID_ANY, "Test");
+    Transactionwx* transac = new Transactionwx(this, wxID_ANY, "Menu Transaction");
     transac->Show(true);
     if (transac->ShowModal() == wxID_OK)
     {
@@ -626,14 +613,6 @@ void FenetreEspacePerso::OnAbout(wxCommandEvent& event) {
 
 FenetreEspacePerso::FenetreEspacePerso(wxWindow* parent, wxWindowID id) : wxFrame(nullptr, wxID_ANY, "Espace personnel", wxPoint(30, 30), wxSize(1000, 600))
 {
-    /*wxMenu* menuTest = new wxMenu;
-    menuTest->Append(11, "&Test_1\tCtrl A", "Test 1");
-    menuTest->AppendSeparator();
-
-    menuTest->Append(10, "Test 3");
-    menuTest->AppendSeparator();
-
-    menuTest->Append(9, "Test 2");*/
 
     wxMenu* menuComptes = new wxMenu;
     menuComptes->Append(6, "Voir ses comptes courants");
@@ -654,7 +633,6 @@ FenetreEspacePerso::FenetreEspacePerso(wxWindow* parent, wxWindowID id) : wxFram
 
 
     wxMenuBar* menu = new wxMenuBar;
-    //menu->Append(menuTest, "Test");
     menu->Append(menuComptes, "Consulter");
     menu->Append(menuEnvoyer, "Transaction");
     menu->Append(menuCreerCompte, "Creer un compte");
