@@ -72,6 +72,8 @@ int main() {
     cout << "Init complete" << endl;
     socket_BC.close();
 
+    cout << "Taille registre" << temp_registre.size() << endl;
+
 
     Banque_Decentralise current_BD=all_BD["Lille"]; // On prend Lille comme étant la banque actuelle par défaut
 
@@ -132,16 +134,14 @@ int main() {
 
         if (string(retour).substr(0, 8) == "Add_cust") {
             cout << "New customer received" << endl;
-            Client nouv_client = get_data_from_string<Client>(string(retour).substr(9, string(retour).size() - 8).c_str());
+            Client nouv_client = get_data_from_string<Client>(string(retour).substr(8, string(retour).size() - 8).c_str());
 
             // On doit maintenant ajouter le client au registre
             // Pour cela on va d'abord trouver la BD dans laquelle ajouter le client
             string agence = nouv_client.Get_agence();
-            cout << "Agence :" << agence << endl;
             for (auto it = all_BD.begin(); it != all_BD.end();it++) {
                 cout << it->second.Get_nom_agence() << endl;
                 if (agence == it->second.Get_nom_agence()) {
-                    cout << "Match" << endl;
                     current_BD = it->second;
                     current_BD.Ajouter_au_registre(nouv_client);
                 }
@@ -153,6 +153,7 @@ int main() {
             demande = get_string_from_data(nouv_client);
             boost::asio::write(socket_CL, boost::asio::buffer(demande), error);
             cout << "New client connected succesfully" << endl;
+            nouv_client.affiche_client();
             exit = true;
             
         }

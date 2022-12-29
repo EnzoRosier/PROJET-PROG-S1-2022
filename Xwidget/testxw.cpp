@@ -295,7 +295,8 @@ void Fenetre::OnRegister(wxCommandEvent& event) {
         socket_.connect(tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 0123));
 
         // On a le nouveau client, il faut l'envoyer à la BD pour qu'elle se mette à jour
-        demande = get_string_from_data(new_client);
+        demande = "Add_cust";
+        demande.append(get_string_from_data(new_client));
         boost::asio::write(socket_, boost::asio::buffer(demande), error);
 
         // Maintenant on doit attendre la réponse de la BD

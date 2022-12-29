@@ -32,7 +32,7 @@ int main() {
         ptree in;
         cout << "Hello" << endl;
         read_json(file_in, in);
-        Banque_Centrale BC = Banque_from_ptree(in);
+        BC = Banque_from_ptree(in);
     }
     else {
         cout << "Registre load failed" << endl;

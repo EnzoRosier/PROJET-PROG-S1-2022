@@ -9,7 +9,7 @@ using namespace std;
 
 int main()
 {
-	/*Banque_Centrale bq;
+	Banque_Centrale bq;
 	Banque_Decentralise BD;
 
 	Client cl1 = Client(0, "John", "McClain", "3 Rue de la paix", "Lille", 68.8);
@@ -34,8 +34,8 @@ int main()
 	cl3.Set_liste_comptes_epargnes(vector<Compte_Epargnes> {Compte_Epargnes("RU10064502", 2, 1000, 3)});
 
 	Client cl4 = Client(3, "Jim", "McClain", "46 Rue du partage", "Pekin", 69.9);
-	cl3.Set_liste_comptes(vector<Compte> {Compte("CH00069903", 3, 257),Compte("CH001699",3,148)});
-	cl3.Set_liste_comptes_epargnes(vector<Compte_Epargnes> {Compte_Epargnes("CH10069903", 3, 678, 3)});
+	cl4.Set_liste_comptes(vector<Compte> {Compte("CH00069903", 3, 257),Compte("CH001699",3,148)});
+	cl4.Set_liste_comptes_epargnes(vector<Compte_Epargnes> {Compte_Epargnes("CH10069903", 3, 678, 3)});
 
 	BD.Ajouter_au_registre(cl1);
 	BD.Ajouter_au_registre(cl2);
@@ -46,7 +46,7 @@ int main()
 
 	bq.Set_registre(BD.Get_registre_local());
 	
-	std::ofstream file_out("Registre.json");
+	std::ofstream file_out("registre_BC.json");
 	write_json(file_out, bq.GeneratePtreeBanque());
 	file_out.close();
 
@@ -56,6 +56,6 @@ int main()
 	auto test = Banque_from_ptree(in);
 	file_out.close();
 
-	saveThread(bq);*/
+
 
 }
