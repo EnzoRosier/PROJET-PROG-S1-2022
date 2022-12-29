@@ -14,7 +14,7 @@ void update((Banque_Centrale& BC, boost::asio::io_service io_service) {
 	// On attend la réponse de BD
 	size_t length = socket.read_some(boost::asio::buffer(retour), error);
 	cout << "BC updated" << endl;
-
+	BC.Set_registre();
 
 }
 
