@@ -340,6 +340,7 @@ void Fenetre::OnHome(wxCommandEvent& event) {
 
 void Fenetre::OnExit(wxCommandEvent& event)
 {
+    // Si tu dois modifier ton code d'exit c'est ici Olivier
     // On doit prévenir la BD de l'exit
     socket_.connect(tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 0123));
     demande = "Exit";
