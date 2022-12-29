@@ -72,7 +72,7 @@ int main() {
     cout << "Init complete" << endl;
 
     for (auto it= temp_registre.begin(); it != temp_registre.end(); it++) {
-
+        it->second.affiche_client();
     }
 
     socket_BC.close();

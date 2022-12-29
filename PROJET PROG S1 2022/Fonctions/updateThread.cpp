@@ -1,7 +1,9 @@
 #pragma once
 #include "Threadfonctions.h"
+#include "../../Sockets/tools.cpp"
 
-void update_BC((Banque_Centrale& BC, boost::asio::io_service io_service)) {
+void update_BC(Banque_Centrale& BC) {
+	boost::asio::io_service io_service;
 	tcp::socket socket(io_service);
 	string demande = {};
 	char retour[1000] = {};
@@ -15,8 +17,7 @@ void update_BC((Banque_Centrale& BC, boost::asio::io_service io_service)) {
 	// On attend la réponse de BD
 	size_t length = socket.read_some(boost::asio::buffer(retour), error);
 	cout << "BC updated" << endl;
-	BC.Set_registre();
-
+	BC.Set_registre(get_data_from_string<map<int,Client>>(retour));
 }
 
 
@@ -31,7 +32,7 @@ void updateThread(Banque_Centrale& bq)
 
 			if (time(0) - start >= n)
 			{
-				update_BC(bq, boost::asio::io_service io_service);
+				update_BC(bq);
 			}
 		}
 	}
