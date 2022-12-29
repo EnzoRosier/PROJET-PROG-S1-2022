@@ -69,7 +69,7 @@ int main() {
 
             string id_compte = demande.substr(5, string(retour).size() - 4); // On prend la partie de la requête qui nous intéresse
             auto compte = BC.Chercher_compte_clients(id_compte);
-            Client c = BC.Chercher_infos_clients(compte.get().get_Id_proprietaire());
+            Client c = BC.Chercher_infos_clients(compte.get_Id_proprietaire());
 
             if (c.Get_id() != -1) {
 
