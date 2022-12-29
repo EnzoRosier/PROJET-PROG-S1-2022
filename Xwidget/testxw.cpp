@@ -158,18 +158,16 @@ void Fenetre::OnLogin(wxCommandEvent& event) {
         // Ici il faut mettre le traitement du login
         */
 
-
+        socket_.connect(tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 0123));
         string id_client = customer_number.ToStdString();
 
         demande = "Login";
         demande.append(id_client);  // La requête est de la forme "LoginId_client"
 
-        socket_.connect(tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 1234)); // On se connecte avec la banque décentralisée
         boost::asio::write(socket_, boost::asio::buffer(demande), error);
 
         // Maintenant on doit attendre la réponse de la BD
 
-        acceptor_.accept(socket_);
         size_t length = socket_.read_some(boost::asio::buffer(retour), error);
 
         bool connected;
@@ -288,14 +286,14 @@ void Fenetre::OnRegister(wxCommandEvent& event) {
         const int ID = 0;
         Client new_client(ID, new_nom, new_prenom, new_adresse, nom_agence_decentralise, new_taille);
 
+        socket_.connect(tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 0123));
+
         // On a le nouveau client, il faut l'envoyer à la BD pour qu'elle se mette à jour
         demande = get_string_from_data(new_client);
-        socket_.connect(tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 1234)); // On se connecte avec la banque décentralisée
         boost::asio::write(socket_, boost::asio::buffer(demande), error);
 
         // Maintenant on doit attendre la réponse de la BD
 
-        acceptor_.accept(socket_);
         size_t length = socket_.read_some(boost::asio::buffer(retour), error);
         current_client = get_data_from_string<Client>(retour);
 
@@ -332,9 +330,8 @@ void Fenetre::OnHome(wxCommandEvent& event) {
 void Fenetre::OnExit(wxCommandEvent& event)
 {
     // On doit prévenir la BD de l'exit
-
-    demande = "Exit";
     socket_.connect(tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 0123));
+    demande = "Exit";
     boost::asio::write(socket_, boost::asio::buffer(demande), error);
     Close(true);
 }
@@ -539,8 +536,8 @@ void FenetreEspacePerso::OnTransaction(wxCommandEvent& event) {
         /*
         // Ici il faut mettre l'envoi de la requ�te au serveur
         */
+        socket_.connect(tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 0123));
 
-        // J'ai besoin de l'id du compte receveur, de l'id du compte envoyeur et du montant dans les variables correspondantes
         string id_debiteur = envoyeur_number;
         string id_crediteur = receveur_number;
         int montant = new_somme_transaction;
@@ -553,11 +550,9 @@ void FenetreEspacePerso::OnTransaction(wxCommandEvent& event) {
         ss << montant;
         demande.append(ss.str());
 
-        socket_.connect(tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 0123)); // On se connecte avec la banque décentralisée
         boost::asio::write(socket_, boost::asio::buffer(demande), error);
 
         // Maintenant on doit se mettre en attente de la réponse de la BD
-        acceptor_.accept(socket_);
         size_t length = socket_.read_some(boost::asio::buffer(retour), error);
         Client current_user = get_data_from_string<Client>(retour);
 
@@ -595,10 +590,10 @@ void FenetreEspacePerso::OnCreateAccount(wxCommandEvent& event) {
         */
 
         // On doit prévenir la BD de cette modification
+        socket_.connect(tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 0123));
 
         demande = "Add_acc";
         demande.append(get_string_from_data(current_client));
-        socket_.connect(tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 0123));
         boost::asio::write(socket_, boost::asio::buffer(demande), error);
         
     }
