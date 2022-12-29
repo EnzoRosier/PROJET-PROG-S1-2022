@@ -46,7 +46,9 @@ int main() {
     boost::asio::write(socket, boost::asio::buffer(demande), error);
     cout << "Init sent to BD" << endl;
 
-    thread threadEparne(epargneThread, BC); //Lancement thread Epargne
+    thread threadEparne(epargneThread, ref(BC)); //Lancement thread Epargne
+    thread threadSave(saveThread, ref(BC)); //Lancement thread Epargne
+    thread threadUpdate(updateThread, ref(BC)); //Lancement thread Epargne
 
     bool exit = false;
     while (exit == false) {  // Tant que l'utilisateur ne quitte pas l'interface
