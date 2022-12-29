@@ -16,7 +16,8 @@ Transaction doTransaction(string date, string debiteur, string crediteur, int mo
 	Debit.set_Solde_Compte(solde_debit - montant);
 
 	double solde_credit = Credit.get_Solde_Compte();
-	Debit.set_Solde_Compte(solde_credit + montant);
+	Credit.set_Solde_Compte(solde_credit + montant);
+
 	B_debiteur.Chercher_infos_clients(Debit.get_Id_proprietaire()).Ajouter_transaction(transac);
 	B_crediteur.Chercher_infos_clients(Credit.get_Id_proprietaire()).Ajouter_transaction(transac);
 

@@ -10,9 +10,9 @@ Types de requêtes avec la banque centrale (IP : 1234):
     - Exit : Pour fermer l'executable et sauvegarder le registre, envoie un string ("Exit") et ne reçoit rien
 
 Types de requêtes avec l'interface (IP : 0123):
-    - Login : L'interface tente de se connecter, reçoit un string "Login Id_client", renvoie un client ou une réponse négative
+    - Login : L'interface tente de se connecter, reçoit un string "LoginId_client", renvoie un client ou une réponse négative
     - Add_cust : L'interface crée un nouveau client, reçoit un client et le renvoie
-    - Transaction : L'interface crée une demande de transaction
+    - Transaction : L'interface crée une demande de transaction, reçoit un string ("Transactionid_debiteurid_crediteurmontant") et renvoie un client
 */
 
 map<string,Banque_Decentralise> init_BD(map<int, Client> g_registre) {
@@ -58,6 +58,7 @@ int main() {
     string date;
 
 
+    /*
     // Au lancement il faut attendre le INIT de la BC
     acceptor_BC.accept(socket);
     size_t length = socket.read_some(boost::asio::buffer(retour), error);
@@ -67,39 +68,65 @@ int main() {
     map<int, Client> temp_registre = get_data_from_string<map<int, Client>>(retour);
     map<string,Banque_Decentralise> all_BD = init_BD(temp_registre);
     cout << "Init complete" << endl;
+
+    // On peut envoyer un check à la BC
+    demande = "Check";
+    socket.connect(tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 1234));
+    boost::asio::write(socket, boost::asio::buffer(demande), error);
+
+    cout << "Check sent to BC" << endl;
+    */
+    std::ifstream file_in("registre_BC.json");
+    Banque_Centrale BC;
+    if (file_in.is_open()) {
+        cout << "Registre loaded sucessfully" << endl;
+        ptree in;
+        cout << "Hello" << endl;
+        read_json(file_in, in);
+        Banque_Centrale BC = Banque_from_ptree(in);
+    }
+    else {
+        cout << "Registre load failed" << endl;
+    }
+
+    map<string, Banque_Decentralise> all_BD = init_BD(BC.Get_registre());
     
 
     Banque_Decentralise current_BD=all_BD["Lille"]; // On prend Lille comme étant la banque actuelle par défaut
 
-    char test[1000] = "Exit";
-    cout << test << endl;
+  
     bool exit = false;
     while (!exit) {
-        
+        cout << "Enter BD while" << endl;
         // On se met en attente d'une requête de l'interface
-    //    acceptor_CL.accept(socket);
-    //    size_t length = socket.read_some(boost::asio::buffer(retour), error);
+        acceptor_CL.accept(socket);
+        size_t length = socket.read_some(boost::asio::buffer(retour), error);
 
         // Une fois qu'on a la requête, on l'analyse
 
-        if (string(test)=="Exit") {
+        if (string(retour)=="Exit") {
             cout << "Enter exit" << endl;
+            exit = true;
             // On va remettre tous les registres des BD en un registre complet à renvoyer à la BC
             map<int, Client> registre_complet = registre_exit(all_BD);
             cout << "Exit received from user" << endl;
+
+            /*
             // On doit prévenir la BC de l'exit
             demande = "Exit";
+            demande.append(get_string_from_data(registre_complet));
             socket.connect(tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 1234));
             boost::asio::write(socket, boost::asio::buffer(demande), error);
+            */
             cout << "Exit sent to BC" << endl;
-
-            // La procédure d'Exit fait que la BC va faire une requête d'Update, on doit donc attendre sa requête
 
 
         }
+
+
         if (string(retour).substr(0, 5) == "Login") { // L'interface tente de se connecter à un compte
             cout << "Login received from user" << endl;
-            int id_client = atoi(string(retour).substr(6, string(retour).size() - 5).c_str());
+            int id_client = atoi(string(retour).substr(5, string(retour).size() - 5).c_str());
             bool match = false;
             auto it = all_BD.begin();
             while (it != all_BD.end() && !match) { // On va chercher le client dans l'ensemble des BD
@@ -123,6 +150,8 @@ int main() {
                 cout << "Client connection failed" << endl;
             }
         }
+
+
         if (string(retour).substr(0, 8) == "Add_cust") {
             cout << "New customer received" << endl;
             Client nouv_client = get_data_from_string<Client>(string(retour).substr(9, string(retour).size() - 8).c_str());
@@ -150,6 +179,13 @@ int main() {
             exit = true;
             
         }
+
+        if (string(retour).substr(0, 7) == "Add_acc") { // Si c'est pour une mise à jour d'un client suite à un ajout de compte
+            Client client_maj = get_data_from_string<Client>(string(retour).substr(7, string(retour).size() - 7).c_str());
+            current_BD.Supprimer_du_registre(current_BD.Chercher_infos_clients(client_maj.Get_id())); // On enlève l'ancien
+            current_BD.Ajouter_au_registre(client_maj); // Pour le remplacer par sa mise à jour
+        }
+
         if (string(retour).substr(0, 11) == "Transaction") {  
             cout << "Transaction request received" << endl;
             // Requête de transaction de la forme "Transactionid_débiteurid_crediteurmontant"
@@ -170,7 +206,7 @@ int main() {
 
                 // On attend ensuite la réponse de la BC
 
-                acceptor_BC.accept();
+                acceptor_BC.accept(socket);
                 size_t length = socket.read_some(boost::asio::buffer(retour), error);
                 cout << "Creditor received from BC" << endl;
                 B_crediteur = all_BD[get_data_from_string<Client>(retour).Get_agence()];
@@ -181,6 +217,14 @@ int main() {
             }
             // Maintenant que la transaction a été effectuée on doit mettre à jour all_BD
             all_BD[current_BD.Get_nom_agence()] = current_BD;
+
+            // On doit renvoyer le client mis à jour à l'interface
+
+            Client client_maj = current_BD.Chercher_infos_clients(current_BD.Chercher_compte_clients(id_debiteur).get_Id_proprietaire());
+            demande = get_string_from_data(client_maj);
+            socket.connect(tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 0123));
+            boost::asio::write(socket, boost::asio::buffer(demande), error);
+            cout << "Updated client sent to user" << endl;
         }
     }
     return EXIT_SUCCESS;

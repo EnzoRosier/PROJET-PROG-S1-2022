@@ -43,6 +43,7 @@ Compte Banque_Centrale::Chercher_compte_clients(string num_compte) {
 	{
 		cerr << chaine << endl;
 	}
+	return Compte("-1");
 }
 
 Client& Banque_Centrale::Chercher_infos_clients(int num_client) {
