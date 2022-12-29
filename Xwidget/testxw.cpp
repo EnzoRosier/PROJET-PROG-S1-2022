@@ -292,12 +292,13 @@ void Fenetre::OnRegister(wxCommandEvent& event) {
         demande = "Add_cust";
         demande.append(get_string_from_data(new_client));
         boost::asio::write(socket_, boost::asio::buffer(demande), error);
+        
 
         // Maintenant on doit attendre la réponse de la BD
+        // Problème de chargement infini
 
         size_t length = socket_.read_some(boost::asio::buffer(retour), error);
         current_client = get_data_from_string<Client>(retour);
-
 
         map <int, Client> registre_local;
         registre_local.emplace(1,new_client);
@@ -309,11 +310,13 @@ void Fenetre::OnRegister(wxCommandEvent& event) {
         string str_final = str1 + str2 + str_num;
 
         wxMessageBox(str_final, "Info ", wxOK | wxICON_INFORMATION);
-        return;
 
         FenetreEspacePerso* frame_espace_perso = new FenetreEspacePerso(NULL, wxID_ANY);
         frame_espace_perso->SetBackgroundColour(wxColour(*wxWHITE));
         frame_espace_perso->Show(true);
+        return;
+
+        
         return;
     }
 }
@@ -621,14 +624,6 @@ void FenetreEspacePerso::OnAbout(wxCommandEvent& event) {
     wxLaunchDefaultBrowser("https://www.google.fr/search?q=comment+utiliser+internet&source=hp&ei=SUWQY9juJrmDkdUPxdqxiAs&iflsig=AJiK0e8AAAAAY5BTWZZlBgmJa1M0nTMU1DkxN9oQd66K&oq=Comment+utiliser+i+tern&gs_lcp=Cgdnd3Mtd2l6EAMYADIHCAAQgAQQDTIHCAAQgAQQDTIHCAAQgAQQDTIHCAAQgAQQDTIHCAAQgAQQDTIHCAAQgAQQDTIHCAAQgAQQDTIHCAAQgAQQDTIHCAAQgAQQDTIHCAAQgAQQDToECAAQQzoICC4QgwEQsQM6EQguEIAEELEDEIMBEMcBENEDOgsIABCABBCxAxCDAToOCC4QgAQQsQMQxwEQ0QM6CwguEIAEELEDEIMBOggIABCxAxCDAToICAAQgAQQsQM6BAgAEAM6BQguEIAEOgsILhCABBDHARDRAzoFCAAQgAQ6CwguEIAEELEDENQCOgoILhDHARDRAxBDOgUIABCxAzoHCAAQgAQQCjoGCAAQFhAeUABYtBhg4h9oAHAAeACAAUiIAZkJkgECMjOYAQCgAQE&sclient=gws-wiz");
 }
 
-void FenetreEspacePerso::OnExit(wxCommandEvent& event) {
-    // On doit prévenir la BD de l'exit
-    socket_.connect(tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 0123));
-    demande = "Exit";
-    boost::asio::write(socket_, boost::asio::buffer(demande), error);
-    Close(true);
-}
-
 FenetreEspacePerso::FenetreEspacePerso(wxWindow* parent, wxWindowID id) : wxFrame(nullptr, wxID_ANY, "Espace personnel", wxPoint(30, 30), wxSize(1000, 600))
 {
     /*wxMenu* menuTest = new wxMenu;
@@ -684,15 +679,12 @@ FenetreEspacePerso::FenetreEspacePerso(wxWindow* parent, wxWindowID id) : wxFram
 
 void FenetreEspacePerso::OnExit(wxCommandEvent& event)
 {
-    // Pour Olivier, c'est le code qui était sur le Exit de la page d'accueil
+    // Pour Olivier, c'est ici
     // On doit prévenir la BD de l'exit
-    /*
     socket_.connect(tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 0123));
     demande = "Exit";
     boost::asio::write(socket_, boost::asio::buffer(demande), error);
     wxWindow::Destroy();
-    */
-
 }
 
 wxString Transactionwx::get_receveur_number() {
