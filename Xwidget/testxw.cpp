@@ -498,6 +498,28 @@ void FenetreEspacePerso::OnTransaction(wxCommandEvent& event) {
             return;
         }
 
+        vector<Compte> vecteur_compte = current_client.Get_liste_comptes();
+        vector<Compte_Epargnes> vecteur_compte_epargne = current_client.Get_liste_comptes_epargnes();
+
+        int compte_perso_incre = 0;
+
+        for (int i = 0; i < vecteur_compte.size(); i++) {
+            if (vecteur_compte.at(i).get_Identifiant_Compte() == envoyeur_number) {
+                compte_perso_incre++;
+            }
+        }
+        for (int i = 0; i < vecteur_compte_epargne.size(); i++) {
+            if (vecteur_compte_epargne.at(i).get_Identifiant_Compte() == envoyeur_number) {
+                compte_perso_incre++;
+            }
+        }
+
+        if (compte_perso_incre == 0) {
+            wxMessageBox("Le numero de compte n'est pas le votre",
+                "Error ", wxOK | wxICON_INFORMATION);
+            return;
+        }
+
         time_t now = time(NULL);
         struct tm* tm = localtime(&now);
         
