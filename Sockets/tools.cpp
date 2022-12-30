@@ -94,12 +94,6 @@ void updateThread(Banque_Centrale& bq)
 	}
 }
 
-void updateThread_BD(map<string, Banque_Decentralise>& all_BD) {
-	while (true) {
-		update_BD(ref(all_BD));
-	}
-}
-
 void update_BD(map<string, Banque_Decentralise>& all_BD) {
 	boost::asio::io_service io_service;
 	tcp::acceptor acceptor_(io_service, tcp::endpoint(tcp::v4(), 1234));
@@ -122,3 +116,10 @@ void update_BD(map<string, Banque_Decentralise>& all_BD) {
 		}
 	}
 }
+
+void updateThread_BD(map<string, Banque_Decentralise>& all_BD) {
+	while (true) {
+		update_BD(ref(all_BD));
+	}
+}
+
