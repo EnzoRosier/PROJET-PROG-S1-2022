@@ -272,7 +272,7 @@ void Fenetre::OnRegister(wxCommandEvent& event) {
             return;
         }
 
-        const int ID = 0;
+        const int ID = 1;
         Client new_client(ID, new_nom, new_prenom, new_adresse, nom_agence_decentralise, new_taille);
 
 
@@ -466,7 +466,7 @@ void FenetreEspacePerso::OnConsulterEpargne(wxCommandEvent& event) {
     */
     // Tableau rempli par le retour de la requ�te faite pr�c�demment
     vector<Compte_Epargnes> numero_compte = current_client.Get_liste_comptes_epargnes();
-    int nb_comptes = current_client.Get_liste_comptes().size();
+    int nb_comptes = current_client.Get_liste_comptes_epargnes().size();
     string final_str;
     for (int i = 0; i < nb_comptes; i++) {
         string montant_str = std::to_string(numero_compte.at(i).get_Solde_Compte());
