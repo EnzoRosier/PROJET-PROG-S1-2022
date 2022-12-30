@@ -50,9 +50,11 @@ int main() {
     boost::system::error_code error;
     string date;
 
+    
+    acceptor_BC.accept(socket_BC);
+    
 
     // Au lancement il faut attendre le INIT de la BC
-    acceptor_BC.accept(socket_BC);
     size_t length = socket_BC.read_some(boost::asio::buffer(retour), error);
     cout << "Init received" << endl;
 
@@ -62,14 +64,15 @@ int main() {
     map<string,Banque_Decentralise> all_BD = init_BD(temp_registre);
     cout << "Init complete" << endl;
 
-    socket_BC.close();
+    
 
     //thread updateThread_BD(update_BD, ref(all_BD));
 
 
     Banque_Decentralise current_BD=all_BD["Lille"]; // On prend Lille comme étant la banque actuelle par défaut
-
+    
     acceptor_CL.accept(socket_CL);
+    
     int updator = 0;
     bool exit = false;
     while (!exit) {
@@ -92,9 +95,8 @@ int main() {
             // On doit prévenir la BC de l'exit
             demande = "Exit";
             demande.append(get_string_from_data(registre_complet));
-            socket_BC.connect(tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 1234));
             boost::asio::write(socket_BC, boost::asio::buffer(demande), error);
-            socket_BC.close();
+            
             
             cout << "Exit sent to BC" << endl;
 
@@ -171,11 +173,10 @@ int main() {
             // On doit trouver la BD à laquelle appartient le crediteur de la transaction
             
             if (current_BD.Chercher_compte_clients(id_crediteur).get_Identifiant_Compte() == "-1") { // Si le client n'est pas dans la BD actuelle
-                socket_CL.close();
                 
                 Banque_Decentralise B_crediteur;
                 // On doit donc interroger la BC pour trouver la banque du crediteur
-                socket_BC.connect(tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 1234));
+                
                 demande = "Find";
                 demande.append(id_crediteur);
                 boost::asio::write(socket_BC, boost::asio::buffer(demande), error);
@@ -186,11 +187,11 @@ int main() {
                 size_t length = socket_BC.read_some(boost::asio::buffer(retour), error);
                 cout << "Creditor received from BC" << endl;
                 B_crediteur = all_BD[get_data_from_string<Client>(retour).Get_agence()];
-                socket_BC.close();
+ 
                 doTransaction(date,id_debiteur,id_crediteur,montant,current_BD, all_BD[B_crediteur.Get_nom_agence()]);
 
 
-                acceptor_CL.accept(socket_CL); // On se reconnecte avec le client
+                
             }
             else { // Sinon c'est que notre client est dans la banque acutelle
                 doTransaction(date,id_debiteur,id_crediteur,montant,current_BD, current_BD);
@@ -209,12 +210,12 @@ int main() {
         if (updator == 5) {
             updator = 0;
 
-            socket_BC.connect(tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 1234));
+            
             demande = "Update";
             demande+=get_string_from_data(registre_exit(all_BD));
             boost::asio::write(socket_BC, boost::asio::buffer(demande), error);
             
-            socket_BC.close();
+            
         }
     }
 

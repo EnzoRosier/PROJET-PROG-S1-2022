@@ -21,7 +21,7 @@ int main() {
     string demande = {};
     char retour[1000] = {};
     boost::system::error_code error;
-    
+    socket.connect(tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 1234));
 
     // On initialise le registre à partir d'un .Json sauvegardé au préalable
 
@@ -40,7 +40,6 @@ int main() {
     // On initialise les banques décentralisées
 
     demande = get_string_from_data(BC.Get_registre()); // On crée une demande pour l'initialisation
-    socket.connect(tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 1234));
     boost::asio::write(socket, boost::asio::buffer(demande), error);
     cout << "Init sent to BD" << endl;
 
@@ -55,7 +54,6 @@ int main() {
 
         // On commence par se mettre en attente de reception d'un socket
         size_t length = socket.read_some(boost::asio::buffer(retour), error);
-        cout << retour << endl;
 
         // Hourra on a reçu un socket, il faut maintenant analyser la demande
 
