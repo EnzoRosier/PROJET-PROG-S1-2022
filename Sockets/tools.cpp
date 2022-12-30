@@ -67,6 +67,7 @@ void update_BC(Banque_Centrale& BC) {
 
 	demande = "Update";
 	socket.connect(tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 1234));
+	cout << "Connected" << endl;
 	boost::asio::write(socket, boost::asio::buffer(demande), error);
 	cout << "Update request sent to BD" << endl;
 
@@ -101,8 +102,9 @@ void update_BD(map<string, Banque_Decentralise>& all_BD) {
 	string demande = {};
 	char retour[1000] = {};
 	boost::system::error_code error;
-
+	cout << "Test 1" << endl;
 	acceptor_.accept(socket);
+	cout << "Test 2" << endl;
 
 	while (true) {
 		size_t length = socket.read_some(boost::asio::buffer(retour), error);

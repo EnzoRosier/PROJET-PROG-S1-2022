@@ -45,17 +45,17 @@ int main() {
     cout << "Init sent to BD" << endl;
 
     
-    thread threadEparne(epargneThread, ref(BC)); //Lancement thread Epargne
+    //thread threadEparne(epargneThread, ref(BC)); //Lancement thread Epargne
     thread threadSave(saveThread, ref(BC)); //Lancement thread Epargne
-    thread threadUpdate(updateThread, ref(BC)); //Lancement thread Epargne
+    //thread threadUpdate(updateThread, ref(BC)); //Lancement thread update
     
-
     bool exit = false;
     while (exit == false) {  // Tant que l'utilisateur ne quitte pas l'interface
+        cout << "Enter BC while" << endl;
 
         // On commence par se mettre en attente de reception d'un socket
         size_t length = socket.read_some(boost::asio::buffer(retour), error);
-
+        cout << retour << endl;
 
         // Hourra on a reçu un socket, il faut maintenant analyser la demande
 
@@ -99,5 +99,7 @@ int main() {
     write_json(file_out, BC.GeneratePtreeBanque());
     file_out.close();
     cout << "File saved" << endl;
+    int i;
+    cin >> i;
     return EXIT_SUCCESS;
 }

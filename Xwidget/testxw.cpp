@@ -180,6 +180,7 @@ void Fenetre::OnLogin(wxCommandEvent& event) {
             connected = true;
         }
 
+        socket_.close();
 
         string new_password = customer_password.ToStdString();
         int new_login = customer_number.ToInt(&new_login);
@@ -287,6 +288,8 @@ void Fenetre::OnRegister(wxCommandEvent& event) {
         size_t length = socket_.read_some(boost::asio::buffer(retour), error);
         current_client = get_data_from_string<Client>(retour);
 
+        socket_.close();
+
         map <int, Client> registre_local;
         registre_local.emplace(1,new_client);
 
@@ -335,6 +338,8 @@ void Fenetre::OnExit(wxCommandEvent& event)
     socket_.connect(tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 0123));
     demande = "Exit";
     boost::asio::write(socket_, boost::asio::buffer(demande), error);
+
+    socket_.close();
     wxWindow::Destroy();
 }
 
@@ -558,8 +563,9 @@ void FenetreEspacePerso::OnTransaction(wxCommandEvent& event) {
 
         // Maintenant on doit se mettre en attente de la réponse de la BD
         size_t length = socket_.read_some(boost::asio::buffer(retour), error);
-        Client current_user = get_data_from_string<Client>(retour);
+        current_client = get_data_from_string<Client>(retour);
 
+        socket_.close();
     }
 }
 
@@ -599,7 +605,7 @@ void FenetreEspacePerso::OnCreateAccount(wxCommandEvent& event) {
         demande = "Add_acc";
         demande.append(get_string_from_data(current_client));
         boost::asio::write(socket_, boost::asio::buffer(demande), error);
-        
+        socket_.close();
     }
 }
 
@@ -662,6 +668,7 @@ void FenetreEspacePerso::OnExit(wxCommandEvent& event)
     socket_.connect(tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 0123));
     demande = "Exit";
     boost::asio::write(socket_, boost::asio::buffer(demande), error);
+    socket_.close();
     wxWindow::Destroy();
 }
 
