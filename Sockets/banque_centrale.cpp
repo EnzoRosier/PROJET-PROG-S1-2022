@@ -90,7 +90,9 @@ int main() {
         }
 
         if (string(retour).substr(0, 6) == "Update") {
+            cout << "Update received from BD" << endl;
             map<int, Client> registre_maj = get_data_from_string<map<int, Client>>(string(retour).substr(6, string(retour).size() - 6).c_str());
+            BC.Set_registre(registre_maj);
         }
 
     }
