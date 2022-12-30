@@ -150,6 +150,8 @@ int main() {
                 }
             }
 
+            all_BD[current_BD.Get_nom_agence()] = current_BD;
+
             // Le client à été ajouté il faut le renvoyer pour que l'interface puisse le connecter
 
             
@@ -165,6 +167,7 @@ int main() {
             current_BD.Supprimer_du_registre(current_BD.Chercher_infos_clients(client_maj.Get_id())); // On enlève l'ancien
             current_BD.Ajouter_au_registre(client_maj); // Pour le remplacer par sa mise à jour
             cout << "New Account sucessfully added" << endl;
+            all_BD[current_BD.Get_nom_agence()] = current_BD;
 
         }
 
