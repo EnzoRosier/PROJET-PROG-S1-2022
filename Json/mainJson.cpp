@@ -15,7 +15,7 @@ int main()
 	Client cl1 = Client(1, "John", "McClain", "3 Rue de la paix", "Lille", 68.8);
 	Compte cl11("FR00068800", 0, 3334);
 	Compte cl12("FR00168800", 0, 13323);
-	Compte_Epargnes cl13("FR10068800",0, 10, 50);
+	Compte_Epargnes cl13("FR10068800",0, 10, 1);
 	vector<Compte> liste_comptes;
 	vector<Compte_Epargnes> liste_comptes2;
 	liste_comptes.push_back(cl11);
@@ -31,11 +31,11 @@ int main()
 
 	Client cl3 = Client(3, "Jude", "McClain", "67 Rue Vlad", "Moscou", 64.5);
 	cl3.Set_liste_comptes(vector<Compte> {Compte("RU00064502", 2, 167)});
-	cl3.Set_liste_comptes_epargnes(vector<Compte_Epargnes> {Compte_Epargnes("RU10064502", 2, 1000, 3)});
+	cl3.Set_liste_comptes_epargnes(vector<Compte_Epargnes> {Compte_Epargnes("RU10064502", 2, 1000, 1)});
 
 	Client cl4 = Client(4, "Jim", "McClain", "46 Rue du partage", "Pekin", 69.9);
 	cl4.Set_liste_comptes(vector<Compte> {Compte("CH00069903", 3, 257),Compte("CH001699",3,148)});
-	cl4.Set_liste_comptes_epargnes(vector<Compte_Epargnes> {Compte_Epargnes("CH10069903", 3, 678, 3)});
+	cl4.Set_liste_comptes_epargnes(vector<Compte_Epargnes> {Compte_Epargnes("CH10069903", 3, 678, 1)});
 
 	BD.Ajouter_au_registre(cl1);
 	BD.Ajouter_au_registre(cl2);

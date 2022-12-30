@@ -14,7 +14,7 @@ void epargneCalcule(Banque_Centrale& bq) {
 void epargneThread(Banque_Centrale& bq) 
 {
     while (true) {
-        int n = 10;
+        int n = 100;
         time_t start, end;
         start = time(0);
         while (1)

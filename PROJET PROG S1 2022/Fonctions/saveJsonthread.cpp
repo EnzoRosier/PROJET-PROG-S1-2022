@@ -13,9 +13,9 @@ void saveThread(Banque_Centrale& bq)
 
 			if (time(0) - start >= n)
 			{
-				
 				save_json_registre(bq);
 				start = time(0);
+				cout << "Registre saved sucessfully" << endl;
 				
 			}
 		}
