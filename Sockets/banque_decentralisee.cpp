@@ -36,15 +36,6 @@ map<string,Banque_Decentralise> init_BD(map<int, Client> g_registre) {
     return all_BD;
 }
 
-map<int, Client> registre_exit(map<string, Banque_Decentralise> all_BD) {
-    map<int, Client> registre;
-    for (auto it=all_BD.begin();it!=all_BD.end();it++){
-        for (auto it2 = it->second.Get_registre_local().begin(); it2 != it->second.Get_registre_local().end(); it2++) {
-            registre.emplace(pair<int, Client>(it2->first, it2->second));
-        }
-    }
-    return registre;
-}
 
 
 int main() {
@@ -57,8 +48,6 @@ int main() {
     char retour[1000] = {};
     boost::system::error_code error;
     string date;
-    //socket_CL.connect(tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 0123));
-    //socket_BC.connect(tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 1234));
 
 
     // Au lancement il faut attendre le INIT de la BC
