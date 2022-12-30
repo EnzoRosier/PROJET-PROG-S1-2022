@@ -1,6 +1,6 @@
 #include "Threadfonctions.h"
 
-std::mutex locks;
+
 
 void saveThread(Banque_Centrale& bq)
 {
@@ -13,10 +13,10 @@ void saveThread(Banque_Centrale& bq)
 
 			if (time(0) - start >= n)
 			{
-				locks.lock();
+				
 				save_json_registre(bq);
 				start = time(0);
-				locks.unlock();
+				
 			}
 		}
 	}
