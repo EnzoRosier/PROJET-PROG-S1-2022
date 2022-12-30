@@ -7,4 +7,5 @@
 #ifndef __DEF_ID
 #define __DEF_ID
 string generateIDCompte(string pays, Client& cl, bool isEpargne);
+int generateIDClient(Client& cl, int emplacement);
 #endif
