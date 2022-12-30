@@ -64,7 +64,7 @@ int main() {
     map<string,Banque_Decentralise> all_BD = init_BD(temp_registre);
     cout << "Init complete" << endl;
 
-    
+    cout << temp_registre.size() << endl;
 
     //thread updateThread_BD(update_BD, ref(all_BD));
 
@@ -85,7 +85,6 @@ int main() {
         // Une fois qu'on a la requête, on l'analyse
 
         if (string(retour).substr(0,4) == "Exit") {
-            cout << "Enter exit" << endl;
             exit = true;
             // On va remettre tous les registres des BD en un registre complet à renvoyer à la BC
             map<int, Client> registre_complet = registre_exit(all_BD);
@@ -106,7 +105,6 @@ int main() {
 
         if (string(retour).substr(0, 5) == "Login") { // L'interface tente de se connecter à un compte
             cout << "Login received from user" << endl;
-            cout << retour << endl;
             int id_client = atoi(string(retour).substr(5, string(retour).size() - 5).c_str());
             bool match = false;
             auto it = all_BD.begin();
@@ -140,7 +138,6 @@ int main() {
             // Pour cela on va d'abord trouver la BD dans laquelle ajouter le client
             string agence = nouv_client.Get_agence();
             for (auto it = all_BD.begin(); it != all_BD.end();it++) {
-                cout << it->second.Get_nom_agence() << endl;
                 if (agence == it->second.Get_nom_agence()) {
                     current_BD = it->second;
                     current_BD.Ajouter_au_registre(nouv_client);
@@ -161,6 +158,7 @@ int main() {
             cout << "Received Add account request" << endl;
             Client client_maj = get_data_from_string<Client>(string(retour).substr(7, string(retour).size() - 7).c_str());
             current_BD.Supprimer_du_registre(current_BD.Chercher_infos_clients(client_maj.Get_id())); // On enlève l'ancien
+            cout << "New Account sucessfully added" << endl;
             current_BD.Ajouter_au_registre(client_maj); // Pour le remplacer par sa mise à jour
             cout << "New Account sucessfully added" << endl;
         }

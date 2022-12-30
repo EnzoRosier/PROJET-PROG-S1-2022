@@ -12,7 +12,7 @@ int main()
 	Banque_Centrale bq;
 	Banque_Decentralise BD;
 
-	Client cl1 = Client(0, "John", "McClain", "3 Rue de la paix", "Lille", 68.8);
+	Client cl1 = Client(1, "John", "McClain", "3 Rue de la paix", "Lille", 68.8);
 	Compte cl11("FR00068800", 0, 3334);
 	Compte cl12("FR00168800", 0, 13323);
 	Compte_Epargnes cl13("FR10068800",0, 10, 50);
@@ -26,14 +26,14 @@ int main()
 	
 	cout << generateIDCompte("FR", cl1, false);
 
-	Client cl2 = Client(1, "Jane", "McClain", "3 Rue de la paix", "Lille", 60.7);
+	Client cl2 = Client(2, "Jane", "McClain", "3 Rue de la paix", "Lille", 60.7);
 	cl2.Set_liste_comptes(liste_comptes);
 
-	Client cl3 = Client(2, "Jude", "McClain", "67 Rue Vlad", "Moscou", 64.5);
+	Client cl3 = Client(3, "Jude", "McClain", "67 Rue Vlad", "Moscou", 64.5);
 	cl3.Set_liste_comptes(vector<Compte> {Compte("RU00064502", 2, 167)});
 	cl3.Set_liste_comptes_epargnes(vector<Compte_Epargnes> {Compte_Epargnes("RU10064502", 2, 1000, 3)});
 
-	Client cl4 = Client(3, "Jim", "McClain", "46 Rue du partage", "Pekin", 69.9);
+	Client cl4 = Client(4, "Jim", "McClain", "46 Rue du partage", "Pekin", 69.9);
 	cl4.Set_liste_comptes(vector<Compte> {Compte("CH00069903", 3, 257),Compte("CH001699",3,148)});
 	cl4.Set_liste_comptes_epargnes(vector<Compte_Epargnes> {Compte_Epargnes("CH10069903", 3, 678, 3)});
 

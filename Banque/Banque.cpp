@@ -138,20 +138,21 @@ void Banque_Decentralise::Consulter() {
 }
 
 void Banque_Decentralise::Ajouter_au_registre(Client new_client) {
-	registre_local.insert(pair <int, Client>(new_client.Get_id(), new_client));
+	this->registre_local.emplace(pair <int, Client>(new_client.Get_id(), new_client));
 }
 
 
 void Banque_Decentralise::Supprimer_du_registre(Client Compte_client) {
-	for (auto itr = registre_local.begin(); itr != registre_local.end(); ++itr) {
+	cout << "Test" << endl;
+	bool match = false;
+	for (auto itr = registre_local.begin(); itr != registre_local.end() && !match; ++itr) {
+		itr->second.affiche_client();
 		if (itr->second.Get_id() == Compte_client.Get_id()) {
-			registre_local.erase(itr);
-			cout << "Suppression reussie" << endl;
-		}
-		else {
-			cout << "Error registre_local erase" << endl;
+			this->registre_local.erase(itr);
+			match = true;
 		}
 	}
+	cout << "Suppression reussie" << endl;
 }
 
 Client Banque_Decentralise::Chercher_infos_clients(int num_client) {
