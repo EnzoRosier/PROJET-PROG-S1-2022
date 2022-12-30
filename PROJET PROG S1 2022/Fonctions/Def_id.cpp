@@ -37,8 +37,8 @@ string generateIDCompte(string pays, Client& cl, bool isEpargne) {
 }
 
 int generateIDClient(Client& cl, int emplacement) {
-	int n = 7;
-	while (emplacement > pow(10, 7-n)) {
+	int n = 5;
+	while (emplacement > pow(10, 5-n)) {
 		n--;
 	}
 
