@@ -1,5 +1,7 @@
 #include "Threadfonctions.h"
 
+std::mutex locks;
+
 void epargneCalcule(Banque_Centrale& bq) {
     for (auto& itr : bq.registre)
     {
@@ -22,8 +24,10 @@ void epargneThread(Banque_Centrale& bq)
 
             if (time(0) - start >= n)
             {
+                locks.lock();
                 epargneCalcule(bq);
                 start = time(0);
+                locks.unlock();
             }
         }
     }
