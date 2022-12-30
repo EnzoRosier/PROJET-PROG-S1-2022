@@ -22,17 +22,18 @@ Client current_client;
 // On définit le nécessaire pour l'envoi de sockets
 
 boost::asio::io_service io_service;
-tcp::acceptor acceptor_(io_service, tcp::endpoint(tcp::v4(), 0123));
 tcp::socket socket_(io_service);
 string demande = {};
 char retour[1000] = {};
 boost::system::error_code error;
 
 
+
 bool App::OnInit()
 {
     Fenetre* frame = new Fenetre();
     frame->Show(true);
+    socket_.connect(tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 0123));
     return true;
 }
 
@@ -158,7 +159,7 @@ void Fenetre::OnLogin(wxCommandEvent& event) {
         // Ici il faut mettre le traitement du login
         */
 
-        socket_.connect(tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 0123));
+        
         string id_client = customer_number.ToStdString();
 
         demande = "Login";
@@ -274,7 +275,6 @@ void Fenetre::OnRegister(wxCommandEvent& event) {
         const int ID = 0;
         Client new_client(ID, new_nom, new_prenom, new_adresse, nom_agence_decentralise, new_taille);
 
-        socket_.connect(tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 0123));
 
         // On a le nouveau client, il faut l'envoyer à la BD pour qu'elle se mette à jour
         demande = "Add_cust";
@@ -288,7 +288,6 @@ void Fenetre::OnRegister(wxCommandEvent& event) {
         size_t length = socket_.read_some(boost::asio::buffer(retour), error);
         current_client = get_data_from_string<Client>(retour);
 
-        socket_.close();
 
         map <int, Client> registre_local;
         registre_local.emplace(1,new_client);
@@ -335,11 +334,9 @@ void Fenetre::OnExit(wxCommandEvent& event)
 {
     // Si tu dois modifier ton code d'exit c'est ici Olivier
     // On doit prévenir la BD de l'exit
-    socket_.connect(tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 0123));
     demande = "Exit";
     boost::asio::write(socket_, boost::asio::buffer(demande), error);
 
-    socket_.close();
     wxWindow::Destroy();
 }
 
@@ -545,7 +542,6 @@ void FenetreEspacePerso::OnTransaction(wxCommandEvent& event) {
         /*
         // Ici il faut mettre l'envoi de la requ�te au serveur
         */
-        socket_.connect(tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 0123));
 
         string id_debiteur = envoyeur_number;
         string id_crediteur = receveur_number;
@@ -565,7 +561,6 @@ void FenetreEspacePerso::OnTransaction(wxCommandEvent& event) {
         size_t length = socket_.read_some(boost::asio::buffer(retour), error);
         current_client = get_data_from_string<Client>(retour);
 
-        socket_.close();
     }
 }
 
@@ -600,12 +595,10 @@ void FenetreEspacePerso::OnCreateAccount(wxCommandEvent& event) {
         */
 
         // On doit prévenir la BD de cette modification
-        socket_.connect(tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 0123));
 
         demande = "Add_acc";
         demande.append(get_string_from_data(current_client));
         boost::asio::write(socket_, boost::asio::buffer(demande), error);
-        socket_.close();
     }
 }
 
@@ -665,10 +658,8 @@ void FenetreEspacePerso::OnExit(wxCommandEvent& event)
 {
     // Pour Olivier, c'est ici
     // On doit prévenir la BD de l'exit
-    socket_.connect(tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 0123));
     demande = "Exit";
     boost::asio::write(socket_, boost::asio::buffer(demande), error);
-    socket_.close();
     wxWindow::Destroy();
 }
 
