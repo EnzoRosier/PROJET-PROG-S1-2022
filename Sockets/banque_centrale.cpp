@@ -31,9 +31,7 @@ int main() {
         cout << "Registre loaded sucessfully" << endl;
         ptree in;
         read_json(file_in, in);
-        cout << "Hello" << endl;
         BC = Banque_from_ptree(in);
-        cout << "Hello" << endl;
     }
     else {
         cout << "Registre load failed" << endl;
@@ -41,11 +39,8 @@ int main() {
 
     // On initialise les banques décentralisées
 
-    cout << "Hello" << endl;
     demande = get_string_from_data(BC.Get_registre()); // On crée une demande pour l'initialisation
-    cout << "Hello" << endl;
     socket.connect(tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 1234));
-    cout << "Hello" << endl;
     boost::asio::write(socket, boost::asio::buffer(demande), error);
     cout << "Init sent to BD" << endl;
 

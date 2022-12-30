@@ -106,6 +106,7 @@ void update_BD(map<string, Banque_Decentralise>& all_BD) {
 
 	while (true) {
 		size_t length = socket.read_some(boost::asio::buffer(retour), error);
+		cout << retour << endl;
 
 		if (string(retour) == "Update") {
 			cout << "Update received from BC" << endl;
@@ -117,9 +118,4 @@ void update_BD(map<string, Banque_Decentralise>& all_BD) {
 	}
 }
 
-void updateThread_BD(map<string, Banque_Decentralise>& all_BD) {
-	while (true) {
-		update_BD(ref(all_BD));
-	}
-}
 

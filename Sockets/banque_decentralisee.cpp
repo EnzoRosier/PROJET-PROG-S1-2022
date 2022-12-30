@@ -65,7 +65,7 @@ int main() {
 
     socket_BC.close();
 
-    
+    thread updateThread_BD(update_BD, ref(all_BD));
 
 
     Banque_Decentralise current_BD=all_BD["Lille"]; // On prend Lille comme étant la banque actuelle par défaut
