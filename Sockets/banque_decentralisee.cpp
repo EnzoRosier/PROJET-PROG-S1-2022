@@ -78,11 +78,12 @@ int main() {
     while (!exit) {
         cout << "Enter BD while" << endl;
         // On se met en attente d'une requête de l'interface
+        demande.clear();
+        char retour[1000] = {};
         
         size_t length = socket_CL.read_some(boost::asio::buffer(retour), error);
-        if (length == 0) {
-            cout << error << endl;
-        }
+
+        
         updator++; // On ajoute un à l'updator, toutes les 5 requêtes on fait une mise à jour à la BC
         cout << "Updator : " << updator << endl; 
 
@@ -162,7 +163,6 @@ int main() {
             cout << "Received Add account request" << endl;
             Client client_maj = get_data_from_string<Client>(string(retour).substr(7, string(retour).size() - 7).c_str());
             current_BD.Supprimer_du_registre(current_BD.Chercher_infos_clients(client_maj.Get_id())); // On enlève l'ancien
-            cout << "New Account sucessfully added" << endl;
             current_BD.Ajouter_au_registre(client_maj); // Pour le remplacer par sa mise à jour
             cout << "New Account sucessfully added" << endl;
 
@@ -171,11 +171,16 @@ int main() {
         if (string(retour).substr(0, 11) == "Transaction") {  
             cout << "Transaction request received" << endl;
             // Requête de transaction de la forme "Transactionid_débiteurid_crediteurmontant"
-            string id_debiteur = string(retour).substr(12, 10); // L'id d'un compte à une longueur de 10
-            string id_crediteur = string(retour).substr(22, 10);
-            int montant = atoi(string(retour).substr(32, string(retour).size() - 31).c_str());
+            cout << "Requete :" << retour << endl;
+            string id_debiteur = string(retour).substr(11, 10); // L'id d'un compte à une longueur de 10
+            string id_crediteur = string(retour).substr(21, 10);
+            int montant = atoi(string(retour).substr(31, string(retour).size()-31).c_str());
+            cout << id_debiteur << endl;
+            cout << id_crediteur << endl;
+            cout << montant << endl;
 
             // On doit trouver la BD à laquelle appartient le crediteur de la transaction
+
             
             if (current_BD.Chercher_compte_clients(id_crediteur).get_Identifiant_Compte() == "-1") { // Si le client n'est pas dans la BD actuelle
                 
@@ -190,6 +195,7 @@ int main() {
                 // On attend ensuite la réponse de la BC
 
                 size_t length = socket_BC.read_some(boost::asio::buffer(retour), error);
+
                 if (string(retour).substr(0, 4) == "Fail") {
                     cout << "Request fail" << endl;
                     demande = "Fail";
@@ -198,8 +204,9 @@ int main() {
                 }
                 else {
                     cout << "Creditor received from BC" << endl;
+                    cout << retour << endl;
+                    get_data_from_string<Client>(retour).affiche_client();
                     B_crediteur = all_BD[get_data_from_string<Client>(retour).Get_agence()];
-
                     doTransaction(date, id_debiteur, id_crediteur, montant, current_BD, all_BD[B_crediteur.Get_nom_agence()]);
                     // Maintenant que la transaction a été effectuée on doit mettre à jour all_BD
                     all_BD[current_BD.Get_nom_agence()] = current_BD;
@@ -213,6 +220,8 @@ int main() {
                 }
             }
             else { // Sinon c'est que notre client est dans la banque acutelle
+                cout << "Client found in the current_BD" << endl;
+
                 doTransaction(date,id_debiteur,id_crediteur,montant,current_BD, current_BD);
                 // Maintenant que la transaction a été effectuée on doit mettre à jour all_BD
                 all_BD[current_BD.Get_nom_agence()] = current_BD;
@@ -220,6 +229,7 @@ int main() {
                 // On doit renvoyer le client mis à jour à l'interface
 
                 Client client_maj = current_BD.Chercher_infos_clients(current_BD.Chercher_compte_clients(id_debiteur).get_Id_proprietaire());
+                cout << client_maj.Get_archive_transaction()[0].montant << endl;
                 demande = get_string_from_data(client_maj);
                 boost::asio::write(socket_CL, boost::asio::buffer(demande), error);
                 cout << "Updated client sent to user" << endl;

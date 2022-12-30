@@ -32,6 +32,7 @@ Compte Banque_Centrale::Chercher_compte_clients(string num_compte) {
 		for (auto itr = registre.begin(); itr != registre.end(); ++itr) {
 			auto id = itr->second.Get_liste_comptes();
 			for (int i = 0; i < id.size(); i++) {
+				cout << id.at(i) << " == " << num_compte << endl;
 				if (id.at(i).get_Identifiant_Compte() == num_compte) {
 					return (id.at(i));
 				}
@@ -175,7 +176,6 @@ Compte Banque_Decentralise::Chercher_compte_clients(string num_compte) {
 		auto id = itr->second.Get_liste_comptes();
 		for (int i = 0; i < id.size(); i++) {
 			if (id.at(i).get_Identifiant_Compte() == num_compte) {
-				cout << id.at(i) << endl;
 				return (id.at(i));
 			}
 		}

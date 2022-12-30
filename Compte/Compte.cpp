@@ -2,26 +2,21 @@
 #include "Compte.h"
 
 Compte::Compte(const string& id,int id_Prop, int solde) : identifiant_Compte(id), id_Proprietaire(id_Prop), solde_Compte(solde) {
-	cout << "Nouveau compte cree id : '" << id << "', solde : " << solde << "\n";
 }
 
 Compte::~Compte() {
-	cout << "Compte '" << this->identifiant_Compte << "' detruit\n";
 }
 
 string Compte::get_Identifiant_Compte() const {
-	cout << "Demande identifiant compte : '" << this->identifiant_Compte << "'\n";
 	return this->identifiant_Compte;
 }
 
 double Compte::get_Solde_Compte() const {
-	cout << "Demande solde compte : '" << this->identifiant_Compte << "'\n";
 	return this->solde_Compte;
 }
 
 int Compte::set_Solde_Compte(double newSolde) {
 	this->solde_Compte = newSolde;
-	cout << "Solde du compte : '" << this->identifiant_Compte << "' modifie avec la nouvelle valeur : " << this->solde_Compte << "\n";
 	return 1;
 }
 

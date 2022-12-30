@@ -540,6 +540,7 @@ void FenetreEspacePerso::OnTransaction(wxCommandEvent& event) {
         int montant = new_somme_transaction;
 
 
+
         demande = "Transaction";
         demande.append(id_debiteur);
         demande.append(id_crediteur);

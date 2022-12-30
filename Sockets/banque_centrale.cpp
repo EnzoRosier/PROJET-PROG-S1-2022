@@ -53,8 +53,12 @@ int main() {
     while (exit == false) {  // Tant que l'utilisateur ne quitte pas l'interface
         cout << "Enter BC while" << endl;
 
+        demande.clear();
+        char retour[1000] = {};
+
         // On commence par se mettre en attente de reception d'un socket
         size_t length = socket.read_some(boost::asio::buffer(retour), error);
+        
 
         // Hourra on a reçu un socket, il faut maintenant analyser la demande
 
@@ -68,7 +72,8 @@ int main() {
         if (string(retour).substr(0, 4) == "Find") { // Si la première partie de la requête est Find alors
             cout << "Received a Find request" << endl;
 
-            string id_compte = demande.substr(5, string(retour).size() - 4); // On prend la partie de la requête qui nous intéresse
+            string id_compte = string(retour).substr(4, 10); // On prend la partie de la requête qui nous intéresse
+            cout << id_compte << endl;
             auto compte = BC.Chercher_compte_clients(id_compte);
 
             if (compte.get_Identifiant_Compte() != "-1") {
@@ -80,7 +85,7 @@ int main() {
                 demande = get_string_from_data(c); // On convertit le client en chaîne de caractères
 
                 
-                //boost::asio::write(socket, boost::asio::buffer(demande), error); // On l'envoie avec la reponse
+                boost::asio::write(socket, boost::asio::buffer(demande), error); // On l'envoie avec la reponse
                 cout << "Client sent to BD" << endl;
             }
             else {
