@@ -46,7 +46,7 @@ int main() {
     tcp::socket socket_CL(io_service);
     tcp::socket socket_BC(io_service);
     string demande = {};
-    char retour[1000] = {};
+    char retour[10000] = {};
     boost::system::error_code error;
     string date;
     
@@ -79,7 +79,7 @@ int main() {
         cout << "Enter BD while" << endl;
         // On se met en attente d'une requête de l'interface
         demande.clear();
-        char retour[1000] = {};
+        char retour[10000] = {};
         
         size_t length = socket_CL.read_some(boost::asio::buffer(retour), error);
 
@@ -245,7 +245,7 @@ int main() {
 
             
             demande = "Update";
-            demande+=get_string_from_data(registre_exit(all_BD));
+            demande.append(get_string_from_data(registre_exit(all_BD)));
             boost::asio::write(socket_BC, boost::asio::buffer(demande), error);
         }
     }

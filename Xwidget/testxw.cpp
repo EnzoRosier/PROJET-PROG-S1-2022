@@ -553,7 +553,7 @@ void FenetreEspacePerso::OnTransaction(wxCommandEvent& event) {
         // Maintenant on doit se mettre en attente de la réponse de la BD
         size_t length = socket_.read_some(boost::asio::buffer(retour), error);
         if (string(retour).substr(0, 4) == "Fail") {
-            wxMessageBox("Le comtpe n'existe pas ou plus",
+            wxMessageBox("Le compte n'existe pas ou plus",
                 "Error ", wxOK | wxICON_INFORMATION);
         }
         else {

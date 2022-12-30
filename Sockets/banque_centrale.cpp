@@ -19,7 +19,7 @@ int main() {
     tcp::acceptor acceptor_(io_service, tcp::endpoint(tcp::v4(), 1234));
     tcp::socket socket(io_service);
     string demande = {};
-    char retour[1000] = {};
+    char retour[10000] = {};
     boost::system::error_code error;
     socket.connect(tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 1234));
 
@@ -54,7 +54,7 @@ int main() {
         cout << "Enter BC while" << endl;
 
         demande.clear();
-        char retour[1000] = {};
+        char retour[10000] = {};
 
         // On commence par se mettre en attente de reception d'un socket
         size_t length = socket.read_some(boost::asio::buffer(retour), error);
