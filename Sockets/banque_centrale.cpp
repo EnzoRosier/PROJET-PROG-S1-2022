@@ -40,6 +40,7 @@ int main() {
     // On initialise les banques décentralisées
 
     demande = get_string_from_data(BC.Get_registre()); // On crée une demande pour l'initialisation
+    
     boost::asio::write(socket, boost::asio::buffer(demande), error);
     cout << "Init sent to BD" << endl;
 
