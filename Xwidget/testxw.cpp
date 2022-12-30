@@ -272,9 +272,8 @@ void Fenetre::OnRegister(wxCommandEvent& event) {
             return;
         }
 
-        const int ID = 1;
+        const int ID = -1;
         Client new_client(ID, new_nom, new_prenom, new_adresse, nom_agence_decentralise, new_taille);
-
 
         // On a le nouveau client, il faut l'envoyer à la BD pour qu'elle se mette à jour
         demande = "Add_cust";
