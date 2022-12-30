@@ -45,9 +45,9 @@ int main() {
     cout << "Init sent to BD" << endl;
 
     
-    //thread threadEparne(epargneThread, ref(BC)); //Lancement thread Epargne
-    thread threadSave(saveThread, ref(BC)); //Lancement thread Epargne
-    //thread threadUpdate(updateThread, ref(BC)); //Lancement thread update
+    thread threadEparne(epargneThread, ref(BC)); //Lancement thread Epargne
+    thread threadSave(saveThread, ref(BC)); //Lancement thread Autosave
+
     
     bool exit = false;
     while (exit == false) {  // Tant que l'utilisateur ne quitte pas l'interface
