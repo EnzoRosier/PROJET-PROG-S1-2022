@@ -40,11 +40,11 @@ vector<Transaction> Client::Get_archive_transaction() {
 	return this->archive_transaction;
 }
 
-vector<Compte> Client::Get_liste_comptes() {
+vector<Compte>& Client::Get_liste_comptes() {
 	return this->liste_comptes;
 }
 
-vector<Compte_Epargnes> Client::Get_liste_comptes_epargnes() {
+vector<Compte_Epargnes>& Client::Get_liste_comptes_epargnes() {
 	return this->liste_comptes_epargnes;
 }
 

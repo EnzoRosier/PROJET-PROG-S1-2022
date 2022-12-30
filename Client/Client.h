@@ -52,8 +52,8 @@ public:
 	string Get_agence();
 	float Get_taille_en_pouces();
 	vector<Transaction> Get_archive_transaction();
-	vector<Compte> Get_liste_comptes();
-	vector<Compte_Epargnes> Get_liste_comptes_epargnes();
+	vector<Compte>& Get_liste_comptes();
+	vector<Compte_Epargnes>& Get_liste_comptes_epargnes();
 	void Set_nom(string& nouv_nom);
 	void Set_prenom(string& nouv_prenom);
 	void Set_adresse(string& nouv_adresse);
