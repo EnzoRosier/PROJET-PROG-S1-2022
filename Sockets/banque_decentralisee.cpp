@@ -49,13 +49,14 @@ int main() {
     char retour[1000] = {};
     boost::system::error_code error;
     string date;
+    size_t length;
 
     
     acceptor_BC.accept(socket_BC);
     
 
     // Au lancement il faut attendre le INIT de la BC
-    size_t length = socket_BC.read_some(boost::asio::buffer(retour), error);
+    length = socket_BC.read_some(boost::asio::buffer(retour), error);
     cout << "Init received" << endl;
 
     // On récupère le registre de la BC
@@ -78,7 +79,7 @@ int main() {
         cout << "Enter BD while" << endl;
         // On se met en attente d'une requête de l'interface
         
-        size_t length = socket_CL.read_some(boost::asio::buffer(retour), error);
+        length = socket_CL.read_some(boost::asio::buffer(retour), error);
         updator++; // On ajoute un à l'updator, toutes les 5 requêtes on fait une mise à jour à la BC
 
         // Une fois qu'on a la requête, on l'analyse
@@ -124,6 +125,7 @@ int main() {
                 boost::asio::write(socket_CL, boost::asio::buffer(demande), error);
                 cout << "Client connection failed" << endl;
             }
+
             // On vide retour pour ne pas boucler à l'infini
             retour[0] = '\0';
         }
@@ -188,7 +190,7 @@ int main() {
 
                 // On attend ensuite la réponse de la BC
 
-                size_t length = socket_BC.read_some(boost::asio::buffer(retour), error);
+                length = socket_BC.read_some(boost::asio::buffer(retour), error);
                 cout << "Creditor received from BC" << endl;
                 B_crediteur = all_BD[get_data_from_string<Client>(retour).Get_agence()];
  
