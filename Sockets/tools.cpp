@@ -12,6 +12,7 @@
 #include "../Json/load_save_Json.h"
 #include "../PROJET PROG S1 2022/Fonctions/Threadfonctions.h"
 #include <thread>
+#include "../PROJET PROG S1 2022/Fonctions/Def_id.h"
 
 using namespace std;
 using boost::asio::ip::tcp;
