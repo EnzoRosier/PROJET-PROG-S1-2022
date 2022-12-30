@@ -113,7 +113,7 @@ private:
 	void OnOk(wxCommandEvent& event);
 	wxTextCtrl* edit_receveur_number_;
 	wxTextCtrl* edit_somme_transaction_;
-	wxTextCtrl* edit_envoyeur_number_;
+	wxComboBox* edit_envoyeur_number_;
 };
 
 class creation_compte : public wxDialog {

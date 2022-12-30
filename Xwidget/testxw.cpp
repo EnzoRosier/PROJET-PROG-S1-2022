@@ -674,7 +674,24 @@ Transactionwx::Transactionwx(wxWindow* parent, wxWindowID id, const wxString& ti
 
     edit_receveur_number_ = new wxTextCtrl(this, -1, "", wxPoint(180, 20), wxSize(100, 20));
     edit_somme_transaction_ = new wxTextCtrl(this, -1, "", wxPoint(180, 60), wxSize(100, 20));
-    edit_envoyeur_number_ = new wxTextCtrl(this, -1, "", wxPoint(180, 100), wxSize(100, 20));
+    
+    vector<Compte> vecteur_compte = current_client.Get_liste_comptes();
+    vector<Compte_Epargnes> vecteur_compte_epargnes = current_client.Get_liste_comptes_epargnes();
+
+    const int taille = vecteur_compte.size() + vecteur_compte_epargnes.size();
+
+    wxString tab[50];
+
+    for (int i = 0; i < vecteur_compte.size();i++) {
+        tab[i] = vecteur_compte.at(i).get_Identifiant_Compte();
+    }
+    for (int i = vecteur_compte.size(); i < vecteur_compte.size() + vecteur_compte_epargnes.size(); i++) {
+        tab[i] = vecteur_compte_epargnes.at(i).get_Identifiant_Compte();
+    }
+    
+
+    edit_envoyeur_number_ = new wxComboBox(this, -1, "", wxPoint(160, 100), wxSize(100, 100), taille, tab);
+    
 
     wxButton* ok = new wxButton(this, wxID_OK, _("OK"), wxPoint(10, 150), wxDefaultSize);
     wxButton* cancel = new wxButton(this, wxID_CANCEL, _("Cancel"), wxPoint(100, 150), wxDefaultSize);
