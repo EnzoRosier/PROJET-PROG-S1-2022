@@ -497,25 +497,7 @@ void FenetreEspacePerso::OnTransaction(wxCommandEvent& event) {
         auto somme_transaction = transac->get_somme_transaction();
         auto envoyeur_number = transac->get_envoyeur_number();
 
-        long number;
-
-        long account_numbers;
-
         int new_somme_transaction;
-
-        if (!receveur_number.ToLong(&number))
-        {
-            wxMessageBox("Error number receveur",
-                "Error ", wxOK | wxICON_INFORMATION);
-            return;
-        }
-
-        if (!receveur_number.ToLong(&account_numbers))
-        {
-            wxMessageBox("Account receveur numbers",
-                "Error ", wxOK | wxICON_INFORMATION);
-            return;
-        }
 
         if (!somme_transaction.ToInt(&new_somme_transaction))
         {
