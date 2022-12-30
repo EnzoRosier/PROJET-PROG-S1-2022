@@ -181,7 +181,6 @@ void Fenetre::OnLogin(wxCommandEvent& event) {
             connected = true;
         }
 
-        socket_.close();
 
         string new_password = customer_password.ToStdString();
         int new_login = customer_number.ToInt(&new_login);
