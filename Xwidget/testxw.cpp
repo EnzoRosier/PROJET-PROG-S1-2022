@@ -470,13 +470,14 @@ void FenetreEspacePerso::OnConsulterEpargne(wxCommandEvent& event) {
         str1 += str2;
 
         str1 += montant_str;
+        str1 += "\n";
         final_str += str1;
 
 
     }
 
     wxMessageBox(final_str,
-        "Consulter compte épargne ", wxOK | wxICON_INFORMATION);
+        "Consulter compte epargne ", wxOK | wxICON_INFORMATION);
     return;
 }
 
@@ -680,6 +681,7 @@ Transactionwx::Transactionwx(wxWindow* parent, wxWindowID id, const wxString& ti
 
     edit_receveur_number_ = new wxTextCtrl(this, -1, "", wxPoint(180, 20), wxSize(100, 20));
     edit_somme_transaction_ = new wxTextCtrl(this, -1, "", wxPoint(180, 60), wxSize(100, 20));
+    edit_envoyeur_number_ = new wxTextCtrl(this, -1, "", wxPoint(180, 100), wxSize(100, 20));
     
     vector<Compte> vecteur_compte = current_client.Get_liste_comptes();
     vector<Compte_Epargnes> vecteur_compte_epargnes = current_client.Get_liste_comptes_epargnes();
@@ -688,6 +690,7 @@ Transactionwx::Transactionwx(wxWindow* parent, wxWindowID id, const wxString& ti
 
     wxString tab[50];
 
+    /*/
     for (int i = 0; i < vecteur_compte.size();i++) {
         tab[i] = vecteur_compte.at(i).get_Identifiant_Compte();
     }
@@ -697,7 +700,7 @@ Transactionwx::Transactionwx(wxWindow* parent, wxWindowID id, const wxString& ti
     
 
     edit_envoyeur_number_ = new wxComboBox(this, -1, "", wxPoint(160, 100), wxSize(100, 100), taille, tab);
-    
+    */
 
     wxButton* ok = new wxButton(this, wxID_OK, _("OK"), wxPoint(10, 150), wxDefaultSize);
     wxButton* cancel = new wxButton(this, wxID_CANCEL, _("Cancel"), wxPoint(100, 150), wxDefaultSize);
