@@ -38,6 +38,7 @@ map<string,Banque_Decentralise> init_BD(map<int, Client> g_registre) {
 
 
 
+
 int main() {
     boost::asio::io_service io_service;
     tcp::acceptor acceptor_BC(io_service, tcp::endpoint(tcp::v4(), 1234)); // Banque centrale

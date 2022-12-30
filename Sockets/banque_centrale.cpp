@@ -30,9 +30,10 @@ int main() {
     if (file_in.is_open()) {
         cout << "Registre loaded sucessfully" << endl;
         ptree in;
-        cout << "Hello" << endl;
         read_json(file_in, in);
+        cout << "Hello" << endl;
         BC = Banque_from_ptree(in);
+        cout << "Hello" << endl;
     }
     else {
         cout << "Registre load failed" << endl;
@@ -40,17 +41,19 @@ int main() {
 
     // On initialise les banques décentralisées
 
-
+    cout << "Hello" << endl;
     demande = get_string_from_data(BC.Get_registre()); // On crée une demande pour l'initialisation
+    cout << "Hello" << endl;
     socket.connect(tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 1234));
+    cout << "Hello" << endl;
     boost::asio::write(socket, boost::asio::buffer(demande), error);
     cout << "Init sent to BD" << endl;
 
-    /*
+    
     thread threadEparne(epargneThread, ref(BC)); //Lancement thread Epargne
     thread threadSave(saveThread, ref(BC)); //Lancement thread Epargne
     thread threadUpdate(updateThread, ref(BC)); //Lancement thread Epargne
-    */
+    
 
     bool exit = false;
     while (exit == false) {  // Tant que l'utilisateur ne quitte pas l'interface

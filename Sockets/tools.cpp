@@ -49,13 +49,13 @@ std::string get_string_from_data(const _Data_type& data)
 }
 
 map<int, Client> registre_exit(map<string, Banque_Decentralise> all_BD) {
-    map<int, Client> registre;
-    for (auto it=all_BD.begin();it!=all_BD.end();it++){
-        for (auto it2 = it->second.Get_registre_local().begin(); it2 != it->second.Get_registre_local().end(); it2++) {
-            registre.emplace(pair<int, Client>(it2->first, it2->second));
-        }
-    }
-    return registre;
+	map<int, Client> registre;
+	for (auto it = all_BD.begin(); it != all_BD.end(); it++) {
+		for (auto it2 = it->second.Get_registre_local().begin(); it2 != it->second.Get_registre_local().end(); it2++) {
+			registre.emplace(pair<int, Client>(it2->first, it2->second));
+		}
+	}
+	return registre;
 }
 
 void update_BC(Banque_Centrale& BC) {
