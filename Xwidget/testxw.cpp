@@ -135,16 +135,8 @@ void Fenetre::OnLogin(wxCommandEvent& event) {
 
         long account_numbers; 
 
-        if (!customer_number.ToLong(&number))
-        {
-            wxMessageBox("Error number",
-                "Error ", wxOK | wxICON_INFORMATION);
-            return;
-        }
-
-        if (!customer_number.ToLong(&account_numbers))
-        {
-            wxMessageBox("Account numbers",
+        if (customer_number == "") {
+            wxMessageBox("Veuillez entrer un numero de compte",
                 "Error ", wxOK | wxICON_INFORMATION);
             return;
         }
