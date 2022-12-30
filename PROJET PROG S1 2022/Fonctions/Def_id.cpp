@@ -37,5 +37,12 @@ string generateIDCompte(string pays, Client& cl, bool isEpargne) {
 }
 
 int generateIDClient(Client& cl, int emplacement) {
-	return emplacement * 1000000 + (rand() % 1000000 + 10000);
+	int n = 7;
+	while (emplacement > pow(10, 7-n)) {
+		n--;
+	}
+
+	int power = pow(10, n);
+
+	return emplacement * power + (rand() % power + pow(10, n-1));
 }
