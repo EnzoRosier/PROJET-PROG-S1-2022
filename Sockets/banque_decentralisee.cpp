@@ -64,7 +64,6 @@ int main() {
     map<string,Banque_Decentralise> all_BD = init_BD(temp_registre);
     cout << "Init complete" << endl;
 
-    cout << temp_registre.size() << endl;
 
     //thread updateThread_BD(update_BD, ref(all_BD));
 
@@ -98,8 +97,6 @@ int main() {
             
             
             cout << "Exit sent to BC" << endl;
-
-            
         }
 
 
@@ -127,6 +124,8 @@ int main() {
                 boost::asio::write(socket_CL, boost::asio::buffer(demande), error);
                 cout << "Client connection failed" << endl;
             }
+            // On vide retour pour ne pas boucler à l'infini
+            retour[0] = '\0';
         }
 
 
@@ -151,6 +150,8 @@ int main() {
             boost::asio::write(socket_CL, boost::asio::buffer(demande), error);
             cout << "New client connected succesfully" << endl;
             nouv_client.affiche_client();
+            // On vide retour pour ne pas boucler à l'infini
+            retour[0] = '\0';
             
         }
 
@@ -161,6 +162,9 @@ int main() {
             cout << "New Account sucessfully added" << endl;
             current_BD.Ajouter_au_registre(client_maj); // Pour le remplacer par sa mise à jour
             cout << "New Account sucessfully added" << endl;
+
+            // On vide retour pour ne pas boucler à l'infini
+            retour[0] = '\0';
         }
 
         if (string(retour).substr(0, 11) == "Transaction") {  
@@ -205,6 +209,9 @@ int main() {
             demande = get_string_from_data(client_maj);
             boost::asio::write(socket_CL, boost::asio::buffer(demande), error);
             cout << "Updated client sent to user" << endl;
+
+            // On vide retour pour ne pas boucler à l'infini
+            retour[0] = '\0';
         }
 
         if (updator == 5) {
@@ -214,8 +221,6 @@ int main() {
             demande = "Update";
             demande+=get_string_from_data(registre_exit(all_BD));
             boost::asio::write(socket_BC, boost::asio::buffer(demande), error);
-            
-            
         }
     }
 
