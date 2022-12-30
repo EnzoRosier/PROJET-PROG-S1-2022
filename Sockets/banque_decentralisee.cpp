@@ -84,7 +84,7 @@ int main() {
             cout << error << endl;
         }
         updator++; // On ajoute un à l'updator, toutes les 5 requêtes on fait une mise à jour à la BC
-        cout << "Updator : " << updator << endl;
+        cout << "Updator : " << updator << endl; 
 
         // Une fois qu'on a la requête, on l'analyse
 
