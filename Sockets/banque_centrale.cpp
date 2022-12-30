@@ -70,22 +70,24 @@ int main() {
 
             string id_compte = demande.substr(5, string(retour).size() - 4); // On prend la partie de la requête qui nous intéresse
             auto compte = BC.Chercher_compte_clients(id_compte);
-            Client c = BC.Chercher_infos_clients(compte.get_Id_proprietaire());
 
-            if (c.Get_id() != -1) {
-
+            if (compte.get_Identifiant_Compte() != "-1") {
+                Client c = BC.Chercher_infos_clients(compte.get_Id_proprietaire());
+                cout << "Found a client" << endl;
                 // On a le client, maintenant il faut le renvoyer
 
+                c.affiche_client();
                 demande = get_string_from_data(c); // On convertit le client en chaîne de caractères
 
-                // On connecte le socket avec la banque_decentralisee
-                boost::asio::write(socket, boost::asio::buffer(demande), error); // On l'envoie avec la reponse
+                
+                //boost::asio::write(socket, boost::asio::buffer(demande), error); // On l'envoie avec la reponse
                 cout << "Client sent to BD" << endl;
             }
             else {
+                cout << "Account search failed" << endl;
                 demande = "Fail";
                 boost::asio::write(socket, boost::asio::buffer(demande), error);
-                cout << "Client search failed" << endl;
+                
             }
         }
 
