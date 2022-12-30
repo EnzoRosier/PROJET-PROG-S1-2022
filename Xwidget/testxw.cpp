@@ -431,15 +431,14 @@ void FenetreEspacePerso::OnConsulterCourant(wxCommandEvent& event) {
     //
     */
     // Tableau rempli par le retour de la requete faite precedemment
-    int numero_compte[] = { 32,112,114 };
-    int nb_comptes = sizeof(numero_compte) / sizeof(int);
+    vector<Compte> numero_compte = current_client.Get_liste_comptes();
+    int nb_comptes = current_client.Get_liste_comptes().size();
     string final_str;
     for (int i = 0; i < nb_comptes; i++) {
-        int montant = 100 + i;
-        string montant_str = std::to_string(montant);
+        string montant_str = std::to_string(numero_compte.at(i).get_Solde_Compte());
         string str1 = "Le montant de votre compte courant numero ";
 
-        string numero_compte_str = std::to_string(numero_compte[i]);
+        string numero_compte_str = numero_compte.at(i).get_Identifiant_Compte();
         str1 += numero_compte_str;
 
         string str2 = " est : ";
@@ -466,15 +465,14 @@ void FenetreEspacePerso::OnConsulterEpargne(wxCommandEvent& event) {
     //
     */
     // Tableau rempli par le retour de la requ�te faite pr�c�demment
-    int numero_compte[] = {35,14};
-    int nb_comptes = sizeof(numero_compte)/sizeof(int);
+    vector<Compte_Epargnes> numero_compte = current_client.Get_liste_comptes_epargnes();
+    int nb_comptes = current_client.Get_liste_comptes().size();
     string final_str;
     for (int i = 0; i < nb_comptes; i++) {
-        int montant = 100+i;
-        string montant_str = std::to_string(montant);
+        string montant_str = std::to_string(numero_compte.at(i).get_Solde_Compte());
         string str1 = "Le montant de votre compte epargne numero ";
 
-        string numero_compte_str = std::to_string(numero_compte[i]);
+        string numero_compte_str = numero_compte.at(i).get_Identifiant_Compte();
         str1 += numero_compte_str;
 
         string str2 = " est : ";
