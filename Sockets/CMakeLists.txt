@@ -27,6 +27,6 @@ add_executable(socket_centrale "banque_centrale.cpp")
 
 add_library(toolsSocketLib "tools.cpp")
 
-target_link_libraries(socket_decentralisee LINK_PUBLIC ClientLib BanqueLib CompteLib toolsSocketLib JsonLib)
+target_link_libraries(socket_decentralisee LINK_PUBLIC ClientLib BanqueLib CompteLib toolsSocketLib JsonLib UtilityFunctionLib)
 target_link_libraries(socket_centrale LINK_PUBLIC ClientLib BanqueLib CompteLib toolsSocketLib JsonLib ThreadFunctionLib)
 

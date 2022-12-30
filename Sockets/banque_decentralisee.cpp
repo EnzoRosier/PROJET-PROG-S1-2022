@@ -132,8 +132,8 @@ int main() {
 
         if (string(retour).substr(0, 8) == "Add_cust") {
             cout << "New customer received" << endl;
-            Client nouv_client = get_data_from_string<Client>(string(retour).substr(8, string(retour).size() - 8).c_str());
-
+            Client tmp_client = get_data_from_string<Client>(string(retour).substr(8, string(retour).size() - 8).c_str());
+            Client nouv_client(generateIDClient(tmp_client, current_BD.Get_registre_local().size()), tmp_client.Get_nom(), tmp_client.Get_prenom(), tmp_client.Get_adresse(), tmp_client.Get_agence(), tmp_client.Get_taille_en_pouces());
             // On doit maintenant ajouter le client au registre
             // Pour cela on va d'abord trouver la BD dans laquelle ajouter le client
             string agence = nouv_client.Get_agence();
