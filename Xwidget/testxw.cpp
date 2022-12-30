@@ -135,16 +135,8 @@ void Fenetre::OnLogin(wxCommandEvent& event) {
 
         long account_numbers; 
 
-        if (!customer_number.ToLong(&number))
-        {
-            wxMessageBox("Error number",
-                "Error ", wxOK | wxICON_INFORMATION);
-            return;
-        }
-
-        if (!customer_number.ToLong(&account_numbers))
-        {
-            wxMessageBox("Account numbers",
+        if (customer_number == "") {
+            wxMessageBox("Veuillez entrer un numero de compte",
                 "Error ", wxOK | wxICON_INFORMATION);
             return;
         }
@@ -502,6 +494,28 @@ void FenetreEspacePerso::OnTransaction(wxCommandEvent& event) {
         if (!somme_transaction.ToInt(&new_somme_transaction))
         {
             wxMessageBox("Error number transaction",
+                "Error ", wxOK | wxICON_INFORMATION);
+            return;
+        }
+
+        vector<Compte> vecteur_compte = current_client.Get_liste_comptes();
+        vector<Compte_Epargnes> vecteur_compte_epargne = current_client.Get_liste_comptes_epargnes();
+
+        int compte_perso_incre = 0;
+
+        for (int i = 0; i < vecteur_compte.size(); i++) {
+            if (vecteur_compte.at(i).get_Identifiant_Compte() == envoyeur_number) {
+                compte_perso_incre++;
+            }
+        }
+        for (int i = 0; i < vecteur_compte_epargne.size(); i++) {
+            if (vecteur_compte_epargne.at(i).get_Identifiant_Compte() == envoyeur_number) {
+                compte_perso_incre++;
+            }
+        }
+
+        if (compte_perso_incre == 0) {
+            wxMessageBox("Le numero de compte n'est pas le votre",
                 "Error ", wxOK | wxICON_INFORMATION);
             return;
         }
