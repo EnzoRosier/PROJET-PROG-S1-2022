@@ -61,6 +61,7 @@ Client& Banque_Centrale::Chercher_infos_clients(int num_client) {
 	{
 		cerr << chaine << endl;
 	}
+	return Client(-1);
 }
 
 void Banque_Centrale::Ajouter_au_registre(Client ID) {
@@ -174,6 +175,7 @@ Compte Banque_Decentralise::Chercher_compte_clients(string num_compte) {
 		auto id = itr->second.Get_liste_comptes();
 		for (int i = 0; i < id.size(); i++) {
 			if (id.at(i).get_Identifiant_Compte() == num_compte) {
+				cout << id.at(i) << endl;
 				return (id.at(i));
 			}
 		}

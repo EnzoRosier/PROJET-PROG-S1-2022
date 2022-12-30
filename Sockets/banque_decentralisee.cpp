@@ -149,6 +149,8 @@ int main() {
                 }
             }
 
+            all_BD[current_BD.Get_nom_agence()] = current_BD;
+
             // Le client à été ajouté il faut le renvoyer pour que l'interface puisse le connecter
 
             
@@ -165,6 +167,7 @@ int main() {
             cout << "New Account sucessfully added" << endl;
             current_BD.Ajouter_au_registre(client_maj); // Pour le remplacer par sa mise à jour
             cout << "New Account sucessfully added" << endl;
+            all_BD[current_BD.Get_nom_agence()] = current_BD;
 
         }
 
@@ -190,27 +193,40 @@ int main() {
                 // On attend ensuite la réponse de la BC
 
                 size_t length = socket_BC.read_some(boost::asio::buffer(retour), error);
-                cout << "Creditor received from BC" << endl;
-                B_crediteur = all_BD[get_data_from_string<Client>(retour).Get_agence()];
- 
-                doTransaction(date,id_debiteur,id_crediteur,montant,current_BD, all_BD[B_crediteur.Get_nom_agence()]);
+                if (string(retour).substr(0, 4) == "Fail") {
+                    cout << "Request fail" << endl;
+                    demande = "Fail";
+                    boost::asio::write(socket_CL, boost::asio::buffer(demande), error);
+                    cout << "Fail sent to user" << endl;
+                }
+                else {
+                    cout << "Creditor received from BC" << endl;
+                    B_crediteur = all_BD[get_data_from_string<Client>(retour).Get_agence()];
 
+                    doTransaction(date, id_debiteur, id_crediteur, montant, current_BD, all_BD[B_crediteur.Get_nom_agence()]);
+                    // Maintenant que la transaction a été effectuée on doit mettre à jour all_BD
+                    all_BD[current_BD.Get_nom_agence()] = current_BD;
 
-                
+                    // On doit renvoyer le client mis à jour à l'interface
+
+                    Client client_maj = current_BD.Chercher_infos_clients(current_BD.Chercher_compte_clients(id_debiteur).get_Id_proprietaire());
+                    demande = get_string_from_data(client_maj);
+                    boost::asio::write(socket_CL, boost::asio::buffer(demande), error);
+                    cout << "Updated client sent to user" << endl;
+                }
             }
             else { // Sinon c'est que notre client est dans la banque acutelle
                 doTransaction(date,id_debiteur,id_crediteur,montant,current_BD, current_BD);
+                // Maintenant que la transaction a été effectuée on doit mettre à jour all_BD
+                all_BD[current_BD.Get_nom_agence()] = current_BD;
+
+                // On doit renvoyer le client mis à jour à l'interface
+
+                Client client_maj = current_BD.Chercher_infos_clients(current_BD.Chercher_compte_clients(id_debiteur).get_Id_proprietaire());
+                demande = get_string_from_data(client_maj);
+                boost::asio::write(socket_CL, boost::asio::buffer(demande), error);
+                cout << "Updated client sent to user" << endl;
             }
-            // Maintenant que la transaction a été effectuée on doit mettre à jour all_BD
-            all_BD[current_BD.Get_nom_agence()] = current_BD;
-
-            // On doit renvoyer le client mis à jour à l'interface
-
-            Client client_maj = current_BD.Chercher_infos_clients(current_BD.Chercher_compte_clients(id_debiteur).get_Id_proprietaire());
-            demande = get_string_from_data(client_maj);
-            boost::asio::write(socket_CL, boost::asio::buffer(demande), error);
-            cout << "Updated client sent to user" << endl;
-
         }
 
         if (updator == 5) {

@@ -5,7 +5,7 @@
 void saveThread(Banque_Centrale& bq)
 {
 	while (true) {
-		int n = 20;
+		int n = 100;
 		time_t start, end;
 		start = time(0);
 		while (1)
