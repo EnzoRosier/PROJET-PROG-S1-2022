@@ -13,6 +13,7 @@
 #include <thread>
 
 
+
 using namespace std;
 using boost::asio::ip::tcp;
 
@@ -20,6 +21,8 @@ typedef boost::shared_ptr<tcp::socket> socket_ptr;
 
 #ifndef __THREADFONCTIONS
 #define __THREADFONCTIONS
+
+
 
 void epargneThread(Banque_Centrale& bq);
 void saveThread(Banque_Centrale& bq);

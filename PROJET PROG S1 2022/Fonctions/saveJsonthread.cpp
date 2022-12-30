@@ -1,5 +1,7 @@
 #include "Threadfonctions.h"
 
+
+
 void saveThread(Banque_Centrale& bq)
 {
 	while (true) {
@@ -11,8 +13,10 @@ void saveThread(Banque_Centrale& bq)
 
 			if (time(0) - start >= n)
 			{
+				
 				save_json_registre(bq);
 				start = time(0);
+				
 			}
 		}
 	}

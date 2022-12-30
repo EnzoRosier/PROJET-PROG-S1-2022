@@ -22,8 +22,10 @@ void epargneThread(Banque_Centrale& bq)
 
             if (time(0) - start >= n)
             {
+                
                 epargneCalcule(bq);
                 start = time(0);
+                
             }
         }
     }
