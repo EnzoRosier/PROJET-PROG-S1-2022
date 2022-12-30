@@ -614,7 +614,7 @@ FenetreEspacePerso::FenetreEspacePerso(wxWindow* parent, wxWindowID id) : wxFram
     wxMenu* menuComptes = new wxMenu;
     menuComptes->Append(6, "Voir ses comptes courants");
     menuComptes->AppendSeparator();
-    menuComptes->Append(7, "Voir ses comptes épargnes");
+    menuComptes->Append(7, "Voir ses comptes epargnes");
 
     wxMenu* menuEnvoyer = new wxMenu;
     menuEnvoyer->Append(8, "Envoyer");

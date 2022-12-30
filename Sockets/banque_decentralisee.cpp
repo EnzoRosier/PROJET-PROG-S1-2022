@@ -163,6 +163,7 @@ int main() {
 
         if (string(retour).substr(0, 7) == "Add_acc") { // Si c'est pour une mise à jour d'un client suite à un ajout de compte
             cout << "Received Add account request" << endl;
+
             Client client_maj = get_data_from_string<Client>(string(retour).substr(7, string(retour).size() - 7).c_str());
             current_BD.Supprimer_du_registre(current_BD.Chercher_infos_clients(client_maj.Get_id())); // On enlève l'ancien
             current_BD.Ajouter_au_registre(client_maj); // Pour le remplacer par sa mise à jour
@@ -239,7 +240,7 @@ int main() {
             }
         }
 
-        if (updator == 5) {
+        if (updator == 3) { // On sauvegarde toutes les 3 actions
             updator = 0;
 
             
