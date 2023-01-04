@@ -67,6 +67,7 @@ private:
 	wxComboBox* edit_agence_;
 	wxTextCtrl* edit_account_numbers_;
 	wxTextCtrl* edit_customer_number_;
+	wxTextCtrl* edit_customer_password_;
 	wxTextCtrl* edit_taille_;
 };
 

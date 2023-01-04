@@ -85,7 +85,6 @@ Fenetre::Fenetre() : wxFrame(nullptr, wxID_ANY, "Projet Banque", wxPoint(30, 30)
     menu->Append(menuExit, "Exit");
 
 
-    //vbox->Add(hbox2, 0, wxALIGN_RIGHT | wxRIGHT | wxBOTTOM, 10);
 
     SetMenuBar(menu);
 
@@ -211,15 +210,8 @@ void Fenetre::OnRegister(wxCommandEvent& event) {
         auto prenom = nouveau_client->get_firstname();
         auto nom = nouveau_client->get_name();
         auto adresse = nouveau_client->get_adresse();
-        /*
-        * Problème en dessous :
-        * Il faut trouver un moyen d'envoyer l'information prise dans le premier 
-        * menu (le nom de l'agence)
-        * pour la mettre en paramètre en dessous
-        */
-
         auto taille = nouveau_client->get_taille();
-        //auto account_number = nouveau_client->get_account_numbers();
+      
 
         string new_prenom = prenom.ToStdString();
         string new_nom = nom.ToStdString();
@@ -273,7 +265,6 @@ void Fenetre::OnRegister(wxCommandEvent& event) {
         
 
         // Maintenant on doit attendre la réponse de la BD
-        // Problème de chargement infini
 
         size_t length = socket_.read_some(boost::asio::buffer(retour), error);
         current_client = get_data_from_string<Client>(retour);
@@ -341,17 +332,19 @@ CreationClient::CreationClient(wxWindow* parent, wxWindowID id, const wxString& 
     auto client_name = new wxStaticText(this, -1, "Name", wxPoint(10, 50), wxSize(120, 20));
     auto client_adresse = new wxStaticText(this, -1, "Adresse", wxPoint(10, 80), wxSize(120, 20));
     auto client_taille = new wxStaticText(this, -1, "Taille (en pouce)", wxPoint(10, 110), wxSize(120, 20));
+    auto client_password = new wxStaticText(this, -1, "Mot de passe", wxPoint(10, 140), wxSize(120, 20));
 
 
     edit_firstname_ = new wxTextCtrl(this, -1, "", wxPoint(160, 20), wxSize(100, 20));
     edit_name_ = new wxTextCtrl(this, -1, "", wxPoint(160, 50), wxSize(100, 20));
     edit_adresse_ = new wxTextCtrl(this, -1, "", wxPoint(160, 80), wxSize(100, 20));
     edit_taille_ = new wxTextCtrl(this, -1, "", wxPoint(160, 110), wxSize(100, 20));
+    edit_customer_password_ = new wxTextCtrl(this, -1, "", wxPoint(160, 140), wxSize(100, 20));
 
 
 
-    wxButton* ok = new wxButton(this, wxID_OK, _("OK"), wxPoint(10, 160), wxDefaultSize);
-    wxButton* cancel = new wxButton(this, wxID_CANCEL, _("Cancel"), wxPoint(100, 160), wxDefaultSize);
+    wxButton* ok = new wxButton(this, wxID_OK, _("OK"), wxPoint(10, 190), wxDefaultSize);
+    wxButton* cancel = new wxButton(this, wxID_CANCEL, _("Cancel"), wxPoint(100, 190), wxDefaultSize);
 
 }
 
@@ -446,15 +439,7 @@ void FenetreEspacePerso::OnConsulterCourant(wxCommandEvent& event) {
 }
 
 void FenetreEspacePerso::OnConsulterEpargne(wxCommandEvent& event) {
-    /*
-    //
-    *
-    * Si on r�cup�re le client � la connexion on peut y acc�der directement
-    * Sinon : requ�te serveur correspondant au nom du client
-    *
-    //
-    */
-    // Tableau rempli par le retour de la requ�te faite pr�c�demment
+
     vector<Compte_Epargnes> numero_compte = current_client.Get_liste_comptes_epargnes();
     int nb_comptes = current_client.Get_liste_comptes_epargnes().size();
     string final_str;
@@ -682,7 +667,9 @@ Transactionwx::Transactionwx(wxWindow* parent, wxWindowID id, const wxString& ti
     edit_receveur_number_ = new wxTextCtrl(this, -1, "", wxPoint(180, 20), wxSize(100, 20));
     edit_somme_transaction_ = new wxTextCtrl(this, -1, "", wxPoint(180, 60), wxSize(100, 20));
     edit_envoyeur_number_ = new wxTextCtrl(this, -1, "", wxPoint(180, 100), wxSize(100, 20));
-    
+
+
+    /*
     vector<Compte> vecteur_compte = current_client.Get_liste_comptes();
     vector<Compte_Epargnes> vecteur_compte_epargnes = current_client.Get_liste_comptes_epargnes();
 
@@ -690,7 +677,7 @@ Transactionwx::Transactionwx(wxWindow* parent, wxWindowID id, const wxString& ti
 
     wxString tab[50];
 
-    /*/
+    /
     for (int i = 0; i < vecteur_compte.size();i++) {
         tab[i] = vecteur_compte.at(i).get_Identifiant_Compte();
     }
